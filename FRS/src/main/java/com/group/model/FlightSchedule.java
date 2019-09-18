@@ -2,12 +2,24 @@ package com.group.model;
 
 import java.util.Date;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
+
+@Entity
+@Table(name = "flight_schedule")
 public class FlightSchedule {
-	private int  flightId;
-	private int  routeId;
-	private Date scheduleDay;
+	
+	@Column(name = "Flight_flight_id")
+	private int  	flightId;
+	
+	@Column(name = "Route_route_id")
+	private int  	routeId;
+	
+	@Column(name = "schedule_day")
+	private Date 	scheduleDay;
+	
 	
 	public int getFlightId() {
 		return flightId;
@@ -20,17 +32,14 @@ public class FlightSchedule {
 	}
 
 	
-	@Autowired
 	public void setFlightId(int flightId) {
 		this.flightId = flightId;
 	}
 	
-	@Autowired
 	public void setRouteId(int routeId) {
 		this.routeId = routeId;
 	}
 	
-	@Autowired
 	public void setScheduleDay(Date scheduleDay) {
 		this.scheduleDay = scheduleDay;
 	}

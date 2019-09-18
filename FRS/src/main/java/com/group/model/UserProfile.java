@@ -2,17 +2,42 @@ package com.group.model;
 
 import java.util.Date;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+
+@Entity
+@Table(name = "User_Profile")
 public class UserProfile {
-	private int userProfileId;
-	private String name;
-	private Date dateOfBirth;
-	private String gender;
-	private String address;
-	private String mobileNumber;
-	private String emailId;
-	private int userCredentialsId;
+	
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "user_profile_id")
+	private int 	userProfileId;
+	
+	@Column(name = "name")
+	private String 	name;
+	
+	@Column(name = "date_of_birth")
+	private Date 	dateOfBirth;
+	
+	@Column(name = "gender")
+	private String 	gender;
+	
+	@Column(name = "address")
+	private String 	address;
+	
+	@Column(name = "mobile_number")
+	private String 	mobileNumber;
+	
+	@Column(name = "emailId")
+	private String 	emailId;
+	
+	@Column(name = "User_Credential_user_credentials_id")
+	private int 	userCredentialsId;
 	
 	
 	public int getUserProfileId() {
@@ -40,42 +65,34 @@ public class UserProfile {
 		return userCredentialsId;
 	}
 	
-	@Autowired
 	public void setUserProfileId(int userProfileId) {
 		this.userProfileId = userProfileId;
 	}
 	
-	@Autowired
 	public void setName(String name) {
 		this.name = name;
 	}
 	
-	@Autowired
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 	
-	@Autowired
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
 	
-	@Autowired
 	public void setAddress(String address) {
 		this.address = address;
 	}
 	
-	@Autowired
 	public void setMobileNumber(String mobileNumber) {
 		this.mobileNumber = mobileNumber;
 	}
 	
-	@Autowired
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
 	
-	@Autowired
 	public void setUserCredentialsId(int userCredentialsId) {
 		this.userCredentialsId = userCredentialsId;
 	}

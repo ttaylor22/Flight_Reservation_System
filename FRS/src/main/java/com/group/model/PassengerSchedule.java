@@ -2,16 +2,40 @@ package com.group.model;
 
 import java.util.Date;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+
+@Entity
+@Table(name = "passenger_schedule")
 public class PassengerSchedule {
+	
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "schedule_id")
 	private int 	scheduleId;
+	
+	@Column(name = "journey_date")
 	private Date 	journeyDate;
+	
+	@Column(name = "source")
 	private String 	source;
+	
+	@Column(name = "destination")
 	private String 	destination;
+	
+	@Column(name = "reservation_type")
 	private String 	reservationType;
+	
+	@Column(name = "Passenger_passenger_id")
 	private int 	passengerId;
+	
+	@Column(name = "Passenger_Flight_flight_id")
 	private int 	flightId;
+	
 	
 	public int getScheduleId() {
 		return scheduleId;
@@ -36,37 +60,30 @@ public class PassengerSchedule {
 	}
 
 	
-	@Autowired
 	public void setScheduleId(int scheduleId) {
 		this.scheduleId = scheduleId;
 	}
 	
-	@Autowired
 	public void setJourneyDate(Date journeyDate) {
 		this.journeyDate = journeyDate;
 	}
 	
-	@Autowired
 	public void setSource(String source) {
 		this.source = source;
 	}
 	
-	@Autowired
 	public void setDestination(String destination) {
 		this.destination = destination;
 	}
 	
-	@Autowired
 	public void setReservationType(String reservationType) {
 		this.reservationType = reservationType;
 	}
 	
-	@Autowired
 	public void setPassengerId(int passengerId) {
 		this.passengerId = passengerId;
 	}
 	
-	@Autowired
 	public void setFlightId(int flightId) {
 		this.flightId = flightId;
 	}

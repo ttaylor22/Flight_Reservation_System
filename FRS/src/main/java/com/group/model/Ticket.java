@@ -1,9 +1,19 @@
 package com.group.model;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name = "ticket")
 public class Ticket {
+	
+	@Column(name = "Schedule_schedule_id")
 	private int		scheduleId;
+	
+	@Column(name = "payment_info")
 	private String 	paymentInfo;
 	
 	public int getScheduleId() {
@@ -14,12 +24,10 @@ public class Ticket {
 		return paymentInfo;
 	}
 	
-	@Autowired
 	public void setScheduleId(int scheduleId) {
 		this.scheduleId = scheduleId;
 	}
 
-	@Autowired
 	public void setPaymentInfo(String paymentInfo) {
 		this.paymentInfo = paymentInfo;
 	}
