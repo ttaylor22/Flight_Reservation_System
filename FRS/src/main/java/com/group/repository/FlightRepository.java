@@ -1,10 +1,12 @@
 package com.group.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import com.group.model.Flight;
-
-public interface FlightRepository  extends CrudRepository<Flight, Integer> {
+@Repository
+public interface FlightRepository  extends JpaRepository<Flight, Integer> {
 //
 	
 
