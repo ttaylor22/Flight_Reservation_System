@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.group.model.Reservation;
 
-public interface ReservationRepository extends CrudRepository<Reservation, Long> {
+public interface ReservationRepository extends CrudRepository<Reservation, Integer> {
 
 }
 
