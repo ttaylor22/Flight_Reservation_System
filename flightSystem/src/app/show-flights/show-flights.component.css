@@ -1,0 +1,15 @@
+.oneway_location {
+    display: none;
+}
+
+.oneway:checked + .oneway_date {
+    display: block;
+}
+
+.roundtrip_location {
+    display: none;
+}
+
+.roundtrip:checked + .roundtrip_date {
+    display: block;
+}
