@@ -14,18 +14,18 @@ public class Ticket {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int Schedule_schedule_id;
+	private Long Schedule_schedule_id;
 
 	private String payment_info;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Passenger_Schedule passenger_schedule;
 
-	public int getSchedule_schedule_id() {
+	public Long getSchedule_schedule_id() {
 		return Schedule_schedule_id;
 	}
 
-	public void setSchedule_schedule_id(int schedule_schedule_id) {
+	public void setSchedule_schedule_id(Long schedule_schedule_id) {
 		Schedule_schedule_id = schedule_schedule_id;
 	}
 

@@ -13,7 +13,7 @@ public class User_Credential {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int user_credentials_id;
+	private Long user_credentials_id;
 
 	private String user_type;
 	private int user_id;
@@ -23,11 +23,11 @@ public class User_Credential {
 	@OneToOne(mappedBy = "user_credential")
 	private User_Profile user_profile;
 
-	public int getUser_credentials_id() {
+	public Long getUser_credentials_id() {
 		return user_credentials_id;
 	}
 
-	public void setUser_credentials_id(int user_credentials_id) {
+	public void setUser_credentials_id(Long user_credentials_id) {
 		this.user_credentials_id = user_credentials_id;
 	}
 

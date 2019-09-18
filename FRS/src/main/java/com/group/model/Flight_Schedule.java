@@ -17,9 +17,8 @@ import javax.persistence.Table;
 public class Flight_Schedule {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int Flight_flight_id;
+	private Long Flight_flight_id;
 
-	private int Route_route_id;
 	private Date schedule_day;
 
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -28,20 +27,12 @@ public class Flight_Schedule {
 	@OneToMany(mappedBy = "flight_schedule")
 	public Set<Route> routes;
 
-	public int getFlight_flight_id() {
+	public Long getFlight_flight_id() {
 		return Flight_flight_id;
 	}
 
-	public void setFlight_flight_id(int flight_flight_id) {
+	public void setFlight_flight_id(Long flight_flight_id) {
 		Flight_flight_id = flight_flight_id;
-	}
-
-	public int getRoute_route_id() {
-		return Route_route_id;
-	}
-
-	public void setRoute_route_id(int route_route_id) {
-		Route_route_id = route_route_id;
 	}
 
 	public Date getSchedule_day() {
@@ -70,7 +61,7 @@ public class Flight_Schedule {
 
 	@Override
 	public String toString() {
-		return "Flight_Schedule [Flight_flight_id=" + Flight_flight_id + ", Route_route_id=" + Route_route_id
+		return "Flight_Schedule [Flight_flight_id=" + Flight_flight_id
 				+ ", schedule_day=" + schedule_day + ", flight=" + flight + ", routes=" + routes + "]";
 	}
 

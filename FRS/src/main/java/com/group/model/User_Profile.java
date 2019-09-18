@@ -19,7 +19,7 @@ public class User_Profile {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int user_profile_id;
+	private Long user_profile_id;
 
 	private String name;
 	private Date date_of_birth;
@@ -35,11 +35,11 @@ public class User_Profile {
 	@JoinColumn(name = "User_Credential_user_credentials_id", referencedColumnName = "user_profile_id")
 	private User_Credential user_credential;
 
-	public int getUser_profile_id() {
+	public Long getUser_profile_id() {
 		return user_profile_id;
 	}
 
-	public void setUser_profile_id(int user_profile_id) {
+	public void setUser_profile_id(Long user_profile_id) {
 		this.user_profile_id = user_profile_id;
 	}
 

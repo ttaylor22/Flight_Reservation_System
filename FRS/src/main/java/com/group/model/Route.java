@@ -14,7 +14,7 @@ public class Route {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int route_id;
+	private Long route_id;
 
 	private String source;
 	private String destination;
@@ -24,11 +24,11 @@ public class Route {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Route route;
 
-	public int getRoute_id() {
+	public Long getRoute_id() {
 		return route_id;
 	}
 
-	public void setRoute_id(int route_id) {
+	public void setRoute_id(Long route_id) {
 		this.route_id = route_id;
 	}
 

@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class Passenger {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int passenger_id;
+	private Long passenger_id;
 
 	private String passenger_name;
 	private int passenger_age;
@@ -26,11 +26,11 @@ public class Passenger {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Flight flight;
 
-	public int getPassenger_id() {
+	public Long getPassenger_id() {
 		return passenger_id;
 	}
 
-	public void setPassenger_id(int passenger_id) {
+	public void setPassenger_id(Long passenger_id) {
 		this.passenger_id = passenger_id;
 	}
 

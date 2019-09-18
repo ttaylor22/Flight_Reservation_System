@@ -17,7 +17,7 @@ import javax.persistence.Table;
 public class Passenger_Schedule {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int schedule_id;
+	private Long schedule_id;
 	
 	private Date journey_date;
 	private String source;
@@ -32,10 +32,10 @@ public class Passenger_Schedule {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Passenger passenger;
 	
-	public int getSchedule_id() {
+	public Long getSchedule_id() {
 		return schedule_id;
 	}
-	public void setSchedule_id(int schedule_id) {
+	public void setSchedule_id(Long schedule_id) {
 		this.schedule_id = schedule_id;
 	}
 	public Date getJourney_date() {
