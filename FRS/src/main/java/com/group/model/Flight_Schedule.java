@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.group.FRS.Flight;
+
 @Entity
 @Table(name = "flight_schedule")
 public class Flight_Schedule {

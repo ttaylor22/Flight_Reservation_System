@@ -12,6 +12,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.group.FRS.Flight;
+
 @Entity
 @Table(name = "reservation")
 public class Reservation {

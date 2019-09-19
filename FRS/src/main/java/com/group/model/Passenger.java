@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.group.FRS.Flight;
+
 @Entity
 @Table(name = "passenger")
 public class Passenger {
