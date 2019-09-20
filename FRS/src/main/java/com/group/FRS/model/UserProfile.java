@@ -134,8 +134,7 @@ public class UserProfile {
 	public String toString() {
 		return "UserProfile [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth="
 				+ dateOfBirth + ", gender=" + gender + ", address=" + address + ", mobileNumber=" + mobileNumber
-				+ ", emailId=" + emailId + ", reservations=" + reservations + ", userCredential=" + userCredential
-				+ "]";
+				+ ", emailId=" + emailId + "]";
 	}
 
 
