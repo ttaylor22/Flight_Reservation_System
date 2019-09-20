@@ -14,11 +14,11 @@ export class FlightService {
 
   constructor(private http:HttpClient) {}
 
-  private userUrl = 'http://localhost:8080/api/flights';
+  private userUrl = 'http://localhost:8080/api/flight';
 	//private userUrl = '/api';
 
   public getFlights() {
-    return this.http.get<Flight[]>(this.userUrl);
+    return this.http.get<Flight[]>(this.userUrl + "/flights");
   }
 
   public getFlight(flight) {

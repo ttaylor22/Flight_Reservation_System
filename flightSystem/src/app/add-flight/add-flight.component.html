@@ -2,18 +2,18 @@
     <h2 class="text-center">Add Flight</h2>
   <form>
     <div >
-      <label for="flightName">Email address:</label>
-      <input type="text" [(ngModel)]="flight.flightName" placeholder="Flight Name" name="flightName" class="form-control" id="flightName">
+      <label for="flightName">Flight Name:</label>
+      <input type="text" [(ngModel)]="flight.model.flightName" placeholder="Flight Name" name="flightName" class="form-control" id="flightName">
     </div>
   
     <div >
-      <label for="seatingCapacity">First Name:</label>
-      <input [(ngModel)]="flight.seatingCapacity" placeholder="Seating Capacity" name="seatingCapacity" class="form-control" id="seatingCapacity">
+      <label for="seatingCapacity">Seating Capacity:</label>
+      <input [(ngModel)]="flight.model.seatingCapacity" placeholder="Seating Capacity" name="seatingCapacity" class="form-control" id="seatingCapacity">
     </div>
   
     <div >
-      <label for="reservationCapacity">Last Name:</label>
-     <input [(ngModel)]="flight.reservationCapacity" placeholder="Res Capacity" name="reservationCapacity" class="form-control" id="reservationCapacity">
+      <label for="reservationCapacity">Reservation Capacity:</label>
+     <input [(ngModel)]="flight.model.reservationCapacity" placeholder="Res Capacity" name="reservationCapacity" class="form-control" id="reservationCapacity">
     </div>
   
     <button (click)="createFlight()">Create</button>

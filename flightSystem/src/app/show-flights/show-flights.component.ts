@@ -28,5 +28,9 @@ export class ShowFlightsComponent implements OnInit {
           this.flights = this.flights.filter(u => u !== flight);
         })
     };
+
+    getFlight(flight : Flight) : void {
+      this.flightService.getFlight(flight);
+    }
   
 }
