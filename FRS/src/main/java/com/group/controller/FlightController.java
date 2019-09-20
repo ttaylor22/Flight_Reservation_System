@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,37 +26,37 @@ import com.group.repository.FlightRepository;
 public class FlightController {
 	
 	@Autowired
-	 FlightRepository flightService;
+	 FlightRepository flightRepository;
 
 
 	//@RequestMapping(path="/", produces="application/json", method=RequestMethod.GET)
-    @GetMapping("/flights")
+    @GetMapping(path="/flights",  produces="application/json")
     public List<Flight> getAllFlights(){
-        return flightService.findAll();
+        return flightRepository.findAll();
     }
     
     
     
 
-	@PostMapping("/addFlight")
+	@PostMapping(path="/addFlight")
     public void create( @RequestBody Flight flight){
-         flightService.save(flight);
+         flightRepository.save(flight);
     }
 	
 	@PutMapping("/flight/{id}")
 	   public ResponseEntity<Flight> updateDoctor(@PathVariable(value = "id") int flightId,
 	                                              @Valid @RequestBody Flight flightDetails) {
-	       Flight flight = flightService.findById( flightId).orElse(null);
+	       Flight flight = flightRepository.findById( flightId).orElse(null);
 	       flight.setflightName(flightDetails.getflightName());
 	       flight.setseatingCapacity(flightDetails.getseatingCapacity());
 	       flight.setreservationCapacity(flightDetails.getreservationCapacity());
-	       final Flight updatedFlight = flightService.save(flight);
+	       final Flight updatedFlight = flightRepository.save(flight);
 	       return ResponseEntity.ok(updatedFlight);
 	   }
 	
 	@DeleteMapping("/delete/{id}")
     public void delete(@PathVariable("id") int id) {
-         flightService.deleteById(id);
+         flightRepository.deleteById(id);
     }
     
 

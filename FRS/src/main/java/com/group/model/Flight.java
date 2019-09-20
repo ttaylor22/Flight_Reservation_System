@@ -1,6 +1,22 @@
 package com.group.model;
 
-import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 
 
@@ -21,7 +37,22 @@ public class Flight {
 	
 	@Column(name="reservation_capacity")
 	private int reservationCapacity;
+	
+	//@OneToMany( mappedBy = "flight", targetEntity=Passenger.class, cascade= {CascadeType.PERSIST})
 
+	//@Fetch(FetchMode.JOIN)
+	@JsonBackReference
+	@OneToMany(mappedBy="flight")
+	private List<Passenger> passengers;
+/*
+	@ManyToMany
+	@JsonIgnore
+	public List<Reservation> reservations;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "flight")
+	@JsonIgnore
+	private List<FlightSchedule> flightSchedules;
+*/
 	public Flight() {}
 	
 	public Flight(String flightName, int seatingCapacity, int reservationCapacity) {
@@ -66,15 +97,15 @@ public class Flight {
 	public void setreservationCapacity(int reservationCapacity) {
 		this.reservationCapacity = reservationCapacity;
 	}
+
+	public List<Passenger> getPassengers() {
+		return (List<Passenger>) passengers;
+	}
+
+	public void setPassengers(List<Passenger> passengers) {
+		this.passengers = (List<Passenger>) passengers;
+	}
 /*
-	public Set<Passenger> getPassengers() {
-		return passengers;
-	}
-
-	public void setPassengers(Set<Passenger> passengers) {
-		this.passengers = passengers;
-	}
-
 	public Set<Reservation> getReservation() {
 		return reservations;
 	}
