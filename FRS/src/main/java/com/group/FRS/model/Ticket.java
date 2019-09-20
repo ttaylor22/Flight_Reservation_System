@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Ticket {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Column(name="payment_info")
@@ -40,7 +40,7 @@ public class Ticket {
 	public void setPaymentInfo(String paymentInfo) {
 		this.paymentInfo = paymentInfo;
 	}
-
+/*
 	public PassengerSchedule getPassengerSchedule() {
 		return passengerSchedule;
 	}
@@ -53,7 +53,7 @@ public class Ticket {
 	public String toString() {
 		return "Ticket [id=" + id + ", paymentInfo=" + paymentInfo + ", passengerSchedule=" + passengerSchedule + "]";
 	}
-
+*/
 	
 	
 
