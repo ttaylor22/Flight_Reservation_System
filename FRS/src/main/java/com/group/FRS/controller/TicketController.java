@@ -28,18 +28,18 @@ public class TicketController {
 	@Autowired
 	TicketRepository ticketRepository;
 	
-	@GetMapping("/tickets")
+	@GetMapping(path ="/tickets", produces="application/json")
 	public List<Ticket> getAllTickets(){
 		return ticketRepository.findAll();
 	}
     
 
-	@PostMapping("/addTicket")
+	@PostMapping(path ="/addTicket")
     public void create( @RequestBody Ticket ticket){
          ticketRepository.save(ticket);
     }
 	
-	@PutMapping("/update/{id}")
+	@PutMapping(path ="/update/{id}")
 	   public ResponseEntity<Ticket> updateDoctor(@PathVariable(value = "id") Long tickedId,
 	                                              @Valid @RequestBody Ticket ticketDetails) {
 	       Ticket ticket = ticketRepository.findById( tickedId).orElse(null);
@@ -48,7 +48,7 @@ public class TicketController {
 	       return ResponseEntity.ok(updatedTicket);
 	   }
 	
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping(path ="/delete/{id}")
     public void delete(@PathVariable("id") Long id) {
          ticketRepository.deleteById(id);
     }
