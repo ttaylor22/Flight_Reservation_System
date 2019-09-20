@@ -10,3 +10,25 @@
     <input type="submit" value="Find Flights" />
   </form>
 </div>
+
+<div >
+  <h2> User Details</h2>
+  
+  <table >
+    <thead>
+    <tr>
+      <th>Flight Name</th>
+      <th>Seat Cap.</th>
+      <th>Res. Cap</th>
+    </tr>
+  </thead>
+    <tbody>
+    <tr *ngFor="let flight of flights">
+      <td>{{flight.flightName}}</td>
+      <td>{{flight.seatingCapacity}}</td>
+      <td>{{flight.reservationCapacity}}</td>
+      <td><button  (click)="deleteFlight(flight)"> Delete Flight</button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>

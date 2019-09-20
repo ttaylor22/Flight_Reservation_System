@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { Flight } from '../models/flight.model';
+import { FlightService } from '../flight.service';
 
 @Component({
   selector: 'app-show-flights',
@@ -7,10 +11,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShowFlightsComponent implements OnInit {
 
-  constructor() { }
+  flights: Flight[];
 
-  ngOnInit() {
-  }
+  constructor(private router: Router, private flightService: FlightService) { }
 
+    ngOnInit() {
+      this.flightService.getFlights()
+        .subscribe( data => {
+          this.flights = data;
+        });
+    };
+  
+    deleteUser(flight: Flight): void {
+      this.flightService.deleteFlight(flight)
+        .subscribe( data => {
+          this.flights = this.flights.filter(u => u !== flight);
+        })
+    };
   
 }

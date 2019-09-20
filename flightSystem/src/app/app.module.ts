@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule} from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,7 +9,8 @@ import { FlightDetailsComponent } from './flight-details/flight-details.componen
 import { ShowFlightsComponent } from './show-flights/show-flights.component';
 import { SigninComponent } from './signin/signin.component';
 import { AccountPageComponent } from './account-page/account-page.component';
-import {AlertModule} from 'ngx-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
+import { AddFlightComponent } from './add-flight/add-flight.component';
 
 
 @NgModule({
@@ -18,11 +20,14 @@ import {AlertModule} from 'ngx-bootstrap';
     FlightDetailsComponent,
     ShowFlightsComponent,
     SigninComponent,
-    AccountPageComponent
+    AccountPageComponent,
+    AddFlightComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule, 
+    HttpClientModule, 
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
