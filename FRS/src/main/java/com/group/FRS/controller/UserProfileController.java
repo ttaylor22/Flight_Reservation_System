@@ -1,6 +1,7 @@
 package com.group.FRS.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -30,6 +31,11 @@ public class UserProfileController {
 	@GetMapping(path ="/UserProfiles",produces="application/json")
 	 public List<UserProfile>findUser_Profiles() {
 	 	return userProfileRepository.findAll();
+	}
+	
+	@GetMapping(path ="/UserProfiles/{id}",produces="application/json")
+	 public Optional<UserProfile> findUser_Profile(@PathVariable(value = "id") Long id) {
+	 	return userProfileRepository.findById(id);
 	}
 	 
     @PostMapping(path ="/addUserProfile")
