@@ -1,10 +1,7 @@
-package com.group.FRS;
+package com.group.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 
 
 @Entity
@@ -12,32 +9,38 @@ import javax.persistence.Table;
 public class Flight {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="flight_Id")
 	private int flightId;
 
+	@Column(name="flight_name")
 	private String flightName;
 	
+	@Column(name="seating_capacity")
 	private int seatingCapacity;
 	
+	@Column(name="reservation_capacity")
 	private int reservationCapacity;
-/*
-	@OneToMany(mappedBy = "flight")
-	private Set<Passenger> passengers;
 
-	@ManyToMany
-	public Set<Reservation> reservations;
+	public Flight() {}
+	
+	public Flight(String flightName, int seatingCapacity, int reservationCapacity) {
+		this.flightName = flightName;
+		this.seatingCapacity = seatingCapacity;
+		this.reservationCapacity = reservationCapacity;
+	}
 
-	@OneToMany(mappedBy = "flight")
-	private Set<Flight_Schedule> flight_schedules;
-*/
+	
 	public int getflightId() {
 		return flightId;
 	}
 
+	
 	public void setflightId(int flightId) {
 		this.flightId = flightId;
 	}
 
+	
 	public String getflightName() {
 		return flightName;
 	}
@@ -46,6 +49,7 @@ public class Flight {
 		this.flightName = flightName;
 	}
 
+	
 	public int getseatingCapacity() {
 		return seatingCapacity;
 	}
@@ -54,6 +58,7 @@ public class Flight {
 		this.seatingCapacity = seatingCapacity;
 	}
 
+	
 	public int getreservationCapacity() {
 		return reservationCapacity;
 	}
