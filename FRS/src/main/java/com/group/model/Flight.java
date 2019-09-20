@@ -1,6 +1,8 @@
-package com.group.FRS.model;
+package com.group.model;
 
 import javax.persistence.*;
+
+
 
 @Entity
 @Table(name = "flight")
