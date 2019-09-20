@@ -5,5 +5,5 @@ import com.group.FRS.model.*;
 
 public interface IUser_ProfileService {
 	
-	List<UserProfile> find_All();
+	List<UserProfile> findAll();
 }
