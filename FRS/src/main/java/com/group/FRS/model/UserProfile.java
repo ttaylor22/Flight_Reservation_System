@@ -25,8 +25,10 @@ public class UserProfile {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
     
-	@Column(name="name")
-	private String name;
+	@Column(name="first_name")
+	private String firstName;
+	@Column(name="last_name")
+	private String lastName;
 	@Column(name="date_of_birth")
 	private Date dateOfBirth;
 	@Column(name="gender")
@@ -55,12 +57,21 @@ public class UserProfile {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public Date getDateOfBirth() {
@@ -121,10 +132,12 @@ public class UserProfile {
 
 	@Override
 	public String toString() {
-		return "UserProfile [id=" + id + ", name=" + name + ", dateOfBirth=" + dateOfBirth + ", gender=" + gender
-				+ ", address=" + address + ", mobileNumber=" + mobileNumber + ", emailId=" + emailId + ", reservations="
-				+ reservations + ", userCredential=" + userCredential + "]";
+		return "UserProfile [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth="
+				+ dateOfBirth + ", gender=" + gender + ", address=" + address + ", mobileNumber=" + mobileNumber
+				+ ", emailId=" + emailId + ", reservations=" + reservations + ", userCredential=" + userCredential
+				+ "]";
 	}
+
 
 	
 }
