@@ -1,8 +1,8 @@
 package com.group.FRS.model;
 
 import java.util.Date;
-import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,16 +11,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "passenger")
 public class Passenger {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Column(name="name")
@@ -33,15 +33,38 @@ public class Passenger {
 	private int seatNo;
 	@Column(name="booking_date")
 	private Date bookingDate;
+	
+	
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="flight_id", nullable=false)
+	public Passenger(String name, int age, String gender, int seatNo, Date bookingDate, Flight flight) {
+		super();
+		this.name = name;
+		this.age = age;
+		this.gender = gender;
+		this.seatNo = seatNo;
+		this.bookingDate = bookingDate;
+		this.flight = flight;
+	}
+	
+	
+
+	public Passenger() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+
+	//@ManyToOne(targetEntity=Flight.class, fetch=FetchType.LAZY, cascade= {CascadeType.PERSIST})
 	@JsonIgnore
+	@JsonManagedReference
+	@ManyToOne
+	@JoinColumn(name="flight_id", nullable=false)
 	private Flight flight;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "passenger")
-	@JsonIgnore
-	public List<PassengerSchedule> passengerSchedules;
+	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "passenger")
+	//@JsonIgnore
+	//public List<PassengerSchedule> passengerSchedules;
 	
 	public Long getId() {
 		return id;
