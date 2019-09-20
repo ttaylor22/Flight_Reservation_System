@@ -17,18 +17,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.group.FRS.model.PassengerSchedule;
+import com.group.FRS.repository.PassengerRepository;
 import com.group.FRS.repository.Passenger_ScheduleRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/PassengerSchedule")
 public class PassengerScheduleController {
 	
 	@Autowired
 	Passenger_ScheduleRepository passengerScheduleService;
 	
+	
+	
 	//@RequestMapping(path="/", produces="application/json", method=RequestMethod.GET)
-    @GetMapping(path ="/PassengerSchedule", produces="application/json")
+    @GetMapping(path ="/PassengerSchedules", produces="application/json")
     public List<PassengerSchedule> getAllFlightSchedules(){
         return (List<PassengerSchedule>) passengerScheduleService.findAll();
     }
@@ -40,7 +43,7 @@ public class PassengerScheduleController {
     }
     
     //update
-    @PutMapping(path ="/flightschedule/{id}")
+    @PutMapping(path ="/passengerscheduleupdate/{id}")
     public ResponseEntity<PassengerSchedule> updateFSchedule(@PathVariable(value ="id") int passengerId,
     		@Valid @RequestBody PassengerSchedule passengerscheduleDetails){
     	PassengerSchedule schedule = passengerScheduleService.findById(passengerId).orElse(null);

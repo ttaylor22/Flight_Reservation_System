@@ -21,14 +21,14 @@ import com.group.FRS.repository.Flight_ScheduleRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/FlightSchedule")
 public class FlightScheduleController {
 	
 	@Autowired
 	Flight_ScheduleRepository flightScheduleService;
 	
 	//@RequestMapping(path="/", produces="application/json", method=RequestMethod.GET)
-    @GetMapping(path="/FlightSchedule",produces="application/json" )
+    @GetMapping(path="/FlightSchedules",produces="application/json" )
     public List<FlightSchedule> getAllFlightSchedules(){
         return (List<FlightSchedule>) flightScheduleService.findAll();
     }
@@ -40,7 +40,7 @@ public class FlightScheduleController {
     }
     
 
-    @PutMapping(path="/flightschedule/{id}")
+    @PutMapping(path="/flightscheduleUpdate/{id}")
     public ResponseEntity<FlightSchedule> updateFSchedule(@PathVariable(value ="id") int scheduleId,
     		@Valid @RequestBody FlightSchedule flightscheduleDetails){
     	FlightSchedule schedule = flightScheduleService.findById(scheduleId).orElse(null);

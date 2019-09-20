@@ -21,7 +21,7 @@ import com.group.FRS.repository.ReservationRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/Reservation")
 public class ReservationController {
 	@Autowired
 	ReservationRepository reservationService;
@@ -38,7 +38,7 @@ public class ReservationController {
     	reservationService.save(reservation);
     }
     
-    @PutMapping(path ="/reservation/{id}")
+    @PutMapping(path ="/reservationupdate/{id}")
 	   public ResponseEntity<Reservation> updateDoctor(@PathVariable(value = "id") int reservationId,
 	                                              @Valid @RequestBody Reservation reservationDetails) {
     	Reservation reservation = reservationService.findById( reservationId).orElse(null);

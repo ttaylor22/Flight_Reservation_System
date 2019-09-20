@@ -22,7 +22,7 @@ import com.group.FRS.repository.FlightRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/flight")
 public class FlightController {
 	
 	@Autowired
