@@ -7,6 +7,6 @@ import com.group.FRS.model.UserProfile;
 
 
 @Repository
-public interface User_ProfileRepository extends JpaRepository<UserProfile, Integer> {
+public interface User_ProfileRepository extends JpaRepository<UserProfile, Long> {
 	//
 	}
