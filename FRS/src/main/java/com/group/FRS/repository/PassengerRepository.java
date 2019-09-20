@@ -7,7 +7,7 @@ import com.group.FRS.model.Passenger;
 
 
 @Repository
-public interface PassengerRepository extends JpaRepository<Passenger, Long> {
+public interface PassengerRepository extends JpaRepository<Passenger, Integer> {
 //
 }
 
