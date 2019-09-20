@@ -1,35 +1,45 @@
-package com.group.model;
+package com.group.FRS.model;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "route")
 public class Route {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long route_id;
-
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	
+	@Column(name="source")
 	private String source;
+	@Column(name="destination")
 	private String destination;
+	@Column(name="distance")
 	private float distance;
+	@Column(name="duration")
 	private int duration;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	private Route route;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="flight_schedule_id", nullable=false)
+	@JsonIgnore
+	private FlightSchedule flightSchedule;
 
-	public Long getRoute_id() {
-		return route_id;
+	public Long getId() {
+		return id;
 	}
 
-	public void setRoute_id(Long route_id) {
-		this.route_id = route_id;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getSource() {
@@ -64,18 +74,21 @@ public class Route {
 		this.duration = duration;
 	}
 
-	public Route getRoute() {
-		return route;
+	public FlightSchedule getFlightSchedule() {
+		return flightSchedule;
 	}
 
-	public void setRoute(Route route) {
-		this.route = route;
+	public void setFlightSchedule(FlightSchedule flightSchedule) {
+		this.flightSchedule = flightSchedule;
 	}
 
 	@Override
 	public String toString() {
-		return "Route [route_id=" + route_id + ", source=" + source + ", destination=" + destination + ", distance="
-				+ distance + ", duration=" + duration + ", route=" + route + "]";
+		return "Route [id=" + id + ", source=" + source + ", destination=" + destination + ", distance=" + distance
+				+ ", duration=" + duration + ", flightSchedule=" + flightSchedule + "]";
 	}
 
+	
+
+	
 }
