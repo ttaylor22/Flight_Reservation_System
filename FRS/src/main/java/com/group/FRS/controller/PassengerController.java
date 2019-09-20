@@ -33,19 +33,19 @@ public class PassengerController {
 	@Autowired
 	FlightRepository flightRepository;
 	
-	@GetMapping("/passengers")
+	@GetMapping(path="/passengers", produces="application/json")
 	public List<Passenger> getAllPassengers(){
 		return passengerRepository.findAll();
 	}
     
 
-	@PostMapping(path="/addPassenger", produces="application/json")
+	@PostMapping(path="/addPassenger")
     public void create(@RequestBody Passenger passenger){
 		//System.out.println(passenger.getFlight());
          passengerRepository.save(passenger);
     }
 	
-	@PutMapping("/update/{id}")
+	@PutMapping(path="/update/{id}")
 	   public ResponseEntity<Passenger> updateDoctor(@PathVariable(value = "id") Long passengerId,
 	                                              @Valid @RequestBody Passenger passengerDetails) {
 	       Passenger passenger = passengerRepository.findById( passengerId).orElse(null);
@@ -58,7 +58,7 @@ public class PassengerController {
 	       return ResponseEntity.ok(updatedPassenger);
 	   }
 	
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping(path="/delete/{id}")
     public void delete(@PathVariable("id") Long id) {
          passengerRepository.deleteById(id);
     }

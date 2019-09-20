@@ -27,18 +27,18 @@ public class ReservationController {
 	ReservationRepository reservationService;
 	
 	//@RequestMapping(path="/", produces="application/json", method=RequestMethod.GET)
-    @GetMapping("/reservations")
+    @GetMapping(path ="/reservations",produces="application/json")
     public List<Reservation> getAllFlights(){
         return reservationService.findAll();
     }
     
     //add
-    @PostMapping("/addReservation")
+    @PostMapping(path ="/addReservation")
     public void create( @RequestBody Reservation reservation){
     	reservationService.save(reservation);
     }
     
-    @PutMapping("/reservation/{id}")
+    @PutMapping(path ="/reservation/{id}")
 	   public ResponseEntity<Reservation> updateDoctor(@PathVariable(value = "id") int reservationId,
 	                                              @Valid @RequestBody Reservation reservationDetails) {
     	Reservation reservation = reservationService.findById( reservationId).orElse(null);
@@ -50,7 +50,7 @@ public class ReservationController {
 	       return ResponseEntity.ok(updatedReservation);
 	   }
     
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping(path ="/delete/{id}")
     public void delete(@PathVariable("id") int id) {
     	reservationService.deleteById(id);
     }

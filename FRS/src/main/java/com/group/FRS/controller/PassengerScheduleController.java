@@ -28,19 +28,19 @@ public class PassengerScheduleController {
 	Passenger_ScheduleRepository passengerScheduleService;
 	
 	//@RequestMapping(path="/", produces="application/json", method=RequestMethod.GET)
-    @GetMapping("/PassengerSchedule")
+    @GetMapping(path ="/PassengerSchedule", produces="application/json")
     public List<PassengerSchedule> getAllFlightSchedules(){
         return (List<PassengerSchedule>) passengerScheduleService.findAll();
     }
     
     //add passenger schedule
-    @PostMapping("/addPassengerSchedule")
+    @PostMapping(path ="/addPassengerSchedule")
     public void create( @RequestBody PassengerSchedule passenger){
     	passengerScheduleService.save(passenger);
     }
     
     //update
-    @PutMapping("/flightschedule/{id}")
+    @PutMapping(path ="/flightschedule/{id}")
     public ResponseEntity<PassengerSchedule> updateFSchedule(@PathVariable(value ="id") int passengerId,
     		@Valid @RequestBody PassengerSchedule passengerscheduleDetails){
     	PassengerSchedule schedule = passengerScheduleService.findById(passengerId).orElse(null);
@@ -57,7 +57,7 @@ public class PassengerScheduleController {
     }
     
     //delete
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping(path ="/delete/{id}")
     public void delete(@PathVariable("id") int id) {
     	passengerScheduleService.deleteById(id);
     }
