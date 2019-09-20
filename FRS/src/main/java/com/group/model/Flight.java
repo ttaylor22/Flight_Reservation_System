@@ -70,27 +70,35 @@ public class Flight {
 	public Set<Passenger> getPassengers() {
 		return passengers;
 	}
+
 	public void setPassengers(Set<Passenger> passengers) {
 		this.passengers = passengers;
 	}
+
 	public Set<Reservation> getReservation() {
 		return reservations;
 	}
+
 	public void setReservation(Set<Reservation> reservation) {
 		this.reservations = reservation;
 	}
+
 	public Set<Reservation> getReservations() {
 		return reservations;
 	}
+
 	public void setReservations(Set<Reservation> reservations) {
 		this.reservations = reservations;
 	}
+
 	public Set<Flight_Schedule> getFlight_schedules() {
 		return flight_schedules;
 	}
+
 	public void setFlight_schedules(Set<Flight_Schedule> flight_schedules) {
 		this.flight_schedules = flight_schedules;
 	}
+
 	@Override
 	public String toString() {
 		return "Flight [flightId=" + flightId + ", flightName=" + flightName + ", seatingCapacity="
@@ -99,4 +107,6 @@ public class Flight {
 	}
 */
 	
+
 }
+
