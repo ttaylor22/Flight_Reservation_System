@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,27 +12,34 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "reservation")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+property = "id")
 public class Reservation {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@Column(name="journey_date")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
 	private Date journeyDate;
 	@Column(name="no_of_seats")
 	private int noOfSeats;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="user_profile_id", nullable=false)
 	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name="user_profile_id", nullable=false)
 	private UserProfile userProfile;
 
-	@ManyToMany
 	@JsonIgnore
+	@ManyToMany(mappedBy = "reservations")
 	private List<Flight> flights;
 
 	public Long getId() {

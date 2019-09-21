@@ -17,34 +17,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.group.FRS.model.PassengerSchedule;
-import com.group.FRS.repository.PassengerRepository;
 import com.group.FRS.repository.Passenger_ScheduleRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/PassengerSchedule")
+@RequestMapping("/passenger_schedule")
 public class PassengerScheduleController {
 	
 	@Autowired
 	Passenger_ScheduleRepository passengerScheduleService;
 	
 	
-	
-	//@RequestMapping(path="/", produces="application/json", method=RequestMethod.GET)
-    @GetMapping(path ="/PassengerSchedules", produces="application/json")
+    @GetMapping(path ="/getAll", produces="application/json")
     public List<PassengerSchedule> getAllFlightSchedules(){
         return (List<PassengerSchedule>) passengerScheduleService.findAll();
     }
     
     //add passenger schedule
-    @PostMapping(path ="/addPassengerSchedule")
-    public void create( @RequestBody PassengerSchedule passenger){
-    	passengerScheduleService.save(passenger);
+    @PostMapping(path ="/add")
+    public ResponseEntity<PassengerSchedule> create( @RequestBody PassengerSchedule passenger){
+    	return ResponseEntity.ok(passengerScheduleService.save(passenger));
     }
     
     //update
-    @PutMapping(path ="/passengerscheduleupdate/{id}")
-    public ResponseEntity<PassengerSchedule> updateFSchedule(@PathVariable(value ="id") int passengerId,
+    @PutMapping(path ="/update/{id}")
+    public ResponseEntity<PassengerSchedule> updateFSchedule(@PathVariable(value ="id") Long passengerId,
     		@Valid @RequestBody PassengerSchedule passengerscheduleDetails){
     	PassengerSchedule schedule = passengerScheduleService.findById(passengerId).orElse(null);
     	schedule.setDestination(passengerscheduleDetails.getDestination());
@@ -52,16 +49,13 @@ public class PassengerScheduleController {
     	schedule.setPassenger(passengerscheduleDetails.getPassenger());
     	schedule.setReservationType(passengerscheduleDetails.getReservationType());
     	schedule.setSource(passengerscheduleDetails.getSource());
-    	schedule.setTicket(passengerscheduleDetails.getTicket());
-    	
-    	final PassengerSchedule updatedPassengerSchedule = passengerScheduleService.save(schedule);
-    	
-    	return ResponseEntity.ok(updatedPassengerSchedule);
+    	schedule.setTicket(passengerscheduleDetails.getTicket());	
+    	return ResponseEntity.ok(passengerScheduleService.save(schedule));
     }
     
     //delete
     @DeleteMapping(path ="/delete/{id}")
-    public void delete(@PathVariable("id") int id) {
+    public void delete(@PathVariable("id") Long id) {
     	passengerScheduleService.deleteById(id);
     }
 

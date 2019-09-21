@@ -7,6 +7,6 @@ import com.group.FRS.model.Route;
 
 
 @Repository
-public interface RouteRepository extends JpaRepository<Route, Integer> {
+public interface RouteRepository extends JpaRepository<Route, Long> {
 	//
 	}

@@ -21,42 +21,38 @@ import com.group.FRS.repository.Flight_ScheduleRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/FlightSchedule")
+@RequestMapping("/flight_schedule")
 public class FlightScheduleController {
 	
 	@Autowired
 	Flight_ScheduleRepository flightScheduleService;
 	
-	//@RequestMapping(path="/", produces="application/json", method=RequestMethod.GET)
-    @GetMapping(path="/FlightSchedules",produces="application/json" )
+    @GetMapping(path="/getAll",produces="application/json" )
     public List<FlightSchedule> getAllFlightSchedules(){
         return (List<FlightSchedule>) flightScheduleService.findAll();
     }
     
     //put add flight
-    @PostMapping(path="/addFlightSchedule", produces="application/json")
-    public void create( @RequestBody FlightSchedule flight){
-    	flightScheduleService.save(flight);
+    @PostMapping(path="/add", produces="application/json")
+    public ResponseEntity<FlightSchedule> create( @RequestBody FlightSchedule flight){
+    	return ResponseEntity.ok(flightScheduleService.save(flight));
     }
     
 
-    @PutMapping(path="/flightscheduleUpdate/{id}")
-    public ResponseEntity<FlightSchedule> updateFSchedule(@PathVariable(value ="id") int scheduleId,
+    @PutMapping(path="/update/{id}")
+    public ResponseEntity<FlightSchedule> updateFSchedule(@PathVariable(value ="id") Long scheduleId,
     		@Valid @RequestBody FlightSchedule flightscheduleDetails){
     	FlightSchedule schedule = flightScheduleService.findById(scheduleId).orElse(null);
     	schedule.setFlight(flightscheduleDetails.getFlight());
     	schedule.setRoutes(flightscheduleDetails.getRoutes());
     	schedule.setScheduleDay(flightscheduleDetails.getScheduleDay());
-    	
-    	final FlightSchedule updatedFlightSchedule = flightScheduleService.save(schedule);
-    	
-    	return ResponseEntity.ok(updatedFlightSchedule);
+    	return ResponseEntity.ok(flightScheduleService.save(schedule));
     }
     
     
 
 	@DeleteMapping(path="/delete/{id}")
-    public void delete(@PathVariable("id") int id) {
+    public void delete(@PathVariable("id") Long id) {
          flightScheduleService.deleteById(id);
     }
 	

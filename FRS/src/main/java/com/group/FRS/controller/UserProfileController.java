@@ -22,22 +22,22 @@ import com.group.FRS.repository.User_ProfileRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/UserProfile")
+@RequestMapping("/user_profile")
 public class UserProfileController {
 	@Autowired
 	User_ProfileRepository userProfileRepository;
 	
-	@GetMapping(path ="/UserProfiles",produces="application/json")
+	@GetMapping(path ="/getAll",produces="application/json")
 	 public List<UserProfile>findUser_Profiles() {
 	 	return userProfileRepository.findAll();
 	}
 	 
-    @PostMapping(path ="/addUserProfile")
-    public void create( @RequestBody UserProfile userProfile){
-    	userProfileRepository.save(userProfile);
+    @PostMapping(path ="/add")
+    public ResponseEntity<UserProfile> create( @RequestBody UserProfile userProfile){
+    	return ResponseEntity.ok(userProfileRepository.save(userProfile));
     }
     
-    @PutMapping(path ="/userprofileupdate/{id}")
+    @PutMapping(path ="/update/{id}")
 	   public ResponseEntity<UserProfile> updateDoctor(@PathVariable(value = "id") Long id,
 	                                              @Valid @RequestBody UserProfile userProfileDetails) {
     	UserProfile userProfile = userProfileRepository.findById(id).orElse(null);
@@ -49,11 +49,7 @@ public class UserProfileController {
     	userProfile.setEmailId(userProfileDetails.getEmailId());
     	userProfile.setReservations(userProfileDetails.getReservations());
     	userProfile.setUserCredential(userProfileDetails.getUserCredential());
-
-    	
-    	final UserProfile updatedUserProfile = userProfileRepository.save(userProfile);
-	    
-    	return ResponseEntity.ok(updatedUserProfile);
+    	return ResponseEntity.ok(userProfileRepository.save(userProfile));
 	   }
     
     @DeleteMapping(path ="/delete/{id}")

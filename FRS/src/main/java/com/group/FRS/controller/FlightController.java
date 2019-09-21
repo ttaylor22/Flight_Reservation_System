@@ -5,7 +5,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,34 +27,28 @@ public class FlightController {
 	@Autowired
 	 FlightRepository flightRepository;
 
-
-	//@RequestMapping(path="/", produces="application/json", method=RequestMethod.GET)
-    @GetMapping(path="/flights",  produces="application/json")
+    @GetMapping(path="/getAll")
     public List<Flight> getAllFlights(){
         return flightRepository.findAll();
     }
     
-    
-    
-
-	@PostMapping(path="/addFlight")
-    public void create( @RequestBody Flight flight){
-         flightRepository.save(flight);
+	@PostMapping(path="/add")
+    public ResponseEntity<Flight> create( @RequestBody Flight flight){
+         return ResponseEntity.ok(flightRepository.save(flight));
     }
 	
-	@PutMapping("/flight/{id}")
-	   public ResponseEntity<Flight> updateDoctor(@PathVariable(value = "id") int flightId,
+	@PutMapping("/update/{id}")
+	   public ResponseEntity<Flight> updateDoctor(@PathVariable(value = "id") Long flightId,
 	                                              @Valid @RequestBody Flight flightDetails) {
 	       Flight flight = flightRepository.findById( flightId).orElse(null);
 	       flight.setflightName(flightDetails.getflightName());
 	       flight.setseatingCapacity(flightDetails.getseatingCapacity());
 	       flight.setreservationCapacity(flightDetails.getreservationCapacity());
-	       final Flight updatedFlight = flightRepository.save(flight);
-	       return ResponseEntity.ok(updatedFlight);
+	       return ResponseEntity.ok(flightRepository.save(flight));
 	   }
 	
 	@DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable("id") int id) {
+    public void delete(@PathVariable("id") Long id) {
          flightRepository.deleteById(id);
     }
     
