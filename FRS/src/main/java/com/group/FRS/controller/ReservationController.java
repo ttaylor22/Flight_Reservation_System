@@ -21,37 +21,35 @@ import com.group.FRS.repository.ReservationRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/Reservation")
+@RequestMapping("/reservation")
 public class ReservationController {
 	@Autowired
 	ReservationRepository reservationService;
 	
-	//@RequestMapping(path="/", produces="application/json", method=RequestMethod.GET)
-    @GetMapping(path ="/reservations",produces="application/json")
+    @GetMapping(path ="/getAll",produces="application/json")
     public List<Reservation> getAllFlights(){
         return reservationService.findAll();
     }
     
     //add
-    @PostMapping(path ="/addReservation")
-    public void create( @RequestBody Reservation reservation){
-    	reservationService.save(reservation);
+    @PostMapping(path ="/add")
+    public ResponseEntity<Reservation> create( @RequestBody Reservation reservation){
+    	return ResponseEntity.ok(reservationService.save(reservation));
     }
     
-    @PutMapping(path ="/reservationupdate/{id}")
-	   public ResponseEntity<Reservation> updateDoctor(@PathVariable(value = "id") int reservationId,
+    @PutMapping(path ="/update/{id}")
+	   public ResponseEntity<Reservation> updateDoctor(@PathVariable(value = "id") Long reservationId,
 	                                              @Valid @RequestBody Reservation reservationDetails) {
     	Reservation reservation = reservationService.findById( reservationId).orElse(null);
     	reservation.setFlights(reservationDetails.getFlights());
     	reservation.setJourneyDate(reservationDetails.getJourneyDate());
     	reservation.setNoOfSeats(reservationDetails.getNoOfSeats());
     	reservation.setUserProfile(reservationDetails.getUserProfile());
-    	Reservation updatedReservation = reservationService.save(reservation);
-	       return ResponseEntity.ok(updatedReservation);
+	       return ResponseEntity.ok(reservationService.save(reservation));
 	   }
     
     @DeleteMapping(path ="/delete/{id}")
-    public void delete(@PathVariable("id") int id) {
+    public void delete(@PathVariable("id") Long id) {
     	reservationService.deleteById(id);
     }
     

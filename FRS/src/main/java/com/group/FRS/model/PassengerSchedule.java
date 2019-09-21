@@ -5,7 +5,6 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,10 +13,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "passenger_schedule")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+property = "id")
 public class PassengerSchedule {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,14 +36,14 @@ public class PassengerSchedule {
 	@Column(name="reservation_type")
 	private String reservationType;
 	
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ticket_id", referencedColumnName = "id")
-	@JsonIgnore
 	private Ticket ticket;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="passenger_id", nullable=false)
 	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name="passenger_id", nullable=false)
 	private Passenger passenger;
 
 	public Long getId() {

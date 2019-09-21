@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.group.FRS.model.Ticket;
-import com.group.FRS.model.Ticket;
 import com.group.FRS.repository.TicketRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -28,15 +27,15 @@ public class TicketController {
 	@Autowired
 	TicketRepository ticketRepository;
 	
-	@GetMapping(path ="/tickets", produces="application/json")
+	@GetMapping(path ="/getAll", produces="application/json")
 	public List<Ticket> getAllTickets(){
 		return ticketRepository.findAll();
 	}
     
 
-	@PostMapping(path ="/addTicket")
-    public void create( @RequestBody Ticket ticket){
-         ticketRepository.save(ticket);
+	@PostMapping(path ="/add")
+    public ResponseEntity<Ticket> create( @RequestBody Ticket ticket){
+		return ResponseEntity.ok(ticketRepository.save(ticket));
     }
 	
 	@PutMapping(path ="/update/{id}")
@@ -44,8 +43,7 @@ public class TicketController {
 	                                              @Valid @RequestBody Ticket ticketDetails) {
 	       Ticket ticket = ticketRepository.findById( tickedId).orElse(null);
 	       ticket.setPaymentInfo(ticketDetails.getPaymentInfo());
-	       final Ticket updatedTicket = ticketRepository.save(ticket);
-	       return ResponseEntity.ok(updatedTicket);
+	       return ResponseEntity.ok(ticketRepository.save(ticket));
 	   }
 	
 	@DeleteMapping(path ="/delete/{id}")

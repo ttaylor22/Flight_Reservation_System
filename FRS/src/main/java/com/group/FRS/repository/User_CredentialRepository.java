@@ -7,6 +7,6 @@ import com.group.FRS.model.UserCredential;
 
 
 @Repository
-public interface User_CredentialRepository extends JpaRepository<UserCredential, Integer> {
+public interface User_CredentialRepository extends JpaRepository<UserCredential, Long> {
 	//
 	}

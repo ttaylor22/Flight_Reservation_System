@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import com.group.FRS.model.FlightSchedule;
 
 @Repository
-public interface Flight_ScheduleRepository extends JpaRepository<FlightSchedule, Integer> {
+public interface Flight_ScheduleRepository extends JpaRepository<FlightSchedule, Long> {
 	//
 }

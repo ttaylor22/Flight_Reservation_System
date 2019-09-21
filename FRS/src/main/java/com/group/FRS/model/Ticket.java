@@ -15,14 +15,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Ticket {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@Column(name="payment_info")
 	private String paymentInfo;
 
-	@OneToOne(mappedBy = "ticket")
 	@JsonIgnore
+	@OneToOne(mappedBy = "ticket")
 	private PassengerSchedule passengerSchedule;
 
 	public Long getId() {
@@ -40,7 +40,7 @@ public class Ticket {
 	public void setPaymentInfo(String paymentInfo) {
 		this.paymentInfo = paymentInfo;
 	}
-/*
+
 	public PassengerSchedule getPassengerSchedule() {
 		return passengerSchedule;
 	}
@@ -53,7 +53,7 @@ public class Ticket {
 	public String toString() {
 		return "Ticket [id=" + id + ", paymentInfo=" + paymentInfo + ", passengerSchedule=" + passengerSchedule + "]";
 	}
-*/
+
 	
 	
 

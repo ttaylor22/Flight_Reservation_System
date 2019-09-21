@@ -14,8 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name = "user_profile")
@@ -38,13 +39,15 @@ public class UserProfile {
 	@Column(name="email_id")
 	private String emailId;
 
-	@OneToMany(mappedBy = "userProfile")
 	@JsonIgnore
+	@JsonBackReference
+	@OneToMany(mappedBy = "userProfile")
 	private List<Reservation> reservations;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_credential_id", referencedColumnName = "id")
+	
 	@JsonIgnore
+	@OneToOne//(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "user_credential_id", referencedColumnName = "id")
 	private UserCredential userCredential;
 
 	public Long getId() {

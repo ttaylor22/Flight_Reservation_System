@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.group.FRS.model.Flight;
 import com.group.FRS.model.Passenger;
 import com.group.FRS.repository.FlightRepository;
 import com.group.FRS.repository.PassengerRepository;
@@ -33,16 +31,15 @@ public class PassengerController {
 	@Autowired
 	FlightRepository flightRepository;
 	
-	@GetMapping(path="/passengers", produces="application/json")
+	@GetMapping(path="/getAll", produces="application/json")
 	public List<Passenger> getAllPassengers(){
 		return passengerRepository.findAll();
 	}
     
 
 	@PostMapping(path="/addPassenger")
-    public void create(@RequestBody Passenger passenger){
-		//System.out.println(passenger.getFlight());
-         passengerRepository.save(passenger);
+    public ResponseEntity<Passenger> create(@RequestBody Passenger passenger){
+		return ResponseEntity.ok(passengerRepository.save(passenger));
     }
 	
 	@PutMapping(path="/update/{id}")
@@ -54,8 +51,7 @@ public class PassengerController {
 	       passenger.setGender(passengerDetails.getGender());
 	       passenger.setSeatNo(passengerDetails.getSeatNo());
 	       passenger.setBookingDate(passengerDetails.getBookingDate());
-	       final Passenger updatedPassenger = passengerRepository.save(passenger);
-	       return ResponseEntity.ok(updatedPassenger);
+	       return ResponseEntity.ok(passengerRepository.save(passenger));
 	   }
 	
 	@DeleteMapping(path="/delete/{id}")

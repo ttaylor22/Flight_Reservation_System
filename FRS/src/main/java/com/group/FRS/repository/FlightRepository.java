@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.group.FRS.model.Flight;
 
 @Repository
-public interface FlightRepository  extends JpaRepository<Flight, Integer> {
+public interface FlightRepository  extends JpaRepository<Flight, Long> {
 
 
 }

@@ -7,7 +7,7 @@ import com.group.FRS.model.Reservation;
 
 
 @Repository
-public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
+public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 //
 }
 

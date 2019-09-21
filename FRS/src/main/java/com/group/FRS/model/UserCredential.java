@@ -27,8 +27,8 @@ public class UserCredential {
 	@Column(name="login_status")
 	private boolean loginStatus;
 	
-	@OneToOne(mappedBy = "userCredential")
 	@JsonIgnore
+	@OneToOne(mappedBy = "userCredential")
     private UserProfile userProfile;
 	
 	public Long getId() {

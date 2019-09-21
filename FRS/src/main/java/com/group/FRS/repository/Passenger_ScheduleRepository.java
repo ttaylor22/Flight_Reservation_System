@@ -7,6 +7,6 @@ import com.group.FRS.model.PassengerSchedule;
 
 
 @Repository
-public interface Passenger_ScheduleRepository extends JpaRepository<PassengerSchedule, Integer> {
+public interface Passenger_ScheduleRepository extends JpaRepository<PassengerSchedule, Long> {
 //
 }
