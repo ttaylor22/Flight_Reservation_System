@@ -18,15 +18,19 @@ export class FlightService {
 	//private userUrl = '/api';
 
   public getFlights() {
-    return this.http.get<Flight[]>(this.userUrl + "/flights");
+    return this.http.get<Flight[]>(this.userUrl + "/getAll");
   }
 
   public getFlight(flight) {
-    return this.http.get(this.userUrl + "/flight/" + flight.id);
+    return this.http.get(this.userUrl + "/get/" + flight.id);
   }
 
   public deleteFlight(flight) {
-    return this.http.delete(this.userUrl + "/deleteFlight/"+ flight.id);
+    return this.http.delete(this.userUrl + "/delete/"+ flight.id);
+  }
+
+  public updateFlight(flight) {
+    return this.http.put(this.userUrl + "/update/"+ flight.id, flight);
   }
 
   public createFlight(flight) {

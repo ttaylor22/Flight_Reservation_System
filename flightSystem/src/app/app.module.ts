@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { CreateUSerComponent } from './create-user/create-user.component';
 import { FlightDetailsComponent } from './flight-details/flight-details.component';
 import { ShowFlightsComponent } from './show-flights/show-flights.component';
-import { SigninComponent } from './signin/signin.component';
 import { AccountPageComponent } from './account-page/account-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AddFlightComponent } from './add-flight/add-flight.component';
@@ -20,7 +19,6 @@ import { LoginComponent } from './login/login.component';
     CreateUSerComponent,
     FlightDetailsComponent,
     ShowFlightsComponent,
-    SigninComponent,
     AccountPageComponent,
     AddFlightComponent,
     LoginComponent

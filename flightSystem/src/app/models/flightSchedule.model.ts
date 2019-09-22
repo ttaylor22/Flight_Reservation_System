@@ -1,4 +1,5 @@
 export class FlightSchedule {
-   flightId    : number;
-   shceduleDay : Date;
+   id                : number;
+   shceduleDay       : Date;
+   flightId          : number;
 }

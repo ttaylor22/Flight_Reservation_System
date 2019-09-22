@@ -1,4 +1,4 @@
 export class Ticket {
-   scheduleId  : number;
+   id  : number;
    paymentInfo : string;
 }

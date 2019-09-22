@@ -1,8 +1,9 @@
 export class PassengerSchedule {
-   scheduleId        : number;
+   id                : number;
    journeyDate       : Date;
    source            : string;
    destination       : string;
    reservationType   : string;
    passengerId       : number;
+   flightId          : number;
 }

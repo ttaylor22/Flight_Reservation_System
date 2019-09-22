@@ -1,5 +1,5 @@
 export class UserProfile {
-   userProfileId     : number;
+   id                : number;
    name              : string;
    dateOfBirth       : Date;
    gender            : string;

@@ -16,22 +16,26 @@ export class UserProfileService {
 
   constructor(private http:HttpClient) {}
 
-  private userUrl = 'http://localhost:8080/profiles';
+  private userUrl = 'http://localhost:8080/userProfile';
 
   public findAll(): Observable<any> {
-    return this.http.get(this.userUrl);
+    return this.http.get(this.userUrl + "/getAll");
   }
 
-  public getUserProfile() {
-     return this.http.get<UserProfile[]>(this.userUrl);
+  public getUserProfile(userProfile) {
+     return this.http.get<UserProfile[]>(this.userUrl + "/get/" + userProfile.id);
   }
 
   public deleteUserProfile(userProfile) {
-     return this.http.delete(this.userUrl + "/deleteUserProfile/" + userProfile.userProfileId);
+     return this.http.delete(this.userUrl + "/delete/" + userProfile.id);
   }
 
   public createUserProfile(userProfile) {
-     return this.http.post<UserProfile>(this.userUrl + "/addUserProfile", userProfile);
+     return this.http.post<UserProfile>(this.userUrl + "/add", userProfile);
+  }
+
+  public updateUserProfile(userProfile) {
+      return this.http.put<UserProfile>(this.userUrl + "/update/" + userProfile.id, userProfile);
   }
 
 }

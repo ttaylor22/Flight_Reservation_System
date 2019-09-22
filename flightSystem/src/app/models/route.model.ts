@@ -1,4 +1,8 @@
 export class Route {
-   routeId : number;
-   source  : string;
+   id                : number;
+   source            : string;
+   destination       : string;
+   distance          : number;
+   duration          : number;
+   flightScheduleId  : number;
 }

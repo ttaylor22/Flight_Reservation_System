@@ -1,8 +1,9 @@
 export class Passenger {
-   passengerId          : number;
+   id                   : number;
    passengerName        : string;
    passengerAge         : number;
    passengerGender      : string;
    passengerSeatNumber  : number;
    bookingDate          : Date;
+   flightId             : number;
 }
