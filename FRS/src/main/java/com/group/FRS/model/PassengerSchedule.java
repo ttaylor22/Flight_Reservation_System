@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 property = "id")
 public class PassengerSchedule {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(name="journey_date")
@@ -36,15 +36,38 @@ public class PassengerSchedule {
 	@Column(name="reservation_type")
 	private String reservationType;
 	
-	@JsonIgnore
-	@OneToOne(cascade = CascadeType.ALL)
+	//@JsonIgnore
+	@OneToOne//(cascade = CascadeType.ALL)
     @JoinColumn(name = "ticket_id", referencedColumnName = "id")
 	private Ticket ticket;
-
+	
 	@JsonIgnore
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name="passenger_id", nullable=false)
 	private Passenger passenger;
+	
+	
+
+	public PassengerSchedule() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	
+
+	public PassengerSchedule(Date journeyDate, String source, String destination, String reservationType,
+			Ticket ticket, Passenger passenger) {
+		super();
+		this.journeyDate = journeyDate;
+		this.source = source;
+		this.destination = destination;
+		this.reservationType = reservationType;
+		this.ticket = ticket;
+		this.passenger = passenger;
+	}
+
+
 
 	public Long getId() {
 		return id;
@@ -93,7 +116,7 @@ public class PassengerSchedule {
 	public void setTicket(Ticket ticket) {
 		this.ticket = ticket;
 	}
-
+	
 	public Passenger getPassenger() {
 		return passenger;
 	}
@@ -102,12 +125,13 @@ public class PassengerSchedule {
 		this.passenger = passenger;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "PassengerSchedule [id=" + id + ", journeyDate=" + journeyDate + ", source=" + source + ", destination="
 				+ destination + ", reservationType=" + reservationType + ", ticket=" + ticket + ", passenger="
 				+ passenger + "]";
 	}
-
 	
 }
