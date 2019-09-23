@@ -1,6 +1,9 @@
 package com.group.FRS.model;
 
 import javax.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -12,9 +15,16 @@ public class Role {
 
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
-    private Set<UserCredential> userCredential;
+//    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "roles")
+//    @JoinTable(
+//    		name="user_credential_roles", 
+//    		joinColumns = @JoinColumn(name="role_id"), 
+//    		inverseJoinColumns = @JoinColumn(name="user_credential_id"))
+//    private Set<UserCredential> userCredentials;
 
+    @ManyToMany(mappedBy = "roles")
+    Set<UserCredential> userCredentials;
+    
     public Long getId() {
         return id;
     }
@@ -31,11 +41,11 @@ public class Role {
         this.name = name;
     }
 
-    public Set<UserCredential> getUserCredential() {
-        return userCredential;
+    public Set<UserCredential> getUserCredentials() {
+        return userCredentials;
     }
 
-    public void setUsers(Set<UserCredential> userCredential) {
-        this.userCredential = userCredential;
+    public void setUserCredentials(Set<UserCredential> userCredentials) {
+        this.userCredentials = userCredentials;
     }
 }

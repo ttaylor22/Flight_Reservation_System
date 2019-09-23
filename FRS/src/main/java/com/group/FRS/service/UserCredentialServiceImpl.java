@@ -19,12 +19,13 @@ public class UserCredentialServiceImpl implements IUser_CredentialService{
 	@Autowired
 	private RoleRepository roleRepository;
 	
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
+//	@Autowired
+//	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Override
 	public void save(UserCredential user) {
-		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+//		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		user.setPassword(user.getPassword());
 		user.setRoles(new HashSet<>(roleRepository.findAll()));
 		userCredentialRepository.save(user);
 	}

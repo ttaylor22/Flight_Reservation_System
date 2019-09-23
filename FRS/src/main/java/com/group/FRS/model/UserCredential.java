@@ -2,15 +2,17 @@ package com.group.FRS.model;
 
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
+//import javax.persistence.Column;
+//import javax.persistence.Entity;
+//import javax.persistence.GeneratedValue;
+//import javax.persistence.GenerationType;
+//import javax.persistence.Id;
+//import javax.persistence.JoinTable;
+//import javax.persistence.ManyToMany;
+//import javax.persistence.OneToOne;
+//import javax.persistence.Table;
+//import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -37,9 +39,16 @@ public class UserCredential {
 	@Transient
 	private String passwordConfirm;
 	
-	@ManyToMany
-	private Set<Role> roles;
+//	@ManyToMany(mappedBy="userCredentials")
+//	private Set<Role> roles;
 
+	
+	@ManyToMany
+	@JoinTable(
+	  name = "user_credential_roles", 
+	  joinColumns = @JoinColumn(name = "user_credential_id"), 
+	  inverseJoinColumns = @JoinColumn(name = "role_id"))
+	Set<Role> roles;
 	
 	
 	
