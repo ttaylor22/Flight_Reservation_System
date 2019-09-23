@@ -40,6 +40,8 @@ public class UserProfile {
 	private String mobileNumber;
 	@Column(name="email_id")
 	private String emailId;
+	@Column(name="payment_info")
+	private String paymentInfo;
 
 	@JsonIgnore
 	@JsonBackReference
@@ -132,6 +134,14 @@ public class UserProfile {
 
 	public void setUserCredential(UserCredential userCredential) {
 		this.userCredential = userCredential;
+	}
+	
+	public String getPaymentInfo() {
+		return paymentInfo;
+	}
+
+	public void setPaymentInfo(String paymentInfo) {
+		this.paymentInfo = paymentInfo;
 	}
 /*
 	@Override

@@ -55,6 +55,7 @@ public class UserProfileController {
 	       user.setMobileNumber(userDetails.getMobileNumber());
 	       user.setFirstName(userDetails.getFirstName());
 	       user.setLastName(userDetails.getLastName());
+	       user.setPaymentInfo(userDetails.getPaymentInfo());
 	       return ResponseEntity.ok(userProfileRepository.save(user));
 	   }
 	
