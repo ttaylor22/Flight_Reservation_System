@@ -1,0 +1,99 @@
+Flight 
+	-add 
+{
+	"flightName": "Something Airlines", 
+	"seatingCapacity": 4, 
+	"reservationCapacity": 2
+}
+
+Passenger 
+- add
+ {
+        "name": "test",
+        "age": 24,
+        "gender": "M",
+        "seatNo": 2,
+        "bookingDate": "2000-05-05",
+        "flight": {
+            "flightId": 5
+        }
+}
+
+Ticket
+-add 
+{
+	"paymentInfo": "debit"
+}
+
+Passenger_schedue
+-add
+{
+        "journeyDate": "2019-11-05",
+        "source": "orlando",
+        "destination": "new york",
+        "reservationType": "business",
+        "ticket": {
+            "id": 2
+        },
+        "passenger": {
+            "id": 3
+        }
+}
+
+Flight Schedule
+-add 
+ {
+        "scheduleDay": "2004-05-05",
+        "flight": {
+            "flightId": 3,
+        }
+}
+
+Route 
+-add 
+    {
+        "source": "kansas",
+        "destination": "new york",
+        "distance": 1122,
+        "duration": 7,
+        "flightSchedule": {
+            "id": 3
+        }
+    }
+
+User Credential
+-add 
+{
+        "type": "user",
+        "username": "mike123",
+        "password": "123",
+        "loginStatus": true
+    }
+
+
+User Profile
+-add
+{
+        "firstName": "mike",
+        "lastName": "ramirez",
+        "dateOfBirth": "1995-05-18T04:00:00.000+0000",
+        "gender": "M",
+        "address": "101 something stree",
+        "mobileNumber": "111-111-1111",
+        "emailId": "something@gmail.com",
+        "userCredential": {
+            "id": 1
+        }
+    }
+
+
+ Reservation
+ -add 
+ {
+
+        "journeyDate": "24-09-2019",
+        "noOfSeats": 2,
+        "userProfile": {
+            "id": 1,
+        }
+}
