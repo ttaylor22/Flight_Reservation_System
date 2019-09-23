@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.group.FRS.model.Flight;
 import com.group.FRS.model.PassengerSchedule;
 import com.group.FRS.repository.Passenger_ScheduleRepository;
 
@@ -33,6 +34,12 @@ public class PassengerScheduleController {
         return passengerScheduleService.findAll();
     }
     
+    @GetMapping(path="/get/{id}")
+    public PassengerSchedule getSinglePassengerSchedule(@PathVariable(value = "id") Long passengerScheduleId) {
+    	PassengerSchedule passengerSchedule = passengerScheduleService.findById(passengerScheduleId).orElse(null);
+    	return passengerSchedule;
+    }
+    
     //add passenger schedule
     @PostMapping(path ="/add")
     public ResponseEntity<PassengerSchedule> create( @RequestBody PassengerSchedule passenger){
@@ -41,7 +48,7 @@ public class PassengerScheduleController {
     
     //update
     @PutMapping(path ="/update/{id}")
-    public ResponseEntity<PassengerSchedule> updateFSchedule(@PathVariable(value ="id") Long passengerId,
+    public ResponseEntity<PassengerSchedule> updatePassengerSchedule(@PathVariable(value ="id") Long passengerId,
     		@Valid @RequestBody PassengerSchedule passengerscheduleDetails){
     	PassengerSchedule schedule = passengerScheduleService.findById(passengerId).orElse(null);
     	schedule.setDestination(passengerscheduleDetails.getDestination());

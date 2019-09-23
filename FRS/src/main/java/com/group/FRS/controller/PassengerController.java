@@ -49,7 +49,7 @@ public class PassengerController {
     }
 	
 	@PutMapping(path="/update/{id}")
-	   public ResponseEntity<Passenger> updateDoctor(@PathVariable(value = "id") Long passengerId,
+	   public ResponseEntity<Passenger> updatePassenger(@PathVariable(value = "id") Long passengerId,
 	                                              @Valid @RequestBody Passenger passengerDetails) {
 	       Passenger passenger = passengerRepository.findById( passengerId).orElse(null);
 	       passenger.setAge(passengerDetails.getAge());

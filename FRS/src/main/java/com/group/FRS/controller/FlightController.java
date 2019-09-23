@@ -37,13 +37,14 @@ public class FlightController {
     	Flight flight = flightRepository.findById(flightId).orElse(null);
     	return flight;
     }
+    
 	@PostMapping(path="/add")
     public ResponseEntity<Flight> create( @RequestBody Flight flight){
          return ResponseEntity.ok(flightRepository.save(flight));
     }
 	
 	@PutMapping("/update/{id}")
-	   public ResponseEntity<Flight> updateDoctor(@PathVariable(value = "id") int flightId,
+	   public ResponseEntity<Flight> updateFlight(@PathVariable(value = "id") int flightId,
 	                                              @Valid @RequestBody Flight flightDetails) {
 	       Flight flight = flightRepository.findById( flightId).orElse(null);
 	       flight.setflightName(flightDetails.getflightName());
