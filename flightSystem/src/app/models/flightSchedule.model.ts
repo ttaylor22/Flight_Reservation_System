@@ -1,5 +1,5 @@
 export class FlightSchedule {
    id                : number;
-   shceduleDay       : Date;
+   scheduleDay       : Date;
    flightId          : number;
 }

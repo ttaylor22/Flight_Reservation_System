@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Flight } from '../models/flight.model';
+import { Route } from '../models/route.model';
 import { FlightService } from '../flight.service';
 
 @Component({
@@ -12,6 +13,7 @@ import { FlightService } from '../flight.service';
 export class AddFlightComponent  {
 
   flight: Flight = new Flight();
+  //route: Route = new Route();
   constructor(private router: Router, private flightService: FlightService) { }
 
   createFlight(): void{
