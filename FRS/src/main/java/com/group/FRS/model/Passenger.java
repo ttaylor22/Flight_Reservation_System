@@ -39,22 +39,9 @@ public class Passenger {
 	@Column(name="booking_date")
 	private Date bookingDate;
 	
+	
 
-	@JsonIgnore
-	@JsonManagedReference
-	@ManyToOne
-	@JoinColumn(name="flight_id", nullable=false)
-	private Flight flight;
-	
-	//@JsonIgnore
-	@JsonBackReference
-	@OneToMany(mappedBy = "passenger")
-	public List<PassengerSchedule> passengerSchedules;
-
-	
-	
-	public Passenger( String name, int age, String gender, int seatNo, Date bookingDate, Flight flight
-		) {
+	public Passenger(String name, int age, String gender, int seatNo, Date bookingDate, Flight flight) {
 		super();
 		this.name = name;
 		this.age = age;
@@ -62,14 +49,25 @@ public class Passenger {
 		this.seatNo = seatNo;
 		this.bookingDate = bookingDate;
 		this.flight = flight;
-		//this.passengerSchedules = passengerSchedules;
 	}
+	
+	
 
 	public Passenger() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name="flight_id", nullable=false)
+	private Flight flight;
+
+	@JsonIgnore
+	@JsonBackReference
+	@OneToMany(mappedBy = "passenger")
+	public List<PassengerSchedule> passengerSchedules;
+	
 	public Long getId() {
 		return id;
 	}
@@ -125,8 +123,6 @@ public class Passenger {
 	public void setFlight(Flight flight) {
 		this.flight = flight;
 	}
-	
-	
 
 	@Override
 	public String toString() {

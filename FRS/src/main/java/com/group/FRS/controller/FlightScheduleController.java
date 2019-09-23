@@ -44,7 +44,7 @@ public class FlightScheduleController {
     		@Valid @RequestBody FlightSchedule flightscheduleDetails){
     	FlightSchedule schedule = flightScheduleService.findById(scheduleId).orElse(null);
     	schedule.setFlight(flightscheduleDetails.getFlight());
-    	//schedule.setRoutes(flightscheduleDetails.getRoutes());
+    	schedule.setRoutes(flightscheduleDetails.getRoutes());
     	schedule.setScheduleDay(flightscheduleDetails.getScheduleDay());
     	return ResponseEntity.ok(flightScheduleService.save(schedule));
     }

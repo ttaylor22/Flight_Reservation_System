@@ -17,43 +17,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.group.FRS.model.Reservation;
-import com.group.FRS.model.UserProfile;
 import com.group.FRS.repository.ReservationRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/reservation")
 public class ReservationController {
-	@Autowired(required=true)
-	 ReservationRepository reservationRepository;
-
-   @GetMapping(path="/getAll")
-   public List<Reservation> getAllReservations(){
-       return reservationRepository.findAll();
-   }
-
-   @GetMapping(path="/get/{id}")
-   public Reservation getSingleReservation(@PathVariable(value = "id") Long resId) {
-	   Reservation reservation = reservationRepository.findById(resId).orElse(null);
-   	return reservation;
-   }
-   
-	@PostMapping(path="/add")
-   public ResponseEntity<Reservation> create( @RequestBody Reservation res){
-        return ResponseEntity.ok(reservationRepository.save(res));
-   }
+	@Autowired
+	ReservationRepository reservationService;
 	
-	@PutMapping("/update/{id}")
-	   public ResponseEntity<Reservation> updateUserProfile(@PathVariable(value = "id") Long resId,
-	                                              @Valid @RequestBody Reservation resDetails) {
-		   Reservation reservation = reservationRepository.findById(resId).orElse(null);
-	       reservation.setJourneyDate(resDetails.getJourneyDate());
-	       reservation.setNoOfSeats(resDetails.getNoOfSeats());
-	       return ResponseEntity.ok(reservationRepository.save(reservation));
+    @GetMapping(path ="/getAll",produces="application/json")
+    public List<Reservation> getAllFlights(){
+        return reservationService.findAll();
+    }
+    
+    //add
+    @PostMapping(path ="/add")
+    public ResponseEntity<Reservation> create( @RequestBody Reservation reservation){
+    	return ResponseEntity.ok(reservationService.save(reservation));
+    }
+    
+    @PutMapping(path ="/update/{id}")
+	   public ResponseEntity<Reservation> updateDoctor(@PathVariable(value = "id") Long reservationId,
+	                                              @Valid @RequestBody Reservation reservationDetails) {
+    	Reservation reservation = reservationService.findById( reservationId).orElse(null);
+    	reservation.setFlights(reservationDetails.getFlights());
+    	reservation.setJourneyDate(reservationDetails.getJourneyDate());
+    	reservation.setNoOfSeats(reservationDetails.getNoOfSeats());
+    	reservation.setUserProfile(reservationDetails.getUserProfile());
+	       return ResponseEntity.ok(reservationService.save(reservation));
 	   }
-	
-	@DeleteMapping("/delete/{id}")
-   public void delete(@PathVariable("id") Long id) {
-        reservationRepository.deleteById(id);
-   }
+    
+    @DeleteMapping(path ="/delete/{id}")
+    public void delete(@PathVariable("id") Long id) {
+    	reservationService.deleteById(id);
+    }
+    
+
 }

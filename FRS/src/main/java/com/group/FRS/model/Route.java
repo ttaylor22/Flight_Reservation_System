@@ -33,7 +33,7 @@ public class Route {
 	@Column(name="duration")
 	private int duration;
 
-	//@JsonIgnore
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="flight_schedule_id", nullable=false)
 	private FlightSchedule flightSchedule;

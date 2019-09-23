@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Ticket {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@Column(name="payment_info")
@@ -24,19 +24,6 @@ public class Ticket {
 	@JsonIgnore
 	@OneToOne(mappedBy = "ticket")
 	private PassengerSchedule passengerSchedule;
-	
-	
-
-	public Ticket() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public Ticket( String paymentInfo, PassengerSchedule passengerSchedule) {
-		super();
-		this.paymentInfo = paymentInfo;
-		this.passengerSchedule = passengerSchedule;
-	}
 
 	public Long getId() {
 		return id;
