@@ -130,6 +130,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`user_profile` (
   `address` VARCHAR(45) NOT NULL,
   `mobile_number` VARCHAR(45) NOT NULL,
   `email_id` VARCHAR(45) NOT NULL,
+  `payment_infouser_profile` VARCHAR(45) NOT NULL,
   `user_credential_id` INT(11) NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_user_profile_user_credential1_idx` (`user_credential_id` ASC) VISIBLE,
