@@ -39,9 +39,9 @@ public class Flight {
 	@Column(name="reservation_capacity")
 	private int reservationCapacity;
 	
-	
+	@JsonIgnore
 	@JsonBackReference
-	@OneToMany(mappedBy="flight")
+	@OneToMany(mappedBy="flight", cascade = CascadeType.ALL)
 	private List<Passenger> passengers;
 
 	
@@ -51,7 +51,7 @@ public class Flight {
     inverseJoinColumns = @JoinColumn(name = "flight_id", referencedColumnName = "id"))
 	private List<Reservation> reservations;
 
-	@JsonIgnore
+	//@JsonIgnore
 	@JsonBackReference//(value="flight-schedules")
 	@OneToMany(mappedBy = "flight")
 	private List<FlightSchedule> flightSchedules;

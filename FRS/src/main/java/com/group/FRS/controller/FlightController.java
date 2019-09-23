@@ -17,7 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.group.FRS.model.Flight;
+import com.group.FRS.model.FlightSchedule;
+import com.group.FRS.model.Route;
 import com.group.FRS.repository.FlightRepository;
+import com.group.FRS.repository.Flight_ScheduleRepository;
+import com.group.FRS.repository.RouteRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -37,6 +41,9 @@ public class FlightController {
     	Flight flight = flightRepository.findById(flightId).orElse(null);
     	return flight;
     }
+    
+    
+ 
     
 	@PostMapping(path="/add")
     public ResponseEntity<Flight> create( @RequestBody Flight flight){

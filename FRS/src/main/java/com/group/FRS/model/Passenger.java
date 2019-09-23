@@ -46,7 +46,7 @@ public class Passenger {
 	@JoinColumn(name="flight_id", nullable=false)
 	private Flight flight;
 	
-	//@JsonIgnore
+	@JsonIgnore
 	@JsonBackReference
 	@OneToMany(mappedBy = "passenger")
 	public List<PassengerSchedule> passengerSchedules;
