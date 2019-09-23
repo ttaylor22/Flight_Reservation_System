@@ -37,8 +37,8 @@ public class UserCredentialController {
    	return user;
    }
    
-	@PostMapping(path="/add")
-   public ResponseEntity<UserCredential> create( @RequestBody UserCredential user){
+	@PostMapping(path="/add/{id}")
+   public ResponseEntity<UserCredential> create( @RequestBody UserCredential user) {
         return ResponseEntity.ok(userCredentialRepository.save(user));
    }
 	

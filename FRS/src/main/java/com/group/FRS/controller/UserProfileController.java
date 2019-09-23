@@ -28,7 +28,7 @@ public class UserProfileController {
 
 	@Autowired(required=true)
 	 User_ProfileRepository userProfileRepository;
-	 User_CredentialRepository userCredententialRepository;
+	 User_CredentialRepository userCredentialRepository;
 
     @GetMapping(path="/getAll")
     public List<UserProfile> getAllProfiles(){
@@ -42,16 +42,18 @@ public class UserProfileController {
     }
     
 	@PostMapping(path="/add")
-    public ResponseEntity<UserProfile> create( @RequestBody UserProfile user){
-		
-         return ResponseEntity.ok(userProfileRepository.save(user));
+    public ResponseEntity<UserProfile> create( @RequestBody UserProfile user) {
+		 userProfileRepository.save(user);
+         return ResponseEntity.ok(user);
     }
 	
+	/*
 	@PostMapping(path="/addById/{id}")
     public ResponseEntity<UserProfile> createWithId( @RequestBody UserProfile user, @PathVariable(value="id")){
 		UserCredential user = userCredententialRepository.findById(userId).orElse(null);
          return ResponseEntity.ok(userProfileRepository.save(user));
     }
+    */
 	
 	
 	@PutMapping("/update/{id}")
