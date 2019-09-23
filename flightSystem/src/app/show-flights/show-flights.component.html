@@ -1,0 +1,34 @@
+<div style=" width:500px; height:300px; border: 2px solid black;" >
+  <form style="margin:30px;">
+    <input type="radio" name="tripType" class="oneway" value="oneway" />One way
+    <input type="radio" name="tripType" class="roundtrip" value="roundtrip" />Round Trip<br>
+    From<input type="text" name="from" />
+    To<input type="text" name="to" /><br>
+    Date Start <input type="date" name="startDate" /><br>
+    Date End <input type="date" name="endDate" /> <br/>
+    Travelers <input type="number" name="travelers" /><br>
+    <input type="submit" value="Find Flights" />
+  </form>
+</div>
+
+<div >
+  <h2> User Details</h2>
+  
+  <table >
+    <thead>
+    <tr>
+      <th>Flight Name</th>
+      <th>Seat Cap.</th>
+      <th>Res. Cap</th>
+    </tr>
+  </thead>
+    <tbody>
+    <tr *ngFor="let flight of flights">
+      <td>{{flight.flightName}}</td>
+      <td>{{flight.seatingCapacity}}</td>
+      <td>{{flight.reservationCapacity}}</td>
+      <td><button  (click)="deleteFlight(flight)"> Delete Flight</button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
