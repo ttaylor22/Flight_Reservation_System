@@ -32,12 +32,12 @@ public class FlightSchedule {
 	@Column(name="schedule_day")
 	private Date scheduleDay;
 
-	@JsonIgnore
+	//@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="flight_id", nullable=false)
 	private Flight flight;
 
-	@JsonIgnore
+	//@JsonIgnore
 	@JsonBackReference
 	@OneToMany(mappedBy = "flightSchedule")
 	public List<Route> routes;

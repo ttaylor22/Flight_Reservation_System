@@ -30,7 +30,7 @@ public class PassengerScheduleController {
 	
     @GetMapping(path ="/getAll", produces="application/json")
     public List<PassengerSchedule> getAllFlightSchedules(){
-        return (List<PassengerSchedule>) passengerScheduleService.findAll();
+        return passengerScheduleService.findAll();
     }
     
     //add passenger schedule
