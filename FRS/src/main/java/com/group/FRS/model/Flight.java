@@ -39,12 +39,11 @@ public class Flight {
 	@Column(name="reservation_capacity")
 	private int reservationCapacity;
 	
-	
-	@JsonBackReference
+	@JsonIgnore
+	@JsonBackReference//(value="passengers")
 	@OneToMany(mappedBy="flight")
 	private List<Passenger> passengers;
 
-	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "reservation_has_flight",
     joinColumns = @JoinColumn(name = "reservation_id", referencedColumnName = "id"),
@@ -108,7 +107,7 @@ public class Flight {
 	public void setPassengers(List<Passenger> passengers) {
 		this.passengers = (List<Passenger>) passengers;
 	}
-/*
+
 	public List<Reservation> getReservations() {
 		return reservations;
 	}
@@ -131,8 +130,8 @@ public class Flight {
 				+ ", reservationCapacity=" + reservationCapacity + ", passengers=" + passengers + ", reservations="
 				+ reservations + ", flightSchedules=" + flightSchedules + "]";
 	}
-*/
 
+	
 	
 
 }

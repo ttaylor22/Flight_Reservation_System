@@ -35,12 +35,6 @@ public class PassengerController {
 	public List<Passenger> getAllPassengers(){
 		return passengerRepository.findAll();
 	}
-	
-	@GetMapping(path="/get/{id}", produces="application/json")
-	public Passenger getSinglePassenger(@PathVariable(value="id") Long passengerId) {
-		Passenger passenger = passengerRepository.findById(passengerId).orElse(null);
-		return passenger;
-	}
     
 
 	@PostMapping(path="/addPassenger")

@@ -31,12 +31,6 @@ public class TicketController {
 	public List<Ticket> getAllTickets(){
 		return ticketRepository.findAll();
 	}
-	
-	@GetMapping(path="/get/{id}", produces="application/json")
-	public Ticket getSingleTicket(@PathVariable(value="id") Long ticketId) {
-		return ticketRepository.findById(ticketId).orElse(null);
-		
-	}
     
 
 	@PostMapping(path ="/add")
@@ -59,3 +53,5 @@ public class TicketController {
 	
 	
 }
+
+

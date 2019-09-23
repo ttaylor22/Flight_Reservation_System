@@ -23,13 +23,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class UserProfile {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
     
-	@Column(name="first_name")
-	private String firstName;
-	@Column(name="last_name")
-	private String lastName;
+	@Column(name="name")
+	private String name;
 	@Column(name="date_of_birth")
 	private Date dateOfBirth;
 	@Column(name="gender")
@@ -47,7 +45,7 @@ public class UserProfile {
 	private List<Reservation> reservations;
 
 	
-	//@JsonIgnore
+	@JsonIgnore
 	@OneToOne//(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "user_credential_id", referencedColumnName = "id")
 	private UserCredential userCredential;
@@ -60,22 +58,12 @@ public class UserProfile {
 		this.id = id;
 	}
 
-	
-
-	public String getFirstName() {
-		return firstName;
+	public String getName() {
+		return name;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Date getDateOfBirth() {
@@ -117,7 +105,7 @@ public class UserProfile {
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
-/*
+
 	public List<Reservation> getReservations() {
 		return reservations;
 	}
@@ -125,7 +113,7 @@ public class UserProfile {
 	public void setReservations(List<Reservation> reservations) {
 		this.reservations = reservations;
 	}
-*/
+
 	public UserCredential getUserCredential() {
 		return userCredential;
 	}
@@ -133,13 +121,13 @@ public class UserProfile {
 	public void setUserCredential(UserCredential userCredential) {
 		this.userCredential = userCredential;
 	}
-/*
+
 	@Override
 	public String toString() {
 		return "UserProfile [id=" + id + ", name=" + name + ", dateOfBirth=" + dateOfBirth + ", gender=" + gender
 				+ ", address=" + address + ", mobileNumber=" + mobileNumber + ", emailId=" + emailId + ", reservations="
 				+ reservations + ", userCredential=" + userCredential + "]";
 	}
-*/
+
 	
 }

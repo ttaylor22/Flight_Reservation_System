@@ -10,3 +10,4 @@ import com.group.FRS.model.Reservation;
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 //
 }
+

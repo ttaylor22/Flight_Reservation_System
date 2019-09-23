@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class UserCredential {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
 	@Column(name="type")
@@ -27,7 +27,7 @@ public class UserCredential {
 	@Column(name="login_status")
 	private boolean loginStatus;
 	
-	//@JsonIgnore
+	@JsonIgnore
 	@OneToOne(mappedBy = "userCredential")
     private UserProfile userProfile;
 	
