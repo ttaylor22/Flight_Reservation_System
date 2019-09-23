@@ -43,12 +43,12 @@ export class CreateUSerComponent implements OnInit {
     
     this.userCredentialService.createUserCredential(this.userCredential)
     .subscribe( data => {
-      this.userProfile.userCredentialId = data.id;
-      alert(this.userProfile.userCredentialId);
+        this.credentialId = data.id;
+        //alert("In createUserCredential : " + this.credentialId);
     });
     
     //alert("This is an alert");
-    alert(this.userProfile.userCredentialId);
+    //alert("In createUser : " + this.credentialId);
     //this.userProfile.userCredentialId = this.userCredential.id;
     //alert(this.userCredential.password);
     /*
@@ -60,6 +60,7 @@ export class CreateUSerComponent implements OnInit {
    //this.userProfile.userCredentialId = this.credentialId;
    //alert(this.userProfile.userCredentialId);
     
+   //this.userProfile.userCredentialId = this.credentialId;
     this.userProfileService.createUserProfile(this.userProfile)
     .subscribe( data => {
       alert("User Profile created successfully.");

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import {UserProfile} from 'src/app/models/userProfile.model';
+import { UserCredential } from 'src/app/models/userCredential.model';
 import { Observable } from 'rxjs';
 const httpOptions = {
    headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -22,7 +23,7 @@ export class UserProfileService {
     return this.http.get<UserProfile[]>(this.userUrl + "/getAll");
   }
 
-  public getUserProfile(userProfile) {
+  public getUserProfile(userProfile,) {
      return this.http.get(this.userUrl + "/get/" + userProfile.id);
   }
 
