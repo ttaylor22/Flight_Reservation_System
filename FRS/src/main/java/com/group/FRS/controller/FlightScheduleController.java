@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.group.FRS.model.FlightSchedule;
+import com.group.FRS.model.Reservation;
 import com.group.FRS.repository.Flight_ScheduleRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -32,6 +33,12 @@ public class FlightScheduleController {
         return (List<FlightSchedule>) flightScheduleService.findAll();
     }
     
+    @GetMapping(path="/get/{id}")
+    public FlightSchedule getSingleFlightSchedule(@PathVariable(value = "id") Long flightId) {
+ 	   FlightSchedule flightSchedule = flightScheduleService.findById(flightId).orElse(null);
+    	return flightSchedule;
+    }
+    
     //put add flight
     @PostMapping(path="/add", produces="application/json")
     public ResponseEntity<FlightSchedule> create( @RequestBody FlightSchedule flight){
@@ -40,7 +47,7 @@ public class FlightScheduleController {
     
 
     @PutMapping(path="/update/{id}")
-    public ResponseEntity<FlightSchedule> updateFSchedule(@PathVariable(value ="id") Long scheduleId,
+    public ResponseEntity<FlightSchedule> updateFlightSchedule(@PathVariable(value ="id") Long scheduleId,
     		@Valid @RequestBody FlightSchedule flightscheduleDetails){
     	FlightSchedule schedule = flightScheduleService.findById(scheduleId).orElse(null);
     	schedule.setFlight(flightscheduleDetails.getFlight());

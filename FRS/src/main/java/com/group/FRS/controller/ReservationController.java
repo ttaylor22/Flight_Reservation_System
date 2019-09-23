@@ -44,7 +44,7 @@ public class ReservationController {
    }
 	
 	@PutMapping("/update/{id}")
-	   public ResponseEntity<Reservation> updateUserProfile(@PathVariable(value = "id") Long resId,
+	   public ResponseEntity<Reservation> updateReservation(@PathVariable(value = "id") Long resId,
 	                                              @Valid @RequestBody Reservation resDetails) {
 		   Reservation reservation = reservationRepository.findById(resId).orElse(null);
 	       reservation.setJourneyDate(resDetails.getJourneyDate());

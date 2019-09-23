@@ -26,7 +26,7 @@ import javax.persistence.Column;
 property = "id")
 public class FlightSchedule {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Column(name="schedule_day")
