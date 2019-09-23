@@ -1,7 +1,6 @@
 package com.group.FRS.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -17,49 +16,50 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.group.FRS.model.UserCredential;
 import com.group.FRS.model.UserProfile;
 import com.group.FRS.repository.User_ProfileRepository;
 
-
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/user_profile")
+@RequestMapping("/user/p")
 public class UserProfileController {
-	@Autowired
-	User_ProfileRepository userProfileRepository;
-	
-	@GetMapping(path ="/getAll",produces="application/json")
-	 public List<UserProfile>findUser_Profiles() {
-	 	return userProfileRepository.findAll();
-	}
-	
-	@GetMapping(path ="/UserProfiles/{id}",produces="application/json")
-	 public Optional<UserProfile> findUser_Profile(@PathVariable(value = "id") Long id) {
-	 	return userProfileRepository.findById(id);
-	}
-	 
-    @PostMapping(path ="/add")
-    public ResponseEntity<UserProfile> create( @RequestBody UserProfile userProfile){
-    	return ResponseEntity.ok(userProfileRepository.save(userProfile));
+
+	@Autowired(required=true)
+	 User_ProfileRepository userProfileRepository;
+
+    @GetMapping(path="/getAll")
+    public List<UserProfile> getAllProfiles(){
+        return userProfileRepository.findAll();
+    }
+
+    @GetMapping(path="/get/{id}")
+    public UserProfile getSingleProfile(@PathVariable(value = "id") Long userId) {
+    	UserProfile user = userProfileRepository.findById(userId).orElse(null);
+    	return user;
     }
     
-    @PutMapping(path ="/update/{id}")
-	   public ResponseEntity<UserProfile> updateDoctor(@PathVariable(value = "id") Long id,
-	                                              @Valid @RequestBody UserProfile userProfileDetails) {
-    	UserProfile userProfile = userProfileRepository.findById(id).orElse(null);
-    	userProfile.setName(userProfileDetails.getName());
-    	userProfile.setDateOfBirth(userProfileDetails.getDateOfBirth());
-    	userProfile.setGender(userProfileDetails.getGender());
-    	userProfile.setAddress(userProfileDetails.getAddress());
-    	userProfile.setMobileNumber(userProfileDetails.getMobileNumber());
-    	userProfile.setEmailId(userProfileDetails.getEmailId());
-    	userProfile.setReservations(userProfileDetails.getReservations());
-    	userProfile.setUserCredential(userProfileDetails.getUserCredential());
-    	return ResponseEntity.ok(userProfileRepository.save(userProfile));
+	@PostMapping(path="/add")
+    public ResponseEntity<UserProfile> create( @RequestBody UserProfile user){
+         return ResponseEntity.ok(userProfileRepository.save(user));
+    }
+	
+	@PutMapping("/update/{id}")
+	   public ResponseEntity<UserProfile> updateUserProfile(@PathVariable(value = "id") Long userId,
+	                                              @Valid @RequestBody UserProfile userDetails) {
+	       UserProfile user = userProfileRepository.findById( userId).orElse(null);
+	       user.setAddress(userDetails.getAddress());
+	       user.setDateOfBirth(userDetails.getDateOfBirth());
+	       user.setEmailId(userDetails.getEmailId());
+	       user.setGender(userDetails.getGender());
+	       user.setMobileNumber(userDetails.getMobileNumber());
+	       user.setFirstName(userDetails.getFirstName());
+	       user.setLastName(userDetails.getLastName());
+	       return ResponseEntity.ok(userProfileRepository.save(user));
 	   }
-    
-    @DeleteMapping(path ="/delete/{id}")
+	
+	@DeleteMapping("/delete/{id}")
     public void delete(@PathVariable("id") Long id) {
-    	userProfileRepository.deleteById(id);
+         userProfileRepository.deleteById(id);
     }
 }
