@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { UserCredential } from './models/userCredential.model';
-import { Flight } from './models/flight.model';
 
 const httpOptions = {
    headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -15,7 +14,7 @@ const httpOptions = {
 export class UserCredentialService {
    constructor(private http:HttpClient) {}
 
-   private userUrl = 'http://localhost:8080/api/userCredential/';
+   private userUrl = 'http://localhost:8080/userCredential';
 
    public getUserCredentials() {
       return this.http.get<UserCredential[]>(this.userUrl + "/getAll");

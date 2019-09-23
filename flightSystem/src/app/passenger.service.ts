@@ -14,7 +14,7 @@ const httpOptions = {
 export class PassengerService {
    constructor(private http:HttpClient) { }
 
-   private userUrl = 'http://localhost:8080/api/passengers';
+   private userUrl = 'http://localhost:8080/passengers';
 
    public getPassengers() {
       return this.http.get<Passenger[]>(this.userUrl);

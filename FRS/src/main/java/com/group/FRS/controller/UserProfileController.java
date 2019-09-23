@@ -18,15 +18,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.group.FRS.model.UserCredential;
 import com.group.FRS.model.UserProfile;
+import com.group.FRS.repository.User_CredentialRepository;
 import com.group.FRS.repository.User_ProfileRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/user/p")
+@RequestMapping("/userProfile")
 public class UserProfileController {
 
 	@Autowired(required=true)
 	 User_ProfileRepository userProfileRepository;
+	 User_CredentialRepository userCredententialRepository;
 
     @GetMapping(path="/getAll")
     public List<UserProfile> getAllProfiles(){
@@ -34,18 +36,26 @@ public class UserProfileController {
     }
 
     @GetMapping(path="/get/{id}")
-    public UserProfile getSingleProfile(@PathVariable(value = "id") Long userId) {
+    public UserProfile getSingleProfile(@PathVariable(value = "id") int userId) {
     	UserProfile user = userProfileRepository.findById(userId).orElse(null);
     	return user;
     }
     
 	@PostMapping(path="/add")
     public ResponseEntity<UserProfile> create( @RequestBody UserProfile user){
+		
          return ResponseEntity.ok(userProfileRepository.save(user));
     }
 	
+	@PostMapping(path="/addById/{id}")
+    public ResponseEntity<UserProfile> createWithId( @RequestBody UserProfile user, @PathVariable(value="id")){
+		UserCredential user = userCredententialRepository.findById(userId).orElse(null);
+         return ResponseEntity.ok(userProfileRepository.save(user));
+    }
+	
+	
 	@PutMapping("/update/{id}")
-	   public ResponseEntity<UserProfile> updateUserProfile(@PathVariable(value = "id") Long userId,
+	   public ResponseEntity<UserProfile> updateUserProfile(@PathVariable(value = "id") int userId,
 	                                              @Valid @RequestBody UserProfile userDetails) {
 	       UserProfile user = userProfileRepository.findById( userId).orElse(null);
 	       user.setAddress(userDetails.getAddress());
@@ -59,7 +69,7 @@ public class UserProfileController {
 	   }
 	
 	@DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable("id") Long id) {
+    public void delete(@PathVariable("id") int id) {
          userProfileRepository.deleteById(id);
     }
 }

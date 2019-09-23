@@ -1,17 +1,75 @@
 <div>
     <form>
-        <label class="control-label">First Name:<br></label> <input type="text" name="firstName" /><br>
-        Last Name: <input type="text" name="lastName" /><br>
-        DOB: <input type="date" name="dob" /><br>
-        Email: <input type="email" name="email" /> <br/>
-        Gender: <input type="text" name="gender" /><br>
-        Password <input type="password" name="pw" />
-        <input type="submit" class="btn btn-danger" value="Submit" />
+        <div>
+            <label for="firstName">First Name:</label>
+            <input type="text" [(ngModel)]="userProfile.firstName" placeholder="First Name" name="firstName" class="form-control" id="firstName">
+        </div>
+
+        <div>
+            <label for="lastName">Last Name:</label>
+            <input type="text" [(ngModel)]="userProfile.lastName" placeholder="Last Name" name="lastName" class="form-control" id="lastName">
+        </div>
 
         <div >
-            <label for="firstName">First Name:</label>
-            <input type="text" [(ngModel)]="flight.model.flightName" placeholder="Flight Name" name="flightName" class="form-control" id="flightName">
-          </div>
+            <label for="dateOfBirth">Date of Birth:</label>
+            <input type="date" [(ngModel)]="userProfile.dateOfBirth" name="dateOfBirth" class="form-control" id="dateOfBirth">
+        </div>
+
+        <div >
+            <label for="emailId">Email:</label>
+            <input type="emailId" [(ngModel)]="userProfile.emailId" placeholder="name@mail.com" name="emailId" class="form-control" id="emailId">
+        </div>
+
+        <div >
+            <label for="address">Address:</label>
+            <input type="text" [(ngModel)]="userProfile.address" placeholder="Address" name="address" class="form-control" id="address">
+        </div>
+
+        <div >
+            <label for="mobileNumber">Mobile Number:</label>
+            <input type="text" [(ngModel)]="userProfile.mobileNumber" name="mobileNumber" class="form-control" id="mobileNumber">
+        </div>
+
+        <div >
+            <label for="gender">Gender:</label>
+            <input type="text" [(ngModel)]="userProfile.gender" placeholder="Gender" name="gender" class="form-control" id="gender">
+        </div>
+
+        <div >
+            <label for="password">Password:</label>
+            <input type="password" [(ngModel)]="userCredential.password" placeholder="Password" name="password" class="form-control" id="password">
+        </div>
+
+        <button (click)="createUser()">Create</button>
+
     </form>
+
+    <table >
+        <thead>
+            <tr>
+                <th>First</th>
+                <th>Last</th>
+                <th>DOB</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Number</th>
+                <th>Gender</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <tr *ngFor="let userProfile of userProfiles">
+            <td>{{userProfile.firstName}}</td>
+            <td>{{userProfile.firstName}}</td>
+            <td>{{userProfile.dateOfBirth}}</td>
+            <td>{{userProfile.emailId}}</td>
+            <td>{{userProfile.address}}</td>
+            <td>{{userProfile.mobileNumber}}</td>
+            <td>{{userProfile.gender}}</td>
+            <td><button  (click)="deleteUser(userProfile)"> Delete User</button></td>
+            </tr>
+        </tbody>
+      </table>
+
 
 </div>

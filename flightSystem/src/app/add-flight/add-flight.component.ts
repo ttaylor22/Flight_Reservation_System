@@ -9,12 +9,14 @@ import { FlightService } from '../flight.service';
   templateUrl: './add-flight.component.html',
   styleUrls: ['./add-flight.component.css']
 })
-export class AddFlightComponent  {
+export class AddFlightComponent  implements OnInit {
 
   flight: Flight = new Flight();
   constructor(private router: Router, private flightService: FlightService) { }
 
-  createFlight(): void{
+  ngOnInit() { }
+
+  createFlight(): void {
     this.flightService.createFlight(this.flight)
     .subscribe( data => {
       alert("Flight created successfully.");

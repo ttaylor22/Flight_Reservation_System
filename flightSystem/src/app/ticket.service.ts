@@ -14,7 +14,7 @@ export class TicketService {
 
   constructor(private http:HttpClient) {}
 
-  private userUrl = 'http://localhost:8080/api/ticket';
+  private userUrl = 'http://localhost:8080/ticket';
 	//private userUrl = '/api';
 
   public getTickets() {

@@ -22,7 +22,7 @@ export class ShowFlightsComponent implements OnInit {
         });
     };
   
-    deleteUser(flight: Flight): void {
+    deleteFlight(flight: Flight): void {
       this.flightService.deleteFlight(flight)
         .subscribe( data => {
           this.flights = this.flights.filter(u => u !== flight);

@@ -1,5 +1,28 @@
 <div>
-    <h3>
-        Account Page Details
-    </h3>
+    <table >
+        <thead>
+            <tr>
+                <th>First</th>
+                <th>Last</th>
+                <th>DOB</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Number</th>
+                <th>Gender</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <tr *ngFor="let userProfile of userProfiles">
+            <td>{{userProfile.firstName}}</td>
+            <td>{{userProfile.firstName}}</td>
+            <td>{{userProfile.dateOfBirth}}</td>
+            <td>{{userProfile.emailId}}</td>
+            <td>{{userProfile.address}}</td>
+            <td>{{userProfile.mobileNumber}}</td>
+            <td>{{userProfile.gender}}</td>
+            <td><button  (click)="deleteUser(userProfile)"> Delete User</button></td>
+            </tr>
+        </tbody>
+      </table>
 </div>

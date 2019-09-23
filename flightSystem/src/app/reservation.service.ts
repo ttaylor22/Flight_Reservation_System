@@ -15,7 +15,7 @@ export class ReservationService {
     
   constructor(private http:HttpClient) {}
 
-  private userUrl = 'http://localhost:8080/api/reservation';
+  private userUrl = 'http://localhost:8080/reservation';
 	//private userUrl = '/api';
 
   public getReservations() {

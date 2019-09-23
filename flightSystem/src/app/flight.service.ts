@@ -14,7 +14,7 @@ export class FlightService {
 
   constructor(private http:HttpClient) {}
 
-  private userUrl = 'http://localhost:8080/api/flight';
+  private userUrl = 'http://localhost:8080/flight';
 	//private userUrl = '/api';
 
   public getFlights() {

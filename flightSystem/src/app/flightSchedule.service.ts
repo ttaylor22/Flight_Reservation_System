@@ -14,7 +14,7 @@ const httpOptions = {
 export class FlightScheduleService {
    constructor(private http:HttpClient) {}
 
-   private userUrl = 'http://localhost:8080/api/FlightSchedule';
+   private userUrl = 'http://localhost:8080/FlightSchedule';
 
    public getFlightSchedules() {
    return this.http.get<Flight[]>(this.userUrl + "/flightSchedules");
