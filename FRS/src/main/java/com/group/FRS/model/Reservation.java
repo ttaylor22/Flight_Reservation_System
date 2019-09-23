@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 property = "id")
 public class Reservation {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Column(name="journey_date")
@@ -33,7 +33,7 @@ public class Reservation {
 	@Column(name="no_of_seats")
 	private int noOfSeats;
 
-	@JsonIgnore
+	//@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="user_profile_id", nullable=false)
 	private UserProfile userProfile;

@@ -24,21 +24,26 @@ import com.group.FRS.repository.FlightRepository;
 @RequestMapping("/flight")
 public class FlightController {
 	
-	@Autowired
+	@Autowired(required=true)
 	 FlightRepository flightRepository;
 
     @GetMapping(path="/getAll")
     public List<Flight> getAllFlights(){
         return flightRepository.findAll();
     }
-    
+
+    @GetMapping(path="/get/{id}")
+    public Flight getSingleFlight(@PathVariable(value = "id") int flightId) {
+    	Flight flight = flightRepository.findById(flightId).orElse(null);
+    	return flight;
+    }
 	@PostMapping(path="/add")
     public ResponseEntity<Flight> create( @RequestBody Flight flight){
          return ResponseEntity.ok(flightRepository.save(flight));
     }
 	
 	@PutMapping("/update/{id}")
-	   public ResponseEntity<Flight> updateDoctor(@PathVariable(value = "id") Long flightId,
+	   public ResponseEntity<Flight> updateDoctor(@PathVariable(value = "id") int flightId,
 	                                              @Valid @RequestBody Flight flightDetails) {
 	       Flight flight = flightRepository.findById( flightId).orElse(null);
 	       flight.setflightName(flightDetails.getflightName());
@@ -48,7 +53,7 @@ public class FlightController {
 	   }
 	
 	@DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable("id") Long id) {
+    public void delete(@PathVariable("id") int id) {
          flightRepository.deleteById(id);
     }
     
