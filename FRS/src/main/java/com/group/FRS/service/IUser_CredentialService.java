@@ -4,6 +4,10 @@ import java.util.List;
 import com.group.FRS.model.*;
 
 public interface IUser_CredentialService {
-
-		List<UserCredential> find_All();
+	
+	void save(UserCredential userCredential);
+	UserCredential findByUsername(String username);
+	
+//	List<UserCredential> find_All();
+	
 }
