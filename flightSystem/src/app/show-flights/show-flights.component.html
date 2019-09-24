@@ -1,17 +1,26 @@
 <div style=" width:500px; height:300px; border: 2px solid black;" >
   <form style="margin:30px;">
-    <input type="radio" name="tripType" class="oneway" value="oneway" />One way
-    <input type="radio" name="tripType" class="roundtrip" value="roundtrip" />Round Trip<br>
-    From<input [(ngModel)]="route.source" type="text" name="source" id="source"/> 
-    To<input [(ngModel)]="route.destination" type="text" name="destination" id="destination"/><br> 
-    <!--Date Start <input [(ngModel)]="flightSchedule.scheduleDay" type="date" name="startDate" /><br> -->
-    <!--Date End <input type="date" name="endDate" /> <br/>-->
-   <!-- Travelers <input type="number" name="travelers" /><br>-->
+    <!--<input type="radio"   value="true" ngModel="tt" ng-init="tt=true" />One way -->
+    <!--<input type="radio"    value="false" ngModel="tt" />Round Trip<br>-->
+
+      <input type="radio"  name="roundTrip" value='false' [(ngModel)]="checked" />One way
+      <input type="radio"  name="roundTrip" value='true' [(ngModel)]="checked" />Round Trip<br>
+      From<input  name="source" id="source" [(ngModel)]="route.source" type="text" required minlength="4"/>
+      To<input [(ngModel)]="route.destination" type="text" name="destination" id="destination"/><br>
+      Date Start <input [(ngModel)]="flightSchedule.scheduleDay" type="date" name="scheduleDay" id="scheduleDay"/><br>
+      <span *ngIf="checked === 'true'" >Date End <input  type="date" name="endDate" /> </span><br/><br>
+    <!-- Travelers <input type="number" name="travelers" /><br>-->
     <button (click)="displayFlights()">Find Flights</button>
+
+    <h2 *ngIf="routes?.length == 0">No flights found!</h2>
+
+
   </form>
 </div>
 
-<div >
+
+
+<div *ngIf="routes?.length > 0">
   <h2> Flights</h2>
 <table cellspacing="40">
     <thead>
@@ -44,7 +53,6 @@
   </table>
 
 </div>
-
 
 
 <!--

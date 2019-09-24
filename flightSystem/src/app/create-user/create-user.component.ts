@@ -24,15 +24,16 @@ export class CreateUSerComponent implements OnInit {
   constructor(
     private router : Router,
     private userProfileService : UserProfileService,
-    private userCredentialService : UserCredentialService 
+    private userCredentialService : UserCredentialService
   ) { }
 
-  
+
   ngOnInit() {
+    /*
     this.userProfileService.getUserProfiles()
         .subscribe( data => {
           this.userProfiles = data;
-        });
+        });*/
   }
 
   createUser() : void {
@@ -40,13 +41,13 @@ export class CreateUSerComponent implements OnInit {
     this.userCredential.username = this.userProfile.emailId;
     this.userCredential.type = "User";
     //alert("WAH");
-    
+
     this.userCredentialService.createUserCredential(this.userCredential)
     .subscribe( data => {
         //this.credentialId = data.id;
         //alert("In createUserCredential : " + this.credentialId);
     });
-    
+
     //alert("This is an alert");
     //alert("In createUser : " + this.credentialId);
     //this.userProfile.userCredentialId = this.userCredential.id;
@@ -59,7 +60,7 @@ export class CreateUSerComponent implements OnInit {
     */
    //this.userProfile.userCredentialId = this.credentialId;
    //alert(this.userProfile.userCredentialId);
-    
+
    //this.userProfile.userCredentialId = this.credentialId;
     this.userProfileService.createUserProfile(this.userProfile)
     .subscribe( data => {
@@ -70,7 +71,7 @@ export class CreateUSerComponent implements OnInit {
   deleteUser(userProfile) : void {
     alert(userProfile.userCredentialId);
     this.userProfileService.deleteUserProfile(userProfile.id).subscribe( data => {
-      
+
     });
     this.userCredentialService.deleteUserCredential(userProfile.userCredentialId).subscribe( data => {
 
