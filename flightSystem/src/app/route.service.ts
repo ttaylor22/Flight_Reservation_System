@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Route } from './models/route.model';
 
+
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
@@ -14,7 +15,9 @@ export class RouteService {
 
   constructor(private http:HttpClient) {}
 
-  private userUrl = 'http://localhost:8080/api/';
+
+  private userUrl = 'http://localhost:8080/route';
+
 	//private userUrl = '/api';
 
   public getRoutes() {
@@ -36,4 +39,11 @@ export class RouteService {
   public createRoute(route) {
     return this.http.post<Route>(this.userUrl+"/route", route);
   }
+
+  public displayFlights(route){
+    console.log(route.source + ' ' + route.destination);
+    return this.http.get<any>(this.userUrl +"/displayFlights/" +  route.source + "/" + route.destination);
+  }
+
+
 }

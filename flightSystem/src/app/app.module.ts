@@ -21,7 +21,7 @@ import { LoginComponent } from './login/login.component';
     ShowFlightsComponent,
     AccountPageComponent,
     AddFlightComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

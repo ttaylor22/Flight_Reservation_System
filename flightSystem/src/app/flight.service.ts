@@ -14,19 +14,24 @@ export class FlightService {
 
   constructor(private http:HttpClient) {}
 
-  private userUrl = 'http://localhost:8080/api';
+
+  private userUrl = 'http://localhost:8080/flight';
 	//private userUrl = '/api';
 
   public getFlights() {
-    return this.http.get<Flight[]>(this.userUrl + "/flights");
+    console.log("calling this getflights method");
+    return this.http.get<Flight[]>(this.userUrl + "/getAll");
   }
 
   public getFlight(flight) {
-    return this.http.get(this.userUrl + "/flight/" + flight.id);
+    
+    return this.http.get(this.userUrl + "/get/" + flight.id);
   }
 
   public deleteFlight(flight) {
-    return this.http.delete(this.userUrl + "/flight/"+ flight.id);
+    console.log("deleteing shit ");
+    return this.http.delete(this.userUrl + "/delete/"+ flight.flightId);
+
   }
 
   public updateFlight(flight) {
@@ -34,6 +39,9 @@ export class FlightService {
   }
 
   public createFlight(flight) {
-    return this.http.post<Flight>(this.userUrl+"/flight", flight);
+    return this.http.post<Flight>(this.userUrl+"/add", flight);
+
   }
+
+  
 }
