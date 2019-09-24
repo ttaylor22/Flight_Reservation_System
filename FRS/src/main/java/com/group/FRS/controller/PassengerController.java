@@ -15,15 +15,18 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.group.FRS.model.Flight;
 import com.group.FRS.model.Passenger;
+import com.group.FRS.model.PassengerSchedule;
+import com.group.FRS.model.UserProfile;
 import com.group.FRS.repository.FlightRepository;
 import com.group.FRS.repository.PassengerRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/passenger")
+@RequestMapping("/api")
 public class PassengerController {
-
 
 	@Autowired
 	PassengerRepository passengerRepository;
@@ -31,36 +34,44 @@ public class PassengerController {
 	@Autowired
 	FlightRepository flightRepository;
 	
-	@GetMapping(path="/getAll", produces="application/json")
+	@GetMapping(path="/passengers")
 	public List<Passenger> getAllPassengers(){
 		return passengerRepository.findAll();
 	}
 	
-	@GetMapping(path="/get/{id}", produces="application/json")
+	@GetMapping(path="/passenger/{id}")
 	public Passenger getSinglePassenger(@PathVariable(value="id") Long passengerId) {
-		Passenger passenger = passengerRepository.findById(passengerId).orElse(null);
-		return passenger;
+		return passengerRepository.findById(passengerId).orElse(null);
 	}
-    
 
-	@PostMapping(path="/addPassenger")
+	@PostMapping(path="/passenger")
     public ResponseEntity<Passenger> create(@RequestBody Passenger passenger){
 		return ResponseEntity.ok(passengerRepository.save(passenger));
     }
 	
-	@PutMapping(path="/update/{id}")
+	@PutMapping(path="/passenger/{id}")
 	   public ResponseEntity<Passenger> updatePassenger(@PathVariable(value = "id") Long passengerId,
 	                                              @Valid @RequestBody Passenger passengerDetails) {
 	       Passenger passenger = passengerRepository.findById( passengerId).orElse(null);
 	       passenger.setAge(passengerDetails.getAge());
-	       passenger.setName(passengerDetails.getName());
+	       passenger.setFirstName(passengerDetails.getFirstName());
+	       passenger.setLastName(passengerDetails.getLastName());
 	       passenger.setGender(passengerDetails.getGender());
 	       passenger.setSeatNo(passengerDetails.getSeatNo());
 	       passenger.setBookingDate(passengerDetails.getBookingDate());
 	       return ResponseEntity.ok(passengerRepository.save(passenger));
 	   }
 	
-	@DeleteMapping(path="/delete/{id}")
+	   @PutMapping("/passenger/{id1}/flight/{id2}")
+	   	public ResponseEntity<Passenger> connect(@PathVariable(value = "id") Long passengerId,
+	   			@PathVariable(value = "id2") Long flightId) {
+	   		Passenger pass = passengerRepository.findById(passengerId).orElse(null);
+	   		Flight flight = flightRepository.findById(flightId).orElse(null);
+	   		pass.setFlight(flight);
+	   		return ResponseEntity.ok(passengerRepository.save(pass));
+	   	}
+	
+	@DeleteMapping(path="/passenger/{id}")
     public void delete(@PathVariable("id") Long id) {
          passengerRepository.deleteById(id);
     }

@@ -18,48 +18,63 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.group.FRS.model.UserCredential;
 import com.group.FRS.model.UserProfile;
-import com.group.FRS.repository.User_ProfileRepository;
+import com.group.FRS.repository.UserCredentialRepository;
+import com.group.FRS.repository.UserProfileRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/user/p")
+@RequestMapping("/api")
 public class UserProfileController {
 
-	@Autowired(required=true)
-	 User_ProfileRepository userProfileRepository;
-
-    @GetMapping(path="/getAll")
-    public List<UserProfile> getAllProfiles(){
-        return userProfileRepository.findAll();
-    }
-
-    @GetMapping(path="/get/{id}")
-    public UserProfile getSingleProfile(@PathVariable(value = "id") Long userId) {
-    	UserProfile user = userProfileRepository.findById(userId).orElse(null);
-    	return user;
-    }
-    
-	@PostMapping(path="/add")
-    public ResponseEntity<UserProfile> create( @RequestBody UserProfile user){
-         return ResponseEntity.ok(userProfileRepository.save(user));
-    }
+	@Autowired
+	UserProfileRepository userProfileRepository;
 	
-	@PutMapping("/update/{id}")
-	   public ResponseEntity<UserProfile> updateUserProfile(@PathVariable(value = "id") Long userId,
-	                                              @Valid @RequestBody UserProfile userDetails) {
-	       UserProfile user = userProfileRepository.findById( userId).orElse(null);
-	       user.setAddress(userDetails.getAddress());
-	       user.setDateOfBirth(userDetails.getDateOfBirth());
-	       user.setEmailId(userDetails.getEmailId());
-	       user.setGender(userDetails.getGender());
-	       user.setMobileNumber(userDetails.getMobileNumber());
-	       user.setFirstName(userDetails.getFirstName());
-	       user.setLastName(userDetails.getLastName());
-	       return ResponseEntity.ok(userProfileRepository.save(user));
-	   }
-	
-	@DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable("id") Long id) {
-         userProfileRepository.deleteById(id);
-    }
+	@Autowired
+	UserCredentialRepository userCredentialRepository;
+
+
+	@GetMapping(path = "/user/profiles")
+	public List<UserProfile> getAllProfiles() {
+		return userProfileRepository.findAll();
+	}
+
+	@GetMapping(path = "/user/profile/{id}")
+	public UserProfile getSingleProfile(@PathVariable(value = "id") Long userId) {
+		UserProfile user = userProfileRepository.findById(userId).orElse(null);
+		return user;
+	}
+
+	@PostMapping(path = "/user/profile")
+	public ResponseEntity<UserProfile> create(@RequestBody UserProfile user) {
+		return ResponseEntity.ok(userProfileRepository.save(user));
+	}
+
+	@PutMapping("/user/profile/{id}")
+	public ResponseEntity<UserProfile> updateUserProfile(@PathVariable(value = "id") Long userId,
+			@Valid @RequestBody UserProfile userDetails) {
+		UserProfile user = userProfileRepository.findById(userId).orElse(null);
+		user.setAddress(userDetails.getAddress());
+		user.setDateOfBirth(userDetails.getDateOfBirth());
+		user.setEmailId(userDetails.getEmailId());
+		user.setGender(userDetails.getGender());
+		user.setMobileNumber(userDetails.getMobileNumber());
+		user.setFirstName(userDetails.getFirstName());
+		user.setLastName(userDetails.getLastName());
+		return ResponseEntity.ok(userProfileRepository.save(user));
+	}
+
+	@PutMapping("/user/profile/{id}/user/credential/{id2}")
+	public ResponseEntity<UserProfile> connect(@PathVariable(value = "id") Long userId,
+			@PathVariable(value = "id2") Long userCId,
+			@Valid @RequestBody UserProfile userDetails) {
+		UserProfile user = userProfileRepository.findById(userId).orElse(null);
+		UserCredential userC = userCredentialRepository.findById(userCId).orElse(null);
+		user.setUserCredential(userC);
+		return ResponseEntity.ok(userProfileRepository.save(user));
+	}
+
+	@DeleteMapping("/user/profile/{id}")
+	public void delete(@PathVariable("id") Long id) {
+		userProfileRepository.deleteById(id);
+	}
 }

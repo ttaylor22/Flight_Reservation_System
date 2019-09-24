@@ -20,21 +20,24 @@ public class Ticket {
 
 	@Column(name="payment_info")
 	private String paymentInfo;
+	
+	@Column(name="price")
+	private int price;
 
 	@JsonIgnore
 	@OneToOne(mappedBy = "ticket")
 	private PassengerSchedule passengerSchedule;
-	
-	
 
 	public Ticket() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Ticket( String paymentInfo, PassengerSchedule passengerSchedule) {
+	public Ticket(Long id, String paymentInfo, int price, PassengerSchedule passengerSchedule) {
 		super();
+		this.id = id;
 		this.paymentInfo = paymentInfo;
+		this.price = price;
 		this.passengerSchedule = passengerSchedule;
 	}
 
@@ -54,6 +57,14 @@ public class Ticket {
 		this.paymentInfo = paymentInfo;
 	}
 
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
 	public PassengerSchedule getPassengerSchedule() {
 		return passengerSchedule;
 	}
@@ -64,12 +75,11 @@ public class Ticket {
 
 	@Override
 	public String toString() {
-		return "Ticket [id=" + id + ", paymentInfo=" + paymentInfo + ", passengerSchedule=" + passengerSchedule + "]";
+		return "Ticket [id=" + id + ", paymentInfo=" + paymentInfo + ", price=" + price + ", passengerSchedule="
+				+ passengerSchedule + "]";
 	}
 
 	
-	
-
 	
 
 	
