@@ -20,29 +20,29 @@ import com.group.FRS.repository.UserProfileRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/user/profile")
+@RequestMapping("/api")
 public class UserProfileController {
 
 	@Autowired
 	 UserProfileRepository userProfileRepository;
 
-    @GetMapping(path="/getAll")
+    @GetMapping(path="/user/profiles")
     public List<UserProfile> getAllProfiles(){
         return userProfileRepository.findAll();
     }
 
-    @GetMapping(path="/get/{id}")
+    @GetMapping(path="/user/profile/{id}")
     public UserProfile getSingleProfile(@PathVariable(value = "id") Long userId) {
     	UserProfile user = userProfileRepository.findById(userId).orElse(null);
     	return user;
     }
     
-	@PostMapping(path="/add")
+	@PostMapping(path="/user/profile")
     public ResponseEntity<UserProfile> create( @RequestBody UserProfile user){
          return ResponseEntity.ok(userProfileRepository.save(user));
     }
 	
-	@PutMapping("/update/{id}")
+	@PutMapping("/user/profile/{id}")
 	   public ResponseEntity<UserProfile> updateUserProfile(@PathVariable(value = "id") Long userId,
 	                                              @Valid @RequestBody UserProfile userDetails) {
 	       UserProfile user = userProfileRepository.findById( userId).orElse(null);
@@ -56,7 +56,7 @@ public class UserProfileController {
 	       return ResponseEntity.ok(userProfileRepository.save(user));
 	   }
 	
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/user/profile/{id}")
     public void delete(@PathVariable("id") Long id) {
          userProfileRepository.deleteById(id);
     }

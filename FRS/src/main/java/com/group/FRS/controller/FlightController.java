@@ -24,7 +24,7 @@ import com.group.FRS.repository.FlightScheduleRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/flight")
+@RequestMapping("/api")
 public class FlightController {
 	
 	@Autowired
@@ -33,22 +33,22 @@ public class FlightController {
 	@Autowired
     FlightScheduleRepository flightScheduleRepository;
 
-    @GetMapping(path="/getAll")
+    @GetMapping(path="/flights")
     public List<Flight> getAllFlights(){
         return flightRepository.findAll();
     }
 
-    @GetMapping(path="/get/{id}")
+    @GetMapping(path="/flight/{id}")
     public Flight getSingleFlight(@PathVariable(value = "id") Long flightId) {
     	return flightRepository.findById(flightId).orElse(null);
     }
     
-	@PostMapping(path="/add")
+	@PostMapping(path="/flight")
     public ResponseEntity<Flight> create( @RequestBody Flight flight){
          return ResponseEntity.ok(flightRepository.save(flight));
     }
 	
-	@PutMapping("/update/{id}")
+	@PutMapping("/flight/{id}")
 	   public ResponseEntity<Flight> updateFlight(@PathVariable(value = "id") Long flightId,
 	                                              @Valid @RequestBody Flight flightDetails) {
 	       Flight flight = flightRepository.findById( flightId).orElse(null);
@@ -57,7 +57,7 @@ public class FlightController {
 	       flight.setreservationCapacity(flightDetails.getreservationCapacity());
 	       return ResponseEntity.ok(flightRepository.save(flight));
 	   }
-	
+	/*
 	//@SuppressWarnings("unchecked")
 	@PutMapping("/update/{id}/schedule/{id2}")
 	   public ResponseEntity<Flight> updateFlight(@PathVariable(value = "id") Long flightId,
@@ -76,8 +76,8 @@ public class FlightController {
 	       flight.getFlightSchedules().addAll(list);
 	       return ResponseEntity.ok(flightRepository.save(flight));
 	   }
-	
-	@DeleteMapping("/delete/{id}")
+	*/
+	@DeleteMapping("/flight/{id}")
     public void delete(@PathVariable("id") Long id) {
          flightRepository.deleteById(id);
     }

@@ -20,28 +20,28 @@ import com.group.FRS.repository.UserCredentialRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/user/credential")
+@RequestMapping("/api")
 public class UserCredentialController {
 	@Autowired
 	UserCredentialRepository userCredentialRepository;
 
-	@GetMapping(path = "/getAll", produces = "application/json")
+	@GetMapping(path = "/user/credentials")
 	public List<UserCredential> getAllUserCredentials() {
 		return userCredentialRepository.findAll();
 	}
 
-	@GetMapping(path = "/get/{id}")
+	@GetMapping(path = "/user/credential/{id}")
 	public UserCredential getUserCredential(@PathVariable(value = "id") Long credentialId) {
 		UserCredential userCredential = userCredentialRepository.findById(credentialId).orElse(null);
 		return userCredential;
 	}
 
-	@PostMapping(path = "/add")
+	@PostMapping(path = "/user/credential")
 	public void create(@RequestBody UserCredential userCredential) {
 		userCredentialRepository.save(userCredential);
 	}
 
-	@PutMapping("/update/{id}")
+	@PutMapping("/user/credential/{id}")
 	public ResponseEntity<UserCredential> updateCredentials(@PathVariable(value = "id") Long userId,
 			@Valid @RequestBody UserCredential userCredentialDetails) {
 		UserCredential userCredential = userCredentialRepository.findById(userId).orElse(null);
@@ -53,7 +53,7 @@ public class UserCredentialController {
 		return ResponseEntity.ok(updateduserCredential);
 	}
 
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/user/credential/{id}")
 	public void delete(@PathVariable("id") Long id) {
 		userCredentialRepository.deleteById(id);
 	}

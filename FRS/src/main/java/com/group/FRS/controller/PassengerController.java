@@ -21,28 +21,28 @@ import com.group.FRS.repository.PassengerRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/passenger")
+@RequestMapping("/api")
 public class PassengerController {
 
 	@Autowired
 	PassengerRepository passengerRepository;
 	
-	@GetMapping(path="/getAll")
+	@GetMapping(path="/passengers")
 	public List<Passenger> getAllPassengers(){
 		return passengerRepository.findAll();
 	}
 	
-	@GetMapping(path="/get/{id}")
+	@GetMapping(path="/passenger/{id}")
 	public Passenger getSinglePassenger(@PathVariable(value="id") Long passengerId) {
 		return passengerRepository.findById(passengerId).orElse(null);
 	}
 
-	@PostMapping(path="/addPassenger")
+	@PostMapping(path="/passenger")
     public ResponseEntity<Passenger> create(@RequestBody Passenger passenger){
 		return ResponseEntity.ok(passengerRepository.save(passenger));
     }
 	
-	@PutMapping(path="/update/{id}")
+	@PutMapping(path="/passenger/{id}")
 	   public ResponseEntity<Passenger> updatePassenger(@PathVariable(value = "id") Long passengerId,
 	                                              @Valid @RequestBody Passenger passengerDetails) {
 	       Passenger passenger = passengerRepository.findById( passengerId).orElse(null);
@@ -55,7 +55,7 @@ public class PassengerController {
 	       return ResponseEntity.ok(passengerRepository.save(passenger));
 	   }
 	
-	@DeleteMapping(path="/delete/{id}")
+	@DeleteMapping(path="/passenger/{id}")
     public void delete(@PathVariable("id") Long id) {
          passengerRepository.deleteById(id);
     }
