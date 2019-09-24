@@ -19,11 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.group.FRS.model.UserCredential;
 import com.group.FRS.model.UserProfile;
 import com.group.FRS.repository.UserCredentialRepository;
+
 import com.group.FRS.repository.UserProfileRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 public class UserProfileController {
 
 	@Autowired

@@ -9,4 +9,3 @@ import com.group.FRS.model.Flight;
 public interface FlightRepository  extends JpaRepository<Flight, Long> {
 	
 }
-
