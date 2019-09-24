@@ -11,7 +11,8 @@ import { AccountPageComponent } from './account-page/account-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AddFlightComponent } from './add-flight/add-flight.component';
 import { LoginComponent } from './login/login.component';
-
+import { LogoutComponent } from './logout/logout.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { LoginComponent } from './login/login.component';
     ShowFlightsComponent,
     AccountPageComponent,
     AddFlightComponent,
-    LoginComponent
+    LoginComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +31,7 @@ import { LoginComponent } from './login/login.component';
     HttpClientModule, 
     FormsModule
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

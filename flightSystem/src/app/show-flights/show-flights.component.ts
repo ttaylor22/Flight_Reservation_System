@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Flight } from '../models/flight.model';
-import { FlightService } from '../flight.service';
+import { FlightService } from '../services/flight.service';
 
 @Component({
   selector: 'app-show-flights',
@@ -21,7 +21,7 @@ export class ShowFlightsComponent implements OnInit {
           this.flights = data;
         });
     };
-  
+
     deleteUser(flight: Flight): void {
       this.flightService.deleteFlight(flight)
         .subscribe( data => {
@@ -32,5 +32,5 @@ export class ShowFlightsComponent implements OnInit {
     getFlight(flight : Flight) : void {
       this.flightService.getFlight(flight);
     }
-  
+
 }

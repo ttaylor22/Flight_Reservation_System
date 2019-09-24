@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Flight } from '../models/flight.model';
-import { FlightService } from '../flight.service';
+import { FlightService } from '../services/flight.service';
 
 @Component({
   selector: 'app-add-flight',

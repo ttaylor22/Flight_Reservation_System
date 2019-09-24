@@ -1,7 +1,7 @@
 export class UserCredential {
-   id                : number;
-   userType          : string;
-   userId            : number;
-   password          : string;
-   loginStatus       : boolean;
+   id: number;
+   type: string;
+   username: string;
+   password: string;
+   loginStatus: boolean;
 }

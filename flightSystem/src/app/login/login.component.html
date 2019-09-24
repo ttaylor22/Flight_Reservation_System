@@ -1,6 +1,6 @@
-<div>
+<!-- <div>
    <h3>Login</h3>
-   <form>
+   <form name="form" (ngSubmit)="login">
       Email<input type="email" name="loginEmail" /><br/>
       Password<input type="password" name="loginPassword" /><br/>
       <input type="submit" value="Login"><br/>
@@ -8,4 +8,24 @@
    <nav class="text-center">
          Dont have an account? <a routerLink="/create-user"> Create One!</a>
    </nav>
-</div>
+</div> -->
+
+<div class="col-md-6 col-md-offset-3">
+   <h2>Login</h2>
+      <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+           <label for="username">Username</label>
+           <input type="text" class="form-control" name="username" [(ngModel)]="userCredential.username" #username="ngModel" required />
+           <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
+       </div>
+       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+           <label for="password">Password</label>
+           <input type="password" class="form-control" name="password" [(ngModel)]="userCredential.password" #password="ngModel" required />
+           <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+       </div>
+       <div class="form-group">
+           <button [disabled]="loading" class="btn btn-primary">Login</button>
+       </div>
+   </form>
+ </div>
+ 
