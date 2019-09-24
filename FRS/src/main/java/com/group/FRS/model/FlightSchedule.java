@@ -41,6 +41,24 @@ public class FlightSchedule {
 	@JsonBackReference
 	@OneToMany(mappedBy = "flightSchedule")
 	public List<Route> routes;
+	
+	
+	
+
+	public FlightSchedule(Long id, Date scheduleDay, Flight flight, List<Route> routes) {
+		super();
+		this.id = id;
+		this.scheduleDay = scheduleDay;
+		this.flight = flight;
+		this.routes = routes;
+	}
+
+	public FlightSchedule(Date scheduleDay, Flight flight, List<Route> routes) {
+		super();
+		this.scheduleDay = scheduleDay;
+		this.flight = flight;
+		this.routes = routes;
+	}
 
 	public Long getId() {
 		return id;
