@@ -11,6 +11,7 @@ import { AccountPageComponent } from './account-page/account-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AddFlightComponent } from './add-flight/add-flight.component';
 import { LoginComponent } from './login/login.component';
+import { ShowAllFlightsAdminComponent } from './show-all-flights-admin/show-all-flights-admin.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { LoginComponent } from './login/login.component';
     AccountPageComponent,
     AddFlightComponent,
     LoginComponent,
+    ShowAllFlightsAdminComponent,
   ],
   imports: [
     BrowserModule,
