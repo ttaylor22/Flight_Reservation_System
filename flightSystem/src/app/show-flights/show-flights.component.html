@@ -3,52 +3,84 @@
     <!--<input type="radio"   value="true" ngModel="tt" ng-init="tt=true" />One way -->
     <!--<input type="radio"    value="false" ngModel="tt" />Round Trip<br>-->
 
-      <input type="radio"  name="roundTrip" value='false' [(ngModel)]="checked" />One way
-      <input type="radio"  name="roundTrip" value='true' [(ngModel)]="checked" />Round Trip<br>
-      From<input  name="source" id="source" [(ngModel)]="route.source" type="text" required minlength="4"/>
-      To<input [(ngModel)]="route.destination" type="text" name="destination" id="destination"/><br>
-      Date Start <input [(ngModel)]="flightSchedule.scheduleDay" type="date" name="scheduleDay" id="scheduleDay"/><br>
-      <span *ngIf="checked === 'true'" >Date End <input  type="date" name="endDate" /> </span><br/><br>
+      <input type="radio"  name="roundTrip" value='false' [(ngModel)]="isRoundTrip" />One way
+      <input type="radio"  name="roundTrip" value='true'  [(ngModel)]="isRoundTrip" />Round Trip<br>
+
+      <mat-form-field>
+        <input matInput placeholder="Source" name="source" id="source" [(ngModel)]="route.source" type="text" required minlength="4">
+      </mat-form-field>
+        to
+      <mat-form-field>
+        <input matInput placeholder="Destination" [(ngModel)]="route.destination" type="text" name="destination" id="destination" required minlength="4"/>
+      </mat-form-field>
+
+      
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Start Date" [(ngModel)]="flightSchedule.scheduleDay" name="scheduleDay" id="scheduleDay">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <span *ngIf="isRoundTrip === 'true'" >Date End <input  type="date" name="endDate" /> </span><br/><br>
     <!-- Travelers <input type="number" name="travelers" /><br>-->
-    <button (click)="displayFlights()">Find Flights</button>
+    <button (click)="displayFlights()" name="buttonFindFlights" value="true" [(ngModel)]="isPressed">Find Flights</button>
 
     <h2 *ngIf="routes?.length == 0">No flights found!</h2>
-
-
   </form>
+
+ 
+  
+
 </div>
 
 
 
 <div *ngIf="routes?.length > 0">
   <h2> Flights</h2>
-<table cellspacing="40">
-    <thead>
-        <tr>
-            <th >Flight Name</th>
-            <th>Total Seats</th>
-            <th>Seats Left</th>
-            <th>Schedule day</th>
-            <th>Depart</th>
-            <th>Arrive</th>
-            <th>Distance</th>
-            <th>Duration</th>
-            <th>Price</th>
-          </tr>
-  </thead>
-    <tbody>
-    <tr *ngFor="let route of routes">
-        <td> {{route[0]}} </td>
-        <td>{{ route[1] }}</td>
-        <td>{{ route[2] }}</td>
-        <td>{{ route[3] }}</td>
-        <td>{{ route[4] }}</td>
-        <td>{{ route[5] }}</td>
-        <td>{{ route[6] }} miles</td>
-        <td>{{ route[7] }} hours</td>
-        <td>${{ route[8] }} </td>
-        <td><button (click)="bookFlight()">Select</button></td>
-    </tr>
+  
+  <table>
+      <thead>
+          <tr>
+              <th >Flight Name</th>
+              <th>Total Seats</th>
+              <th>Seats Left</th>
+              <th>Schedule day</th>
+              <th>Depart</th>
+              <th>Arrive</th>
+              <th>Distance</th>
+              <th>Duration</th>
+              <th>Price</th>
+            </tr>
+    </thead>
+    
+    <tbody *ngIf="isPressed">
+      <tr *ngFor="let route of routes">
+          <td> {{route[0]}} </td>
+          <td>{{ route[1] }}</td>
+          <td>{{ route[2] }}</td>
+          <td>{{ route[3] }}</td>
+          <td>{{ route[4] }}</td>
+          <td>{{ route[5] }}</td>
+          <td>{{ route[6] }} miles</td>
+          <td>{{ route[7] }} hours</td>
+          <td>${{ route[8] }} </td>
+          <td><button (click)="bookFlight()">Select</button></td>
+      </tr>
+    </tbody>
+
+    <tbody *ngIf="true">
+      <tr *ngFor="let route of routes">
+          <td> {{route[0]}} </td>
+          <td>{{ route[1] }}</td>
+          <td>{{ route[2] }}</td>
+          <td>{{ route[3] }}</td>
+          <td>{{ route[4] }}</td>
+          <td>{{ route[5] }}</td>
+          <td>{{ route[6] }} miles</td>
+          <td>{{ route[7] }} hours</td>
+          <td>${{ route[8] }} </td>
+          <td><button (click)="bookFlight()">Select</button></td>
+      </tr>
     </tbody>
   </table>
 
