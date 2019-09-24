@@ -1,6 +1,7 @@
 package com.group.FRS.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,9 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -27,8 +30,14 @@ public class PassengerSchedule {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name="journey_date")
-	private Date journeyDate;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+	@Column(name="journey_start")
+	private Date journeyStart;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+	@Column(name="journey_end")
+	private Date journeyEnd; 
+	@Column(name="travelers")
+	private int travelers;
 	@Column(name="source")
 	private String source;
 	@Column(name="destination")
@@ -37,29 +46,36 @@ public class PassengerSchedule {
 	private String reservationType;
 	
 	//@JsonIgnore
-	@OneToOne//(cascade = CascadeType.ALL)
+	@OneToOne(orphanRemoval = true)
     @JoinColumn(name = "ticket_id", referencedColumnName = "id")
 	private Ticket ticket;
 	
 	@JsonIgnore
-	@JsonManagedReference
+	//@JsonManagedReference
 	@ManyToOne
-	@JoinColumn(name="passenger_id", nullable=false)
+	@JoinColumn(name="passenger_id")
 	private Passenger passenger;
 	
+	@JsonIgnore
+	//@JsonManagedReference
+	@ManyToOne
+	@JoinColumn(name="user_profile_id")
+	private UserProfile userProfile;
 	
-
+	
 	public PassengerSchedule() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	
 
-	public PassengerSchedule(Date journeyDate, String source, String destination, String reservationType,
-			Ticket ticket, Passenger passenger) {
+	public PassengerSchedule(Long id, Date journeyStart, Date journeyEnd, int travelers, String source,
+			String destination, String reservationType, Ticket ticket, Passenger passenger) {
 		super();
-		this.journeyDate = journeyDate;
+		this.id = id;
+		this.journeyStart = journeyStart;
+		this.journeyEnd = journeyEnd;
+		this.travelers = travelers;
 		this.source = source;
 		this.destination = destination;
 		this.reservationType = reservationType;
@@ -73,65 +89,90 @@ public class PassengerSchedule {
 		return id;
 	}
 
+
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Date getJourneyDate() {
-		return journeyDate;
+
+	public Date getJourneyStart() {
+		return journeyStart;
 	}
 
-	public void setJourneyDate(Date journeyDate) {
-		this.journeyDate = journeyDate;
+
+	public void setJourneyStart(Date journeyStart) {
+		this.journeyStart = journeyStart;
 	}
+
+
+	public Date getJourneyEnd() {
+		return journeyEnd;
+	}
+
+
+	public void setJourneyEnd(Date journeyEnd) {
+		this.journeyEnd = journeyEnd;
+	}
+
+
+	public int getTravelers() {
+		return travelers;
+	}
+
+
+	public void setTravelers(int travelers) {
+		this.travelers = travelers;
+	}
+
 
 	public String getSource() {
 		return source;
 	}
 
+
 	public void setSource(String source) {
 		this.source = source;
 	}
+
 
 	public String getDestination() {
 		return destination;
 	}
 
+
 	public void setDestination(String destination) {
 		this.destination = destination;
 	}
+
 
 	public String getReservationType() {
 		return reservationType;
 	}
 
+
 	public void setReservationType(String reservationType) {
 		this.reservationType = reservationType;
 	}
+
 
 	public Ticket getTicket() {
 		return ticket;
 	}
 
+
 	public void setTicket(Ticket ticket) {
 		this.ticket = ticket;
 	}
-	
+
+
 	public Passenger getPassenger() {
 		return passenger;
 	}
+
 
 	public void setPassenger(Passenger passenger) {
 		this.passenger = passenger;
 	}
 
-
-
-	@Override
-	public String toString() {
-		return "PassengerSchedule [id=" + id + ", journeyDate=" + journeyDate + ", source=" + source + ", destination="
-				+ destination + ", reservationType=" + reservationType + ", ticket=" + ticket + ", passenger="
-				+ passenger + "]";
-	}
 	
 }

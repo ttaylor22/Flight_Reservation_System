@@ -17,18 +17,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.group.FRS.model.FlightSchedule;
-import com.group.FRS.model.Reservation;
-import com.group.FRS.repository.Flight_ScheduleRepository;
+import com.group.FRS.repository.FlightScheduleRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/flight_schedule")
+@RequestMapping("/flight/schedule")
 public class FlightScheduleController {
 	
 	@Autowired
-	Flight_ScheduleRepository flightScheduleService;
+	FlightScheduleRepository flightScheduleService;
 	
-    @GetMapping(path="/getAll",produces="application/json" )
+    @GetMapping(path="/getAll")
     public List<FlightSchedule> getAllFlightSchedules(){
         return (List<FlightSchedule>) flightScheduleService.findAll();
     }
@@ -39,25 +38,21 @@ public class FlightScheduleController {
     	return flightSchedule;
     }
     
-    //put add flight
     @PostMapping(path="/add", produces="application/json")
     public ResponseEntity<FlightSchedule> create( @RequestBody FlightSchedule flight){
     	return ResponseEntity.ok(flightScheduleService.save(flight));
     }
     
-
     @PutMapping(path="/update/{id}")
     public ResponseEntity<FlightSchedule> updateFlightSchedule(@PathVariable(value ="id") Long scheduleId,
     		@Valid @RequestBody FlightSchedule flightscheduleDetails){
     	FlightSchedule schedule = flightScheduleService.findById(scheduleId).orElse(null);
     	schedule.setFlight(flightscheduleDetails.getFlight());
-    	//schedule.setRoutes(flightscheduleDetails.getRoutes());
+    	schedule.setRoutes(flightscheduleDetails.getRoutes());
     	schedule.setScheduleDay(flightscheduleDetails.getScheduleDay());
     	return ResponseEntity.ok(flightScheduleService.save(schedule));
     }
     
-    
-
 	@DeleteMapping(path="/delete/{id}")
     public void delete(@PathVariable("id") Long id) {
          flightScheduleService.deleteById(id);

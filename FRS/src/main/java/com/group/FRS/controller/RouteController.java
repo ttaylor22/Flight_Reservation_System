@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.group.FRS.model.FlightSchedule;
-import com.group.FRS.model.Passenger;
 import com.group.FRS.model.Route;
 import com.group.FRS.repository.RouteRepository;
 
@@ -25,31 +22,26 @@ import com.group.FRS.repository.RouteRepository;
 @RestController
 @RequestMapping("/route")
 public class RouteController {
-
+	//produces="application/json"
 	
 	@Autowired
 	RouteRepository routeRepository;
 	
-    @GetMapping(path="/getAll",produces="application/json" )
+    @GetMapping(path="/getAll")
     public List<Route> getAllRepositories(){
         return routeRepository.findAll();
     }
     
-    @GetMapping(path="/get/{id}", produces="application/json")
+    @GetMapping(path="/get/{id}")
 	public Route getSinglePassenger(@PathVariable(value="id") Long routeId) {
-		Route route = routeRepository.findById(routeId).orElse(null);
-		return route;
+		return routeRepository.findById(routeId).orElse(null);
 	}
     
-    //put add flight
-    @PostMapping(path="/add", produces="application/json")
+    @PostMapping(path="/add")
     public ResponseEntity<Route> create( @RequestBody Route route){
     	return ResponseEntity.ok(routeRepository.save(route));
     }
     
-    
-    
-
     @PutMapping(path="/update/{id}")
     public ResponseEntity<Route> updateRoute(@PathVariable(value ="id") Long scheduleId,
     		@Valid @RequestBody Route routeDetails){
@@ -61,8 +53,6 @@ public class RouteController {
     	return ResponseEntity.ok(routeRepository.save(route));
     }
     
-    
-
 	@DeleteMapping(path="/delete/{id}")
     public void delete(@PathVariable("id") Long id) {
          routeRepository.deleteById(id);

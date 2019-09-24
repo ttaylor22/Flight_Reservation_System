@@ -23,39 +23,37 @@ import com.group.FRS.repository.TicketRepository;
 @RestController
 @RequestMapping("/ticket")
 public class TicketController {
-	
+
 	@Autowired
 	TicketRepository ticketRepository;
-	
-	@GetMapping(path ="/getAll", produces="application/json")
-	public List<Ticket> getAllTickets(){
+
+	@GetMapping(path = "/getAll")
+	public List<Ticket> getAllTickets() {
 		return ticketRepository.findAll();
 	}
-	
-	@GetMapping(path="/get/{id}", produces="application/json")
-	public Ticket getSingleTicket(@PathVariable(value="id") Long ticketId) {
-		return ticketRepository.findById(ticketId).orElse(null);
-		
-	}
-    
 
-	@PostMapping(path ="/add")
-    public ResponseEntity<Ticket> create( @RequestBody Ticket ticket){
+	@GetMapping(path = "/get/{id}")
+	public Ticket getTicket(@PathVariable(value = "id") Long ticketId) {
+		return ticketRepository.findById(ticketId).orElse(null);
+	}
+
+	@PostMapping(path = "/add")
+	public ResponseEntity<Ticket> create(@RequestBody Ticket ticket) {
 		return ResponseEntity.ok(ticketRepository.save(ticket));
-    }
-	
-	@PutMapping(path ="/update/{id}")
-	   public ResponseEntity<Ticket> updateDoctor(@PathVariable(value = "id") Long tickedId,
-	                                              @Valid @RequestBody Ticket ticketDetails) {
-	       Ticket ticket = ticketRepository.findById( tickedId).orElse(null);
-	       ticket.setPaymentInfo(ticketDetails.getPaymentInfo());
-	       return ResponseEntity.ok(ticketRepository.save(ticket));
-	   }
-	
-	@DeleteMapping(path ="/delete/{id}")
-    public void delete(@PathVariable("id") Long id) {
-         ticketRepository.deleteById(id);
-    }
-	
-	
+	}
+
+	@PutMapping(path = "/update/{id}")
+	public ResponseEntity<Ticket> updateDoctor(@PathVariable(value = "id") Long tickedId,
+			@Valid @RequestBody Ticket ticketDetails) {
+		Ticket ticket = ticketRepository.findById(tickedId).orElse(null);
+		ticket.setPaymentInfo(ticketDetails.getPaymentInfo());
+		ticket.setPrice(ticketDetails.getPrice());
+		return ResponseEntity.ok(ticketRepository.save(ticket));
+	}
+
+	@DeleteMapping(path = "/delete/{id}")
+	public void delete(@PathVariable("id") Long id) {
+		ticketRepository.deleteById(id);
+	}
+
 }

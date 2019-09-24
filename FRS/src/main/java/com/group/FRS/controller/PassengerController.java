@@ -24,24 +24,18 @@ import com.group.FRS.repository.PassengerRepository;
 @RequestMapping("/passenger")
 public class PassengerController {
 
-
 	@Autowired
 	PassengerRepository passengerRepository;
 	
-	@Autowired
-	FlightRepository flightRepository;
-	
-	@GetMapping(path="/getAll", produces="application/json")
+	@GetMapping(path="/getAll")
 	public List<Passenger> getAllPassengers(){
 		return passengerRepository.findAll();
 	}
 	
-	@GetMapping(path="/get/{id}", produces="application/json")
+	@GetMapping(path="/get/{id}")
 	public Passenger getSinglePassenger(@PathVariable(value="id") Long passengerId) {
-		Passenger passenger = passengerRepository.findById(passengerId).orElse(null);
-		return passenger;
+		return passengerRepository.findById(passengerId).orElse(null);
 	}
-    
 
 	@PostMapping(path="/addPassenger")
     public ResponseEntity<Passenger> create(@RequestBody Passenger passenger){
@@ -53,7 +47,8 @@ public class PassengerController {
 	                                              @Valid @RequestBody Passenger passengerDetails) {
 	       Passenger passenger = passengerRepository.findById( passengerId).orElse(null);
 	       passenger.setAge(passengerDetails.getAge());
-	       passenger.setName(passengerDetails.getName());
+	       passenger.setFirstName(passengerDetails.getFirstName());
+	       passenger.setLastName(passengerDetails.getLastName());
 	       passenger.setGender(passengerDetails.getGender());
 	       passenger.setSeatNo(passengerDetails.getSeatNo());
 	       passenger.setBookingDate(passengerDetails.getBookingDate());

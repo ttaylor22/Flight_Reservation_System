@@ -2,7 +2,7 @@ package com.group.FRS.model;
 
 import java.util.Date;
 import java.util.List;
-
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -30,6 +31,7 @@ public class UserProfile {
 	private String firstName;
 	@Column(name="last_name")
 	private String lastName;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
 	@Column(name="date_of_birth")
 	private Date dateOfBirth;
 	@Column(name="gender")
@@ -42,13 +44,13 @@ public class UserProfile {
 	private String emailId;
 
 	@JsonIgnore
-	@JsonBackReference
-	@OneToMany(mappedBy = "userProfile")
-	private List<Reservation> reservations;
+	//@JsonBackReference
+	@OneToMany(mappedBy = "userProfile", orphanRemoval = true, cascade = CascadeType.PERSIST)
+	private Set<PassengerSchedule> passengerSchedules;
 
 	
 	//@JsonIgnore
-	@OneToOne//(cascade = CascadeType.PERSIST)
+	@OneToOne(orphanRemoval = true)
 	@JoinColumn(name = "user_credential_id", referencedColumnName = "id")
 	private UserCredential userCredential;
 

@@ -28,7 +28,7 @@ public class UserCredential {
 	private boolean loginStatus;
 	
 	//@JsonIgnore
-	@OneToOne(mappedBy = "userCredential")
+	@OneToOne(mappedBy = "userCredential", orphanRemoval = true)
     private UserProfile userProfile;
 	
 	public Long getId() {
