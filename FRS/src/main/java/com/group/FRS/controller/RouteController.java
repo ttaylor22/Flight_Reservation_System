@@ -1,11 +1,12 @@
 package com.group.FRS.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.group.FRS.model.FlightSchedule;
 import com.group.FRS.model.Route;
 import com.group.FRS.repository.Flight_ScheduleRepository;
 import com.group.FRS.repository.RouteRepository;
@@ -45,9 +45,10 @@ public class RouteController {
 		return route;
 	}
     
-    @GetMapping(path="/displayFlights/{source}/{destination}", produces="application/json")
-    public List<Object> displayFlights(@PathVariable(value="source") String source, @PathVariable(value="destination") String destination) {
-    	List<Object> routes = routeRepository.findRoutes(source, destination);
+    @GetMapping(path="/displayFlights/{source}/{destination}/{scheduleDay}", produces="application/json")
+    public List<Object> displayFlights(@PathVariable(value="source") String source, @PathVariable(value="destination") String destination, 
+    									@PathVariable(value="scheduleDay") @DateTimeFormat(pattern="yyyy-MM-dd") Date scheduleDate) {
+    	List<Object> routes = routeRepository.findRoutes(source, destination, scheduleDate);
     	return routes;
     }
     
