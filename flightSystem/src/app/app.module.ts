@@ -32,11 +32,8 @@ import { ShowAllFlightsAdminComponent } from './show-all-flights-admin/show-all-
     AccountPageComponent,
     AddFlightComponent,
     LoginComponent,
-<<<<<<< HEAD
 
-=======
     ShowAllFlightsAdminComponent,
->>>>>>> branch 'FindFlights' of https://github.com/ttaylor22/Flight_Reservation_System.git
   ],
   imports: [
     BrowserModule,
