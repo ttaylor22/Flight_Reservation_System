@@ -16,7 +16,7 @@ export class RouteService {
   constructor(private http:HttpClient) {}
 
 
-  private userUrl = 'http://localhost:8080/route';
+  private userUrl = 'http://localhost:8080/api';
 
 	//private userUrl = '/api';
 

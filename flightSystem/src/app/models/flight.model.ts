@@ -1,5 +1,5 @@
 export class Flight {
-  flightId            : number;
+  id                  : number;
   flightName          : string;
   seatingCapacity     : number;
   reservationCapacity : number;
