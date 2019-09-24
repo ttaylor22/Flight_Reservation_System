@@ -21,46 +21,41 @@ import com.group.FRS.repository.PassengerRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/passenger")
+@RequestMapping("/api")
 public class PassengerController {
-
 
 	@Autowired
 	PassengerRepository passengerRepository;
 	
-	@Autowired
-	FlightRepository flightRepository;
-	
-	@GetMapping(path="/getAll", produces="application/json")
+	@GetMapping(path="/passengers")
 	public List<Passenger> getAllPassengers(){
 		return passengerRepository.findAll();
 	}
 	
-	@GetMapping(path="/get/{id}", produces="application/json")
+	@GetMapping(path="/passenger/{id}")
 	public Passenger getSinglePassenger(@PathVariable(value="id") Long passengerId) {
-		Passenger passenger = passengerRepository.findById(passengerId).orElse(null);
-		return passenger;
+		return passengerRepository.findById(passengerId).orElse(null);
 	}
-    
 
-	@PostMapping(path="/addPassenger")
+	@PostMapping(path="/passenger")
     public ResponseEntity<Passenger> create(@RequestBody Passenger passenger){
 		return ResponseEntity.ok(passengerRepository.save(passenger));
     }
 	
-	@PutMapping(path="/update/{id}")
-	   public ResponseEntity<Passenger> updateDoctor(@PathVariable(value = "id") Long passengerId,
+	@PutMapping(path="/passenger/{id}")
+	   public ResponseEntity<Passenger> updatePassenger(@PathVariable(value = "id") Long passengerId,
 	                                              @Valid @RequestBody Passenger passengerDetails) {
 	       Passenger passenger = passengerRepository.findById( passengerId).orElse(null);
 	       passenger.setAge(passengerDetails.getAge());
-	       passenger.setName(passengerDetails.getName());
+	       passenger.setFirstName(passengerDetails.getFirstName());
+	       passenger.setLastName(passengerDetails.getLastName());
 	       passenger.setGender(passengerDetails.getGender());
 	       passenger.setSeatNo(passengerDetails.getSeatNo());
 	       passenger.setBookingDate(passengerDetails.getBookingDate());
 	       return ResponseEntity.ok(passengerRepository.save(passenger));
 	   }
 	
-	@DeleteMapping(path="/delete/{id}")
+	@DeleteMapping(path="/passenger/{id}")
     public void delete(@PathVariable("id") Long id) {
          passengerRepository.deleteById(id);
     }

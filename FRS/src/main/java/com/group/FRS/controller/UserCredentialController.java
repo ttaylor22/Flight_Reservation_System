@@ -32,7 +32,7 @@ public class UserCredentialController {
    }
 
    @GetMapping(path="/get/{id}")
-   public UserCredential getSingleProfile(@PathVariable(value = "id") int userId) {
+   public UserCredential getSingleProfile(@PathVariable(value = "id") long userId) {
    	UserCredential user = userCredentialRepository.findById(userId).orElse(null);
    	return user;
    }
@@ -43,7 +43,7 @@ public class UserCredentialController {
    }
 	
 	@PutMapping("/update/{id}")
-	   public ResponseEntity<UserCredential> updateUserCredential(@PathVariable(value = "id") int userId,
+	   public ResponseEntity<UserCredential> updateUserCredential(@PathVariable(value = "id") long userId,
 	                                              @Valid @RequestBody UserCredential userDetails) {
 	       UserCredential user = userCredentialRepository.findById(userId).orElse(null);
 	       user.setType(userDetails.getType());
@@ -51,7 +51,7 @@ public class UserCredentialController {
 	   }
 	
 	@DeleteMapping("/delete/{id}")
-   public void delete(@PathVariable("id") int id) {
+   public void delete(@PathVariable("id") long id) {
         userCredentialRepository.deleteById(id);
    }
 	/*

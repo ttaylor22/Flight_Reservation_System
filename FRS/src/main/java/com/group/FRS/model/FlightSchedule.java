@@ -2,8 +2,10 @@ package com.group.FRS.model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,34 +15,35 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
 @Entity
 @Table(name = "flight_schedule")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
-property = "id")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 public class FlightSchedule {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
 	@Column(name="schedule_day")
 	private Date scheduleDay;
 
-	//@JsonIgnore
+	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="flight_id", nullable=false)
+	@JoinColumn(name="flight_id")
 	private Flight flight;
 
 	//@JsonIgnore
-	@JsonBackReference
-	@OneToMany(mappedBy = "flightSchedule")
-	public List<Route> routes;
+	//@JsonBackReference
+	@OneToMany(mappedBy = "flightSchedule",  orphanRemoval = true, cascade = CascadeType.PERSIST)
+	public Set<Route> routes;
 
 	public Long getId() {
 		return id;
@@ -66,13 +69,14 @@ public class FlightSchedule {
 		this.flight = flight;
 	}
 
-	public List<Route> getRoutes() {
+	public Set<Route> getRoutes() {
 		return routes;
 	}
 
-	public void setRoutes(List<Route> routes) {
+	public void setRoutes(Set<Route> routes) {
 		this.routes = routes;
 	}
+	
 
 	@Override
 	public String toString() {

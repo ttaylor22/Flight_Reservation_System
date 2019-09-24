@@ -11,17 +11,15 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "route")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
-property = "id")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 public class Route {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(name="source")
@@ -33,9 +31,9 @@ public class Route {
 	@Column(name="duration")
 	private int duration;
 
-	//@JsonIgnore
+	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="flight_schedule_id", nullable=false)
+	@JoinColumn(name="flight_schedule_id")
 	private FlightSchedule flightSchedule;
 
 	public Long getId() {

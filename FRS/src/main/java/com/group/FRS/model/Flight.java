@@ -1,10 +1,11 @@
 package com.group.FRS.model;
 
 import java.util.List;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,10 +15,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+
+
+
 
 
 
@@ -27,8 +31,7 @@ public class Flight {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
-	private int flightId;
+	private Long id;
 
 	@Column(name="name")
 	private String flightName;
@@ -39,25 +42,23 @@ public class Flight {
 	@Column(name="reservation_capacity")
 	private int reservationCapacity;
 	
-	
-	@JsonBackReference
-	@OneToMany(mappedBy="flight")
-	private List<Passenger> passengers;
+	//@JsonIgnore
+	//@JsonBackReference
+	@OneToMany(mappedBy="flight", orphanRemoval = true, cascade = CascadeType.PERSIST)
+	private Set<Passenger> passengers;
+
+	//@JsonIgnore
+	//@JsonBackReference
+	@OneToMany(mappedBy = "flight", orphanRemoval = true, cascade = CascadeType.PERSIST)
+	private Set<FlightSchedule> flightSchedules;
 
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "reservation_has_flight",
-    joinColumns = @JoinColumn(name = "reservation_id", referencedColumnName = "id"),
-    inverseJoinColumns = @JoinColumn(name = "flight_id", referencedColumnName = "id"))
-	private List<Reservation> reservations;
+	public Flight() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-	@JsonIgnore
-	@JsonBackReference//(value="flight-schedules")
-	@OneToMany(mappedBy = "flight")
-	private List<FlightSchedule> flightSchedules;
 
-	public Flight() {}
-	
 	public Flight(String flightName, int seatingCapacity, int reservationCapacity) {
 		this.flightName = flightName;
 		this.seatingCapacity = seatingCapacity;
@@ -65,13 +66,13 @@ public class Flight {
 	}
 
 	
-	public int getflightId() {
-		return flightId;
+	public Long getId() {
+		return id;
 	}
 
 	
-	public void setflightId(int flightId) {
-		this.flightId = flightId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	
@@ -101,37 +102,31 @@ public class Flight {
 		this.reservationCapacity = reservationCapacity;
 	}
 
-	public List<Passenger> getPassengers() {
-		return (List<Passenger>) passengers;
+	public Set<Passenger> getPassengers() {
+		return passengers;
 	}
 
-	public void setPassengers(List<Passenger> passengers) {
-		this.passengers = (List<Passenger>) passengers;
-	}
-/*
-	public List<Reservation> getReservations() {
-		return reservations;
+	public void setPassengers(Set<Passenger> passengers) {
+		this.passengers = passengers;
 	}
 
-	public void setReservations(List<Reservation> reservations) {
-		this.reservations = reservations;
-	}
-
-	public List<FlightSchedule> getFlightSchedules() {
+	public Set<FlightSchedule> getFlightSchedules() {
 		return flightSchedules;
 	}
 
-	public void setFlight_schedules(List<FlightSchedule> flightSchedules) {
-		this.flightSchedules = flightSchedules;
+	public void setFlightSchedules(Set<FlightSchedule> flightSchedules) {
+		this.flightSchedules = flightSchedules ;
 	}
+
 
 	@Override
 	public String toString() {
-		return "Flight [flightId=" + flightId + ", flightName=" + flightName + ", seatingCapacity=" + seatingCapacity
-				+ ", reservationCapacity=" + reservationCapacity + ", passengers=" + passengers + ", reservations="
-				+ reservations + ", flightSchedules=" + flightSchedules + "]";
+		return "Flight [id=" + id + ", flightName=" + flightName + ", seatingCapacity=" + seatingCapacity
+				+ ", reservationCapacity=" + reservationCapacity + ", passengers=" + passengers + ", flightSchedules="
+				+ flightSchedules + "]";
 	}
-*/
+
+	
 
 	
 

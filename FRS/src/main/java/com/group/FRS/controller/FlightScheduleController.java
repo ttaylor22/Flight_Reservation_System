@@ -17,41 +17,43 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.group.FRS.model.FlightSchedule;
-import com.group.FRS.repository.Flight_ScheduleRepository;
+import com.group.FRS.repository.FlightScheduleRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/flight_schedule")
+@RequestMapping("/api")
 public class FlightScheduleController {
 	
 	@Autowired
-	Flight_ScheduleRepository flightScheduleService;
+	FlightScheduleRepository flightScheduleService;
 	
-    @GetMapping(path="/getAll",produces="application/json" )
+    @GetMapping(path="/flight/schedules")
     public List<FlightSchedule> getAllFlightSchedules(){
         return (List<FlightSchedule>) flightScheduleService.findAll();
     }
     
-    //put add flight
-    @PostMapping(path="/add", produces="application/json")
+    @GetMapping(path="/flight/schedule/{id}")
+    public FlightSchedule getSingleFlightSchedule(@PathVariable(value = "id") Long flightId) {
+ 	   FlightSchedule flightSchedule = flightScheduleService.findById(flightId).orElse(null);
+    	return flightSchedule;
+    }
+    
+    @PostMapping(path="/flight/schedule", produces="application/json")
     public ResponseEntity<FlightSchedule> create( @RequestBody FlightSchedule flight){
     	return ResponseEntity.ok(flightScheduleService.save(flight));
     }
     
-
-    @PutMapping(path="/update/{id}")
-    public ResponseEntity<FlightSchedule> updateFSchedule(@PathVariable(value ="id") Long scheduleId,
+    @PutMapping(path="/flight/schedule/{id}")
+    public ResponseEntity<FlightSchedule> updateFlightSchedule(@PathVariable(value ="id") Long scheduleId,
     		@Valid @RequestBody FlightSchedule flightscheduleDetails){
     	FlightSchedule schedule = flightScheduleService.findById(scheduleId).orElse(null);
     	schedule.setFlight(flightscheduleDetails.getFlight());
-    	//schedule.setRoutes(flightscheduleDetails.getRoutes());
+    	schedule.setRoutes(flightscheduleDetails.getRoutes());
     	schedule.setScheduleDay(flightscheduleDetails.getScheduleDay());
     	return ResponseEntity.ok(flightScheduleService.save(schedule));
     }
     
-    
-
-	@DeleteMapping(path="/delete/{id}")
+	@DeleteMapping(path="/flight/schedule/{id}")
     public void delete(@PathVariable("id") Long id) {
          flightScheduleService.deleteById(id);
     }
