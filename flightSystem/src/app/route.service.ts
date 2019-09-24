@@ -40,10 +40,12 @@ export class RouteService {
     return this.http.post<Route>(this.userUrl+"/route", route);
   }
 
-  public displayFlights(route){
-    console.log(route.source + ' ' + route.destination);
-    return this.http.get<any>(this.userUrl +"/displayFlights/" +  route.source + "/" + route.destination);
+  public displayFlights(route, flightSchedule){
+    console.log(flightSchedule.scheduleDay);
+    return this.http.get<any>(this.userUrl +"/displayFlights/" +  route.source + "/" + route.destination+"/"+ flightSchedule.scheduleDay);
   }
 
-
+  public displayAllFlights() {
+    return this.http.get<any>(this.userUrl + "/getAllFlights")
+  }
 }

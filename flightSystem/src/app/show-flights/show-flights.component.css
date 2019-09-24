@@ -1,15 +1,8 @@
-.oneway_location {
-    display: none;
-}
-
-.oneway:checked + .oneway_date {
-    display: block;
-}
-
-.roundtrip_location {
-    display: none;
-}
-
-.roundtrip:checked + .roundtrip_date {
-    display: block;
-}
+.example-container {
+   display: flex;
+   flex-direction: column;
+ }
+ 
+ .example-container > * {
+   width: 100%;
+ }

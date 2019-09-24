@@ -11,7 +11,7 @@ import { AddFlightComponent } from './add-flight/add-flight.component';
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'show-flights', component: ShowFlightsComponent},
-  {path: 'flight-details', component: FlightDetailsComponent},
+  {path: 'flight-details/:id', component: FlightDetailsComponent},
   {path: 'create-user', component: CreateUSerComponent},
   {path: 'account-page', component: AccountPageComponent}, 
   {path: 'add-flight', component: AddFlightComponent}

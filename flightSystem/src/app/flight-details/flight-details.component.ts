@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FlightService } from '../flight.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Flight } from '../models/flight.model';
 import { Route } from '../models/route.model';
+
+import { RouteService } from '../route.service';
 
 @Component({
   selector: 'app-flight-details',
@@ -14,9 +16,15 @@ export class FlightDetailsComponent implements OnInit {
   flight : Flight;
   route  : Route;
 
-  constructor(private router : Router, private flightService : FlightService) { }
+  constructor(private router : Router, 
+              private flightService : FlightService,
+              private routeService  : RouteService,
+              private activatedRoute : ActivatedRoute
+  ) { }
 
   ngOnInit() {
-    this.flightService.getFlight(this.flight)
+    var idString = this.activatedRoute.snapshot.paramMap.get('id');
+    var id = +idString;
+    console.log(id);
   }
 }

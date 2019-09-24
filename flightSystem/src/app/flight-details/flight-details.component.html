@@ -1,33 +1,35 @@
-<div *ngIf="route">
+<div>
+  <div *ngIf="route">
    <h3>Flight Details</h3>
 
-   <table cellspacing="40">
-      <thead>
+    <table cellspacing="40">
+        <thead>
           <tr>
-              <th >Flight Name</th>
-              <th>Total Seats</th>
-              <th>Seats Left</th>
-              <th>Schedule day</th>
-              <th>Depart</th>
-              <th>Arrive</th>
-              <th>Distance</th>
-              <th>Duration</th>
-              <th>Price</th>
-            </tr>
-    </thead>
-      <tbody>
-      <tr>
-          <td>{{ route[0] }}</td>
-          <td>{{ route[1] }}</td>
-          <td>{{ route[2] }}</td>
-          <td>{{ route[3] }}</td>
-          <td>{{ route[4] }}</td>
-          <td>{{ route[5] }}</td>
-          <td>{{ route[6] }} miles</td>
-          <td>{{ route[7] }} hours</td>
-          <td>${{ route[8] }} </td>
-          <td><button (click)="bookFlight()">Select</button></td>
-      </tr>
-      </tbody>
-  </table>
+            <th >Flight Name</th>
+            <th>Total Seats</th>
+            <th>Seats Left</th>
+            <th>Schedule day</th>
+            <th>Depart</th>
+            <th>Arrive</th>
+            <th>Distance</th>
+            <th>Duration</th>
+            <th>Price</th>
+          </tr>
+      </thead>
+        <tbody>
+          <tr>
+            <td>{{ route[0] }}</td>
+            <td>{{ route[1] }}</td>
+            <td>{{ route[2] }}</td>
+            <td>{{ route[3] }}</td>
+            <td>{{ route[4] }}</td>
+            <td>{{ route[5] }}</td>
+            <td>{{ route[6] }} miles</td>
+            <td>{{ route[7] }} hours</td>
+            <td>${{ route[8] }} </td>
+            <td><button (click)="bookFlight()">Select</button></td>
+          </tr>
+        </tbody>
+    </table>
+  </div>
 </div>

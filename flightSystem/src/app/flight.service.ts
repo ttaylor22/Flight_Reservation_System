@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Flight } from './models/flight.model';
+import { Observable } from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -19,18 +20,16 @@ export class FlightService {
 	//private userUrl = '/api';
 
   public getFlights() {
-    console.log("calling this getflights method");
     return this.http.get<Flight[]>(this.userUrl + "/flights");
   }
 
-  public getFlight(flight) {
-    
-    return this.http.get(this.userUrl + "/flight/" + flight.id);
+  public getFlight(id : number) {
+    return this.http.get<Flight>(this.userUrl + "/flight/" + id);
   }
 
   public deleteFlight(flight) {
     console.log("deleteing shit ");
-    return this.http.delete(this.userUrl + "/flight/"+ flight.id);
+    return this.http.delete(this.userUrl + "/flight/"+ flight.flightId);
 
   }
 
@@ -43,5 +42,5 @@ export class FlightService {
 
   }
 
-  
+
 }

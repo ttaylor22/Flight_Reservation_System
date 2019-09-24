@@ -47,6 +47,12 @@ public class RouteController {
     	return routes;
     }
     
+    @GetMapping(path="/getAllFlights")
+    public List<Object> displayFlights() {
+    	List<Object> routes = routeRepository.findAllRoutes();
+    	return routes;
+    }
+    
     @PostMapping(path="/route")
     public ResponseEntity<Route> create( @RequestBody Route route){
     	return ResponseEntity.ok(routeRepository.save(route));
