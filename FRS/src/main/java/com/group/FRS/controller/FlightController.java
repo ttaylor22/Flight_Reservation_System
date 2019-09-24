@@ -1,11 +1,13 @@
 package com.group.FRS.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -43,6 +45,12 @@ public class FlightController {
     	return flightRepository.findById(flightId).orElse(null);
     }
     
+    @GetMapping(path="/displayFlights", produces="application/json")
+    public List<Object> getAllFlightInfo() {
+    	List<Object> routes = flightRepository.getAllFlightInformation();
+    	return routes;
+    }
+    
 	@PostMapping(path="/flight")
     public ResponseEntity<Flight> create( @RequestBody Flight flight){
          return ResponseEntity.ok(flightRepository.save(flight));
@@ -57,6 +65,8 @@ public class FlightController {
 	       flight.setreservationCapacity(flightDetails.getreservationCapacity());
 	       return ResponseEntity.ok(flightRepository.save(flight));
 	   }
+	
+	
 	/*
 	//@SuppressWarnings("unchecked")
 	@PutMapping("/update/{id}/schedule/{id2}")

@@ -42,12 +42,12 @@ public class Flight {
 	@Column(name="reservation_capacity")
 	private int reservationCapacity;
 	
-	//@JsonIgnore
+	@JsonIgnore
 	//@JsonBackReference
 	@OneToMany(mappedBy="flight", orphanRemoval = true, cascade = CascadeType.PERSIST)
 	private Set<Passenger> passengers;
 
-	//@JsonIgnore
+	@JsonIgnore
 	//@JsonBackReference
 	@OneToMany(mappedBy = "flight", orphanRemoval = true, cascade = CascadeType.PERSIST)
 	private Set<FlightSchedule> flightSchedules;

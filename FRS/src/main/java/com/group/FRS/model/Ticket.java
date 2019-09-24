@@ -27,18 +27,22 @@ public class Ticket {
 	@JsonIgnore
 	@OneToOne(mappedBy = "ticket")
 	private PassengerSchedule passengerSchedule;
+	
+	@Column(name="trip")
+	private String trip;
 
 	public Ticket() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Ticket(Long id, String paymentInfo, int price, PassengerSchedule passengerSchedule) {
+	public Ticket(Long id, String paymentInfo, int price, String trip, PassengerSchedule passengerSchedule) {
 		super();
 		this.id = id;
 		this.paymentInfo = paymentInfo;
 		this.price = price;
 		this.passengerSchedule = passengerSchedule;
+		this.trip = trip;
 	}
 
 	public Long getId() {
@@ -63,6 +67,15 @@ public class Ticket {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+	
+
+	public String getTrip() {
+		return trip;
+	}
+
+	public void setTrip(String trip) {
+		this.trip = trip;
 	}
 
 	public PassengerSchedule getPassengerSchedule() {
