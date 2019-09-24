@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,11 +25,41 @@ import com.group.FRS.repository.User_CredentialRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api")
 public class UserCredentialController {
 	@Autowired
 	User_CredentialRepository userCredentialRepository;
-
+	
+	@PutMapping(path="/authenticate/{username}/{password}")
+//	public ResponseEntity<UserCredential> authenticate(@PathVariable(value = "username") String username, @PathVariable(value = "password") String password, @Valid @RequestBody UserCredential userCredential) {
+	public ResponseEntity<UserCredential> authenticate(@PathVariable(value = "username") String username, @PathVariable(value = "password") String password) {
+		UserCredential user = userCredentialRepository.findByUsername(username);
+		if (user != null) {
+			if (user.getPassword().equals(password)) {
+				user.setLoginStatus(true);
+				final UserCredential updatedUserCredential = userCredentialRepository.save(user);
+			    return ResponseEntity.ok(updatedUserCredential);
+			}
+			return null;
+		} else {
+//			final UserCredential userNotFound = new UserCredential();
+//			HttpHeaders responseHeaders = new HttpHeaders();
+//			return ResponseEntity.ok().headers(responseHeaders).body(userNotFound);
+			return null;
+		}
+	}
+	
+	@PutMapping(path="/logout/{id}")
+	public ResponseEntity<UserCredential> logout(@PathVariable(value = "id") Long id) {
+		UserCredential user = userCredentialRepository.findById(id).orElse(null);
+		if (user != null) {
+			user.setLoginStatus(false);
+			final UserCredential updatedUserCredential = userCredentialRepository.save(user);
+			return ResponseEntity.ok(updatedUserCredential);
+		} else {
+			return null;
+		}
+	}
 
 	//@RequestMapping(path="/", produces="application/json", method=RequestMethod.GET)
    @GetMapping(path="/getAll",  produces="application/json")
@@ -54,8 +86,8 @@ public class UserCredentialController {
 	       userCredential.setType(userCredentialDetails.getType());
 	       userCredential.setUsername(userCredentialDetails.getUsername());
 	       userCredential.setLoginStatus(userCredentialDetails.isLoginStatus());
-	       final UserCredential updateduserCredential = userCredentialRepository.save(userCredential);
-	       return ResponseEntity.ok(updateduserCredential);
+	       final UserCredential updatedUserCredential = userCredentialRepository.save(userCredential);
+	       return ResponseEntity.ok(updatedUserCredential);
 	   }
 	
 	@DeleteMapping("/delete/{id}")

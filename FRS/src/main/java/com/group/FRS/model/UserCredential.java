@@ -1,12 +1,18 @@
 package com.group.FRS.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,6 +32,13 @@ public class UserCredential {
 	private String password;
 	@Column(name="login_status")
 	private boolean loginStatus;
+	
+	
+	
+	@Transient
+	private String passwordConfirm;
+	
+	
 	
 	//@JsonIgnore
 	@OneToOne(mappedBy = "userCredential")
@@ -61,7 +74,4 @@ public class UserCredential {
 	public void setLoginStatus(boolean loginStatus) {
 		this.loginStatus = loginStatus;
 	}
-	
-
-
 }
