@@ -14,21 +14,25 @@ const httpOptions = {
 export class FlightScheduleService {
    constructor(private http:HttpClient) {}
 
-   private userUrl = 'http://localhost:8080/FlightSchedule';
+   private userUrl = 'http://localhost:8080/api/flight';
 
    public getFlightSchedules() {
-   return this.http.get<Flight[]>(this.userUrl + "/flightSchedules");
+   return this.http.get<Flight[]>(this.userUrl + "/schedules");
    }
 
    public getFlightSchedule(flightSchedule) {
-   return this.http.get(this.userUrl + "/flightSchedule/" + flightSchedule.id);
+   return this.http.get(this.userUrl + "/schedule/" + flightSchedule.id);
    }
 
    public deleteFlightSchedule(flightSchedule) {
-   return this.http.delete(this.userUrl + "/deleteFlightSchedule/"+ flightSchedule.id);
+   return this.http.delete(this.userUrl + "/schedule/"+ flightSchedule.id);
    }
 
    public createFlightSchedule(flightSchedule) {
-   return this.http.post<Flight>(this.userUrl+"/addFlightSchedule", flightSchedule);
+   return this.http.post<Flight>(this.userUrl+"/schedule", flightSchedule);
+   }
+
+   public updateFlightSchedule(flightSchedule) {
+     return this.http.post<Flight>(this.userUrl + "/schedule/" + flightSchedule.id, flightSchedule);
    }
 }

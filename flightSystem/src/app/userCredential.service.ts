@@ -14,25 +14,25 @@ const httpOptions = {
 export class UserCredentialService {
    constructor(private http:HttpClient) {}
 
-   private userUrl = 'http://localhost:8080/userCredential';
+   private userUrl = 'http://localhost:8080/api/user/';
 
    public getUserCredentials() {
-      return this.http.get<UserCredential[]>(this.userUrl + "/getAll");
+      return this.http.get<UserCredential[]>(this.userUrl + "/credentials");
    }
 
    public getUserCredential(userCredential) {
-      return this.http.get(this.userUrl + "/get/" + userCredential.id);
+      return this.http.get(this.userUrl + "/credential/" + userCredential.id);
    }
 
    public deleteUserCredential(userCredential) {
-      return this.http.delete(this.userUrl + "/delete/" + userCredential.id);
+      return this.http.delete(this.userUrl + "/credential/" + userCredential.id);
    }
 
    public createUserCredential(userCredential) {
-      return this.http.post<UserCredential>(this.userUrl + "/add", userCredential);
+      return this.http.post<UserCredential>(this.userUrl + "/credential", userCredential);
    }
 
    public updateUserCredential(userCredential) {
-      return this.http.put<UserCredential>(this.userUrl + "/update/" + userCredential.id, userCredential);
+      return this.http.put<UserCredential>(this.userUrl + "/credential/" + userCredential.id, userCredential);
    }
 }

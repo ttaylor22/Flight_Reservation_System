@@ -14,26 +14,26 @@ export class TicketService {
 
   constructor(private http:HttpClient) {}
 
-  private userUrl = 'http://localhost:8080/ticket';
+  private userUrl = 'http://localhost:8080/api';
 	//private userUrl = '/api';
 
   public getTickets() {
-    return this.http.get<Ticket[]>(this.userUrl + "/getAll");
+    return this.http.get<Ticket[]>(this.userUrl + "/tickets");
   }
 
   public getTicket(ticket) {
-    return this.http.get(this.userUrl + "/get/" + ticket.id);
+    return this.http.get(this.userUrl + "/ticket/" + ticket.id);
   }
 
   public deleteTicket(ticket) {
-    return this.http.delete(this.userUrl + "/delete/"+ ticket.id);
+    return this.http.delete(this.userUrl + "/ticket/"+ ticket.id);
   }
 
   public updateTicket(ticket) {
-    return this.http.put(this.userUrl + "/update/"+ ticket.id, ticket);
+    return this.http.put(this.userUrl + "/ticket/"+ ticket.id, ticket);
   }
 
   public createTicket(ticket) {
-    return this.http.post<Ticket>(this.userUrl+"/addTicket", ticket);
+    return this.http.post<Ticket>(this.userUrl+"/ticket", ticket);
   }
 }

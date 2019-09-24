@@ -17,7 +17,7 @@ export class CreateUSerComponent implements OnInit {
 
   userProfile    : UserProfile    = new UserProfile();
   userCredential : UserCredential = new UserCredential();
-  credentialId   : number;
+  //credentialId   : number;
 
   userProfiles : UserProfile[];
 
@@ -43,7 +43,7 @@ export class CreateUSerComponent implements OnInit {
     
     this.userCredentialService.createUserCredential(this.userCredential)
     .subscribe( data => {
-        this.credentialId = data.id;
+        //this.credentialId = data.id;
         //alert("In createUserCredential : " + this.credentialId);
     });
     
@@ -65,7 +65,6 @@ export class CreateUSerComponent implements OnInit {
     .subscribe( data => {
       alert("User Profile created successfully.");
     });
-    
   }
 
   deleteUser(userProfile) : void {
@@ -74,6 +73,12 @@ export class CreateUSerComponent implements OnInit {
       
     });
     this.userCredentialService.deleteUserCredential(userProfile.userCredentialId).subscribe( data => {
+
+    });
+  }
+
+  updateUser(userProfile) : void {
+    this.userProfileService.updateUserProfile(userProfile.id).subscribe( data => {
 
     });
   }

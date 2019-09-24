@@ -14,10 +14,10 @@ const httpOptions = {
 export class PassengerService {
    constructor(private http:HttpClient) { }
 
-   private userUrl = 'http://localhost:8080/passengers';
+   private userUrl = 'http://localhost:8080/api';
 
    public getPassengers() {
-      return this.http.get<Passenger[]>(this.userUrl);
+      return this.http.get<Passenger[]>(this.userUrl + "/passengers");
    }
 
    public getPassenger(passenger) {
@@ -25,11 +25,11 @@ export class PassengerService {
    }
 
    public deletePassenger(passenger) {
-      return this.http.delete(this.userUrl + '/deletePassenger/' + passenger.passengerId);
+      return this.http.delete(this.userUrl + '/passenger/' + passenger.passengerId);
    }
 
    public createPassenger(passenger) {
-      return this.http.post(this.userUrl + "/addPassenger", passenger.passengerId);
+      return this.http.post(this.userUrl + "/passenger", passenger.passengerId);
    }
    
 }

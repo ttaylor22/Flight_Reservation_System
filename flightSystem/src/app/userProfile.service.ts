@@ -17,27 +17,27 @@ export class UserProfileService {
 
   constructor(private http:HttpClient) {}
 
-  private userUrl = 'http://localhost:8080/userProfile';
+  private userUrl = 'http://localhost:8080/api/user';
 
   public getUserProfiles() {
-    return this.http.get<UserProfile[]>(this.userUrl + "/getAll");
+    return this.http.get<UserProfile[]>(this.userUrl + "/profiles");
   }
 
   public getUserProfile(userProfile,) {
-     return this.http.get(this.userUrl + "/get/" + userProfile.id);
+     return this.http.get(this.userUrl + "/profile/" + userProfile.id);
   }
 
   public deleteUserProfile(userProfile) {
-     return this.http.delete(this.userUrl + "/delete/" + userProfile.id);
+     return this.http.delete(this.userUrl + "/profile/" + userProfile.id);
   }
 
   public createUserProfile(userProfile) {
      //alert("Account Successfully Created");
-     return this.http.post(this.userUrl + "/add", userProfile);
+     return this.http.post(this.userUrl + "/profile", userProfile);
   }
 
   public updateUserProfile(userProfile) {
-      return this.http.put<UserProfile>(this.userUrl + "/update/" + userProfile.id, userProfile);
+      return this.http.put<UserProfile>(this.userUrl + "/profile/" + userProfile.id, userProfile);
   }
 
 }
