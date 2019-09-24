@@ -6,15 +6,16 @@ import { FlightDetailsComponent } from './flight-details/flight-details.componen
 import { CreateUSerComponent } from './create-user/create-user.component';
 import { AccountPageComponent } from './account-page/account-page.component';
 import { AddFlightComponent } from './add-flight/add-flight.component';
-
+import { ShowAllFlightsAdminComponent} from'./show-all-flights-admin/show-all-flights-admin.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'show-flights', component: ShowFlightsComponent},
   {path: 'flight-details', component: FlightDetailsComponent},
   {path: 'create-user', component: CreateUSerComponent},
-  {path: 'account-page', component: AccountPageComponent}, 
-  {path: 'add-flight', component: AddFlightComponent}
+  {path: 'account-page', component: AccountPageComponent},
+  {path: 'add-flight', component: AddFlightComponent},
+  {path: 'admin', component:ShowAllFlightsAdminComponent}
 ];
 
 @NgModule({

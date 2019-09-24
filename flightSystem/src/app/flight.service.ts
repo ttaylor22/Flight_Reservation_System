@@ -22,14 +22,17 @@ export class FlightService {
     return this.http.get<Flight[]>(this.userUrl + "/flights");
   }
 
+  public getAdminFlights(): any{
+    return this.http.get<any[]>(this.userUrl + "/displayFlights");
+  }
+
   public getFlight(flight) {
 
     return this.http.get(this.userUrl + "/flight/" + flight.id);
   }
 
-  public deleteFlight(flight) {
-    console.log("deleteing shit ");
-    return this.http.delete(this.userUrl + "/flight/"+ flight.flightId);
+  public deleteFlight(id: number) {
+    return this.http.delete(this.userUrl + "/flight/"+ id);
 
   }
 

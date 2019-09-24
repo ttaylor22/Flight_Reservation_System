@@ -8,6 +8,7 @@ import { Flight } from '../models/flight.model';
 import { FlightService } from '../flight.service';
 import { RouteService } from '../route.service';
 
+
 @Component({
   selector: 'app-show-flights',
   templateUrl: './show-flights.component.html',
@@ -33,15 +34,16 @@ export class ShowFlightsComponent implements OnInit {
           this.flights = data;
         });
         */
-    };
 
+    };
+/*
     deleteFlight(flight: Flight): void {
       this.flightService.deleteFlight(flight)
         .subscribe( data => {
           this.flights = this.flights.filter(u => u !== flight);
         })
     };
-
+*/
     getFlight(flight : Flight) : void {
       this.flightService.getFlight(flight);
     }
