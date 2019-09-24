@@ -8,15 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "user_credential")
 public class UserCredential {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     
 	@Column(name="type")
 	private String type;
@@ -28,13 +26,13 @@ public class UserCredential {
 	private boolean loginStatus;
 	
 	//@JsonIgnore
-	@OneToOne(mappedBy = "userCredential")
+	@OneToOne(mappedBy = "userCredential", orphanRemoval = true)
     private UserProfile userProfile;
 	
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getType() {

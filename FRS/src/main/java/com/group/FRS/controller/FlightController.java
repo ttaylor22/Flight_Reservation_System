@@ -1,5 +1,6 @@
 package com.group.FRS.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -18,40 +19,37 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.group.FRS.model.Flight;
 import com.group.FRS.model.FlightSchedule;
-import com.group.FRS.model.Route;
 import com.group.FRS.repository.FlightRepository;
-import com.group.FRS.repository.Flight_ScheduleRepository;
-import com.group.FRS.repository.RouteRepository;
+import com.group.FRS.repository.FlightScheduleRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/flight")
+@RequestMapping("/api")
 public class FlightController {
 	
-	@Autowired(required=true)
+	@Autowired
 	 FlightRepository flightRepository;
+	
+	@Autowired
+    FlightScheduleRepository flightScheduleRepository;
 
-    @GetMapping(path="/getAll")
+    @GetMapping(path="/flights")
     public List<Flight> getAllFlights(){
         return flightRepository.findAll();
     }
 
-    @GetMapping(path="/get/{id}")
-    public Flight getSingleFlight(@PathVariable(value = "id") int flightId) {
-    	Flight flight = flightRepository.findById(flightId).orElse(null);
-    	return flight;
+    @GetMapping(path="/flight/{id}")
+    public Flight getSingleFlight(@PathVariable(value = "id") Long flightId) {
+    	return flightRepository.findById(flightId).orElse(null);
     }
     
-    
- 
-    
-	@PostMapping(path="/add")
+	@PostMapping(path="/flight")
     public ResponseEntity<Flight> create( @RequestBody Flight flight){
          return ResponseEntity.ok(flightRepository.save(flight));
     }
 	
-	@PutMapping("/update/{id}")
-	   public ResponseEntity<Flight> updateFlight(@PathVariable(value = "id") int flightId,
+	@PutMapping("/flight/{id}")
+	   public ResponseEntity<Flight> updateFlight(@PathVariable(value = "id") Long flightId,
 	                                              @Valid @RequestBody Flight flightDetails) {
 	       Flight flight = flightRepository.findById( flightId).orElse(null);
 	       flight.setflightName(flightDetails.getflightName());
@@ -59,9 +57,28 @@ public class FlightController {
 	       flight.setreservationCapacity(flightDetails.getreservationCapacity());
 	       return ResponseEntity.ok(flightRepository.save(flight));
 	   }
-	
-	@DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable("id") int id) {
+	/*
+	//@SuppressWarnings("unchecked")
+	@PutMapping("/update/{id}/schedule/{id2}")
+	   public ResponseEntity<Flight> updateFlight(@PathVariable(value = "id") Long flightId,
+			   									  @PathVariable(value = "id2") Long flightScheduleId,
+	                                              @Valid @RequestBody Flight flightDetails) {
+		   Flight flight = flightRepository.findById( flightId).orElse(null);
+	       flight.setflightName(flightDetails.getflightName());
+	       flight.setseatingCapacity(flightDetails.getseatingCapacity());
+	       flight.setreservationCapacity(flightDetails.getreservationCapacity());   
+	       ArrayList<FlightSchedule> list = new ArrayList<FlightSchedule>();
+	       FlightSchedule flightSchedule = flightScheduleRepository.findById(flightScheduleId).orElse(null);
+	       if(flightSchedule == null) {
+	    	   return null;
+	       }
+	       list.add(flightSchedule);    
+	       flight.getFlightSchedules().addAll(list);
+	       return ResponseEntity.ok(flightRepository.save(flight));
+	   }
+	*/
+	@DeleteMapping("/flight/{id}")
+    public void delete(@PathVariable("id") Long id) {
          flightRepository.deleteById(id);
     }
     

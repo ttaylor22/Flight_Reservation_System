@@ -19,30 +19,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.group.FRS.model.Route;
-import com.group.FRS.repository.Flight_ScheduleRepository;
 import com.group.FRS.repository.RouteRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/route")
+@RequestMapping("/api")
 public class RouteController {
-
+	//produces="application/json"
 	
 	@Autowired
 	RouteRepository routeRepository;
 	
-	
-	Flight_ScheduleRepository flightRepository;
-	
-    @GetMapping(path="/getAll",produces="application/json" )
+    @GetMapping(path="/routes")
     public List<Route> getAllRepositories(){
         return routeRepository.findAll();
     }
     
-    @GetMapping(path="/get/{id}", produces="application/json")
+    @GetMapping(path="/route/{id}")
 	public Route getSinglePassenger(@PathVariable(value="id") Long routeId) {
-		Route route = routeRepository.findById(routeId).orElse(null);
-		return route;
+		return routeRepository.findById(routeId).orElse(null);
 	}
     
     @GetMapping(path="/displayFlights/{source}/{destination}/{scheduleDay}", produces="application/json")
@@ -52,16 +47,12 @@ public class RouteController {
     	return routes;
     }
     
-    //put add flight
-    @PostMapping(path="/add", produces="application/json")
+    @PostMapping(path="/route")
     public ResponseEntity<Route> create( @RequestBody Route route){
     	return ResponseEntity.ok(routeRepository.save(route));
     }
     
-    
-    
-
-    @PutMapping(path="/update/{id}")
+    @PutMapping(path="/route/{id}")
     public ResponseEntity<Route> updateRoute(@PathVariable(value ="id") Long scheduleId,
     		@Valid @RequestBody Route routeDetails){
     	Route route = routeRepository.findById(scheduleId).orElse(null);
@@ -72,9 +63,7 @@ public class RouteController {
     	return ResponseEntity.ok(routeRepository.save(route));
     }
     
-    
-
-	@DeleteMapping(path="/delete/{id}")
+	@DeleteMapping(path="/route/{id}")
     public void delete(@PathVariable("id") Long id) {
          routeRepository.deleteById(id);
     }
