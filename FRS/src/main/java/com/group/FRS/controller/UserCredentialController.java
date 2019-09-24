@@ -26,34 +26,61 @@ public class UserCredentialController {
 	@Autowired(required=true)
 	 UserCredentialRepository userCredentialRepository;
 
-   @GetMapping(path="/credentials")
-   public List<UserCredential> getAllProfiles(){
-       return userCredentialRepository.findAll();
-   }
+	@PutMapping(path="/authenticate/{username}/{password}")
+	public ResponseEntity<UserCredential> authenticate(@PathVariable(value = "username") String username, @PathVariable(value = "password") String password) {
+		UserCredential user = userCredentialRepository.findByUsername(username);
+		if (user != null) {
+			if (user.getPassword().equals(password)) {
+				user.setLoginStatus(true);
+				final UserCredential updatedUserCredential = userCredentialRepository.save(user);
+			    return ResponseEntity.ok(updatedUserCredential);
+			}
+			return null;
+		} else {
+			return null;
+		}
+	}
+	
+	@PutMapping(path="/logout/{id}")
+	public ResponseEntity<UserCredential> logout(@PathVariable(value = "id") Long id) {
+		UserCredential user = userCredentialRepository.findById(id).orElse(null);
+		if (user != null) {
+			user.setLoginStatus(false);
+			final UserCredential updatedUserCredential = userCredentialRepository.save(user);
+			return ResponseEntity.ok(updatedUserCredential);
+		} else {
+			return null;
+		}
+	}
+	
+	@GetMapping(path="/credentials")
+	public List<UserCredential> getAllProfiles(){
+		return userCredentialRepository.findAll();
+	}
 
-   @GetMapping(path="/credential/{id}")
-   public UserCredential getSingleProfile(@PathVariable(value = "id") long userId) {
-   	UserCredential user = userCredentialRepository.findById(userId).orElse(null);
-   	return user;
-   }
+	@GetMapping(path="/credential/{id}")
+	public UserCredential getSingleProfile(@PathVariable(value = "id") long userId) {
+		UserCredential user = userCredentialRepository.findById(userId).orElse(null);
+		return user;
+	}
    
 	@PostMapping(path="/credential")
-   public ResponseEntity<UserCredential> create( @RequestBody UserCredential user) {
+	public ResponseEntity<UserCredential> create( @RequestBody UserCredential user) {
         return ResponseEntity.ok(userCredentialRepository.save(user));
-   }
+	}
 	
 	@PutMapping("/credential/{id}")
-	   public ResponseEntity<UserCredential> updateUserCredential(@PathVariable(value = "id") long userId,
+	public ResponseEntity<UserCredential> updateUserCredential(@PathVariable(value = "id") long userId,
 	                                              @Valid @RequestBody UserCredential userDetails) {
-	       UserCredential user = userCredentialRepository.findById(userId).orElse(null);
-	       user.setType(userDetails.getType());
-	       return ResponseEntity.ok(userCredentialRepository.save(user));
-	   }
+	    UserCredential user = userCredentialRepository.findById(userId).orElse(null);
+	    user.setType(userDetails.getType());
+	    return ResponseEntity.ok(userCredentialRepository.save(user));
+	}
 	
 	@DeleteMapping("/credential/{id}")
-   public void delete(@PathVariable("id") long id) {
+	public void delete(@PathVariable("id") long id) {
         userCredentialRepository.deleteById(id);
-   }
+	}
 	/*
 	@GetMapping(path="/getId")
 	public Long getUserCredentialId(@PathVariable(value = "username") String username) {

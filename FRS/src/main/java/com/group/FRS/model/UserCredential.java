@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "user_credential")
@@ -24,6 +25,9 @@ public class UserCredential {
 	private String password;
 	@Column(name="login_status")
 	private boolean loginStatus;
+	
+	@Transient
+	private String passwordConfirm;
 	
 	//@JsonIgnore
 	@OneToOne(mappedBy = "userCredential", orphanRemoval = true)

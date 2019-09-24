@@ -7,5 +7,5 @@ import com.group.FRS.model.UserCredential;
 
 @Repository
 public interface UserCredentialRepository extends JpaRepository<UserCredential, Long> {
-	
+	UserCredential findByUsername(String username);
 }
