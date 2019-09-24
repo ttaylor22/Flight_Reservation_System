@@ -1,0 +1,72 @@
+<div style=" width:500px; height:300px; border: 2px solid black;" >
+  <form style="margin:30px;">
+    <input type="radio" name="tripType" class="oneway" value="oneway" />One way
+    <input type="radio" name="tripType" class="roundtrip" value="roundtrip" />Round Trip<br>
+    From<input [(ngModel)]="route.source" type="text" name="source" id="source"/> 
+    To<input [(ngModel)]="route.destination" type="text" name="destination" id="destination"/><br> 
+    <!--Date Start <input [(ngModel)]="flightSchedule.scheduleDay" type="date" name="startDate" /><br> -->
+    <!--Date End <input type="date" name="endDate" /> <br/>-->
+   <!-- Travelers <input type="number" name="travelers" /><br>-->
+    <button (click)="displayFlights()">Find Flights</button>
+  </form>
+</div>
+
+<div >
+  <h2> Flights</h2>
+<table cellspacing="40">
+    <thead>
+        <tr>
+            <th >Flight Name</th>
+            <th>Total Seats</th>
+            <th>Seats Left</th>
+            <th>Schedule day</th>
+            <th>Depart</th>
+            <th>Arrive</th>
+            <th>Distance</th>
+            <th>Duration</th>
+            <th>Price</th>
+          </tr>
+  </thead>
+    <tbody>
+    <tr *ngFor="let route of routes">
+        <td> {{route[0]}} </td>
+        <td>{{ route[1] }}</td>
+        <td>{{ route[2] }}</td>
+        <td>{{ route[3] }}</td>
+        <td>{{ route[4] }}</td>
+        <td>{{ route[5] }}</td>
+        <td>{{ route[6] }} miles</td>
+        <td>{{ route[7] }} hours</td>
+        <td>${{ route[8] }} </td>
+        <td><button (click)="bookFlight()">Select</button></td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+
+
+
+<!--
+<tr>
+    <th>Flight Name</th>
+    <th>Seat Cap.</th>
+    <th>Res. Cap</th>
+    <th>Schedule day</th>
+    <th>Source</th>
+    <th>Destination</th>
+    <th>Distance</th>
+    <th>Duration</th>
+  </tr>
+
+<td>{{route[0]}}</td>
+      <td>{{route[1]}}</td>
+      <td>{{route[2]}}</td>
+      <td>{{route.[3]}}</td>
+      <td>{{route.[4]}}</td>
+      <td>{{route.[5]}}</td>
+      <td>{{route.[6]}}</td>
+      <td>{{route.[7]}}</td>
+      <td>{{route.[8]}}</td>
+
+-->
