@@ -1,9 +1,9 @@
 package com.group.FRS.model;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -41,8 +40,6 @@ public class UserProfile {
 	private String mobileNumber;
 	@Column(name="email_id")
 	private String emailId;
-	@Column(name="user_Credential_id")
-	private Integer userCredentialId;
 
 	@JsonIgnore
 	//@JsonBackReference

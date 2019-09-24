@@ -16,37 +16,42 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+//import com.group.FRS.model.UserCredential;
 import com.group.FRS.model.UserProfile;
-import com.group.FRS.repository.User_ProfileRepository;
+//import com.group.FRS.repository.UserCredentialRepository;
+import com.group.FRS.repository.UserProfileRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/user/p")
+@RequestMapping("/api/user")
 public class UserProfileController {
 
 	@Autowired(required=true)
-	 User_ProfileRepository userProfileRepository;
+	 UserProfileRepository userProfileRepository;
+	 //UserCredentialRepository userCredentialRepository;
 
-    @GetMapping(path="/getAll")
+    @GetMapping(path="/profiles")
     public List<UserProfile> getAllProfiles(){
         return userProfileRepository.findAll();
     }
 
-    @GetMapping(path="/get/{id}")
+    @GetMapping(path="/profile/{id}")
     public UserProfile getSingleProfile(@PathVariable(value = "id") Long userId) {
     	UserProfile user = userProfileRepository.findById(userId).orElse(null);
     	return user;
     }
     
-	@PostMapping(path="/add")
-    public ResponseEntity<UserProfile> create( @RequestBody UserProfile user){
-         return ResponseEntity.ok(userProfileRepository.save(user));
+	@PostMapping(path="/profile")
+    public ResponseEntity<UserProfile> create( @RequestBody UserProfile user) {
+		return ResponseEntity.ok(userProfileRepository.save(user));
     }
 	
-	@PutMapping("/update/{id}")
+	@PutMapping("/profile/{id}")
 	   public ResponseEntity<UserProfile> updateUserProfile(@PathVariable(value = "id") Long userId,
 	                                              @Valid @RequestBody UserProfile userDetails) {
-	       UserProfile user = userProfileRepository.findById( userId).orElse(null);
+	       UserProfile user = userProfileRepository.findById(userId).orElse(null);
+	       //UserCredential userCredential = userCredentialRepository.findById(userId).orElse(null);
+	       
 	       user.setAddress(userDetails.getAddress());
 	       user.setDateOfBirth(userDetails.getDateOfBirth());
 	       user.setEmailId(userDetails.getEmailId());
@@ -54,10 +59,13 @@ public class UserProfileController {
 	       user.setMobileNumber(userDetails.getMobileNumber());
 	       user.setFirstName(userDetails.getFirstName());
 	       user.setLastName(userDetails.getLastName());
+	       //user.setUserCredential(userCredential);
+	       
+	       
 	       return ResponseEntity.ok(userProfileRepository.save(user));
 	   }
 	
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/profile/{id}")
     public void delete(@PathVariable("id") Long id) {
          userProfileRepository.deleteById(id);
     }
