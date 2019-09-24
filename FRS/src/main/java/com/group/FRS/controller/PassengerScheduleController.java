@@ -15,8 +15,17 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.group.FRS.model.FlightSchedule;
+import com.group.FRS.model.Passenger;
 import com.group.FRS.model.PassengerSchedule;
+import com.group.FRS.model.Route;
+import com.group.FRS.model.Ticket;
+import com.group.FRS.model.UserProfile;
+import com.group.FRS.repository.PassengerRepository;
 import com.group.FRS.repository.PassengerScheduleRepository;
+import com.group.FRS.repository.TicketRepository;
+import com.group.FRS.repository.UserProfileRepository;
 
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -25,29 +34,37 @@ import com.group.FRS.repository.PassengerScheduleRepository;
 public class PassengerScheduleController {
 	
 	@Autowired
-	PassengerScheduleRepository passengerScheduleService;
+	PassengerScheduleRepository passengerScheduleRespository;
 	
+	@Autowired
+	PassengerRepository passengerRespository;
+	
+	@Autowired
+	TicketRepository ticketRespository;
+	
+	@Autowired
+	UserProfileRepository userProfileRepository;
 	
     @GetMapping(path ="/passenger/schedules")
     public List<PassengerSchedule> getAllFlightSchedules(){
-        return passengerScheduleService.findAll();
+        return passengerScheduleRespository.findAll();
     }
     
     @GetMapping(path="/passenger/schedule/{id}")
     public PassengerSchedule getSinglePassengerSchedule(@PathVariable(value = "id") Long passengerScheduleId) {
-    	PassengerSchedule passengerSchedule = passengerScheduleService.findById(passengerScheduleId).orElse(null);
+    	PassengerSchedule passengerSchedule = passengerScheduleRespository.findById(passengerScheduleId).orElse(null);
     	return passengerSchedule;
     }
     
     @PostMapping(path ="/passenger/schedule")
     public ResponseEntity<PassengerSchedule> create( @RequestBody PassengerSchedule passenger){
-    	return ResponseEntity.ok(passengerScheduleService.save(passenger));
+    	return ResponseEntity.ok(passengerScheduleRespository.save(passenger));
     }
     
     @PutMapping(path ="/passenger/schedule/{id}")
     public ResponseEntity<PassengerSchedule> updatePassengerSchedule(@PathVariable(value ="id") Long passengerId,
     		@Valid @RequestBody PassengerSchedule passengerscheduleDetails){
-    	PassengerSchedule schedule = passengerScheduleService.findById(passengerId).orElse(null);
+    	PassengerSchedule schedule = passengerScheduleRespository.findById(passengerId).orElse(null);
     	schedule.setDestination(passengerscheduleDetails.getDestination());
     	schedule.setJourneyStart(passengerscheduleDetails.getJourneyStart());
     	schedule.setJourneyEnd(passengerscheduleDetails.getJourneyEnd());
@@ -56,12 +73,39 @@ public class PassengerScheduleController {
     	schedule.setReservationType(passengerscheduleDetails.getReservationType());
     	schedule.setSource(passengerscheduleDetails.getSource());
     	schedule.setTicket(passengerscheduleDetails.getTicket());	
-    	return ResponseEntity.ok(passengerScheduleService.save(schedule));
+    	return ResponseEntity.ok(passengerScheduleRespository.save(schedule));
     }
+    
+    @PutMapping("/passenger/schedule/{id1}/passenger/{id2}")
+	public ResponseEntity<PassengerSchedule> connect1(@PathVariable(value = "id") Long passengerSId,
+			@PathVariable(value = "id2") Long passengerId) {
+		PassengerSchedule passS = passengerScheduleRespository.findById(passengerSId).orElse(null);
+		Passenger pass = passengerRespository.findById(passengerId).orElse(null);
+		passS.setPassenger(pass);
+		return ResponseEntity.ok(passengerScheduleRespository.save(passS));
+	}
+    
+    @PutMapping("/passenger/schedule/{id1}/ticket/{id2}")
+   	public ResponseEntity<PassengerSchedule> connect2(@PathVariable(value = "id") Long passengerSId,
+   			@PathVariable(value = "id2") Long ticketId) {
+   		PassengerSchedule passS = passengerScheduleRespository.findById(passengerSId).orElse(null);
+   		Ticket ticket = ticketRespository.findById(ticketId).orElse(null);
+   		passS.setTicket(ticket);
+   		return ResponseEntity.ok(passengerScheduleRespository.save(passS));
+   	}
+    
+    @PutMapping("/passenger/schedule/{id1}/user/profile/{id2}")
+   	public ResponseEntity<PassengerSchedule> connect3(@PathVariable(value = "id") Long passengerSId,
+   			@PathVariable(value = "id2") Long profileId) {
+   		PassengerSchedule passS = passengerScheduleRespository.findById(passengerSId).orElse(null);
+   		UserProfile userP = userProfileRepository.findById(profileId).orElse(null);
+   		passS.setUserProfile(userP);
+   		return ResponseEntity.ok(passengerScheduleRespository.save(passS));
+   	}
     
     @DeleteMapping(path ="/passenger/schedule/{id}")
     public void delete(@PathVariable("id") Long id) {
-    	passengerScheduleService.deleteById(id);
+    	passengerScheduleRespository.deleteById(id);
     }
 
 }

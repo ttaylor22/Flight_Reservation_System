@@ -31,7 +31,7 @@ public class TicketController {
 	public List<Ticket> getAllTickets() {
 		return ticketRepository.findAll();
 	}
-
+	
 	@GetMapping(path = "/ticket/{id}")
 	public Ticket getTicket(@PathVariable(value = "id") Long ticketId) {
 		return ticketRepository.findById(ticketId).orElse(null);

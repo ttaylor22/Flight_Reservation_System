@@ -15,7 +15,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.group.FRS.model.Flight;
 import com.group.FRS.model.Passenger;
+import com.group.FRS.model.PassengerSchedule;
+import com.group.FRS.model.UserProfile;
 import com.group.FRS.repository.FlightRepository;
 import com.group.FRS.repository.PassengerRepository;
 
@@ -26,6 +30,9 @@ public class PassengerController {
 
 	@Autowired
 	PassengerRepository passengerRepository;
+	
+	@Autowired
+	FlightRepository flightRepository;
 	
 	@GetMapping(path="/passengers")
 	public List<Passenger> getAllPassengers(){
@@ -54,6 +61,15 @@ public class PassengerController {
 	       passenger.setBookingDate(passengerDetails.getBookingDate());
 	       return ResponseEntity.ok(passengerRepository.save(passenger));
 	   }
+	
+	   @PutMapping("/passenger/{id1}/flight/{id2}")
+	   	public ResponseEntity<Passenger> connect(@PathVariable(value = "id") Long passengerId,
+	   			@PathVariable(value = "id2") Long flightId) {
+	   		Passenger pass = passengerRepository.findById(passengerId).orElse(null);
+	   		Flight flight = flightRepository.findById(flightId).orElse(null);
+	   		pass.setFlight(flight);
+	   		return ResponseEntity.ok(passengerRepository.save(pass));
+	   	}
 	
 	@DeleteMapping(path="/passenger/{id}")
     public void delete(@PathVariable("id") Long id) {

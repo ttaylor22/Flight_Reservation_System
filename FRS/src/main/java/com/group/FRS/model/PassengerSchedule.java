@@ -174,5 +174,26 @@ public class PassengerSchedule {
 		this.passenger = passenger;
 	}
 
+
+	public UserProfile getUserProfile() {
+		return userProfile;
+	}
+
+
+	public void setUserProfile(UserProfile userProfile) {
+		this.userProfile = userProfile;
+	}
+
+
+	@Override
+	public String toString() {
+		return "PassengerSchedule [id=" + id + ", journeyStart=" + journeyStart + ", journeyEnd=" + journeyEnd
+				+ ", travelers=" + travelers + ", source=" + source + ", destination=" + destination
+				+ ", reservationType=" + reservationType + ", ticket=" + ticket + ", passenger=" + passenger
+				+ ", userProfile=" + userProfile + "]";
+	}
+	
+	
+
 	
 }
