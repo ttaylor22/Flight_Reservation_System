@@ -39,6 +39,8 @@ public class UserProfile {
 	private String mobileNumber;
 	@Column(name="email_id")
 	private String emailId;
+	@Column(name="user_Credential_id")
+	private Integer userCredentialId;
 
 	@JsonIgnore
 	@JsonBackReference
@@ -56,7 +58,9 @@ public class UserProfile {
 	}
 
 	public void setId(int id) {
+		System.out.println(id);
 		this.id = id;
+		System.out.println("id set");
 	}
 
 	public String getFirstName() {
@@ -64,7 +68,9 @@ public class UserProfile {
 	}
 
 	public void setFirstName(String firstName) {
+		System.out.println(firstName);
 		this.firstName = firstName;
+		System.out.println("firstName set");
 	}
 
 	public String getLastName() {
@@ -72,7 +78,9 @@ public class UserProfile {
 	}
 
 	public void setLastName(String lastName) {
+		System.out.println(lastName);
 		this.lastName = lastName;
+		System.out.println("lastName set");
 	}
 
 	public Date getDateOfBirth() {
@@ -80,7 +88,9 @@ public class UserProfile {
 	}
 
 	public void setDateOfBirth(Date dateOfBirth) {
+		System.out.println(dateOfBirth);
 		this.dateOfBirth = dateOfBirth;
+		System.out.println("dateOfBirth set");
 	}
 
 	public String getGender() {
@@ -88,7 +98,9 @@ public class UserProfile {
 	}
 
 	public void setGender(String gender) {
+		System.out.println(gender);
 		this.gender = gender;
+		System.out.println("gender set");
 	}
 
 	public String getAddress() {
@@ -96,7 +108,9 @@ public class UserProfile {
 	}
 
 	public void setAddress(String address) {
+		System.out.println(address);
 		this.address = address;
+		System.out.println("address set");
 	}
 
 	public String getMobileNumber() {
@@ -104,7 +118,9 @@ public class UserProfile {
 	}
 
 	public void setMobileNumber(String mobileNumber) {
+		System.out.println(mobileNumber);
 		this.mobileNumber = mobileNumber;
+		System.out.println("mobileNumber set");
 	}
 
 	public String getEmailId() {
@@ -112,7 +128,9 @@ public class UserProfile {
 	}
 
 	public void setEmailId(String emailId) {
+		System.out.println(emailId);
 		this.emailId = emailId;
+		System.out.println("emailId set");
 	}
 /*
 	public List<Reservation> getReservations() {
@@ -128,6 +146,7 @@ public class UserProfile {
 	}
 
 	public void setUserCredential(UserCredential userCredential) {
+		System.out.println("USER CREDENTIAL SET");
 		this.userCredential = userCredential;
 	}
 /*
