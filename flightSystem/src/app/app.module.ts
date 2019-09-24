@@ -19,9 +19,11 @@ import { ShowFlightsComponent } from './show-flights/show-flights.component';
 import { AccountPageComponent } from './account-page/account-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AddFlightComponent } from './add-flight/add-flight.component';
-import { LoginComponent } from './login/login.component';
 import { ShowAllFlightsAdminComponent } from './show-all-flights-admin/show-all-flights-admin.component';
 
+import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -31,9 +33,12 @@ import { ShowAllFlightsAdminComponent } from './show-all-flights-admin/show-all-
     ShowFlightsComponent,
     AccountPageComponent,
     AddFlightComponent,
-    LoginComponent,
 
     ShowAllFlightsAdminComponent,
+
+    LoginComponent,
+    LogoutComponent
+
   ],
   imports: [
     BrowserModule,
@@ -53,7 +58,7 @@ import { ShowAllFlightsAdminComponent } from './show-all-flights-admin/show-all-
 
   ],
   exports: [FormsModule, ReactiveFormsModule],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent],
 })
 

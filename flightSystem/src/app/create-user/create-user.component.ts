@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserProfile } from '../models/userProfile.model';
 import { UserCredential } from '../models/userCredential.model';
 
-import { UserCredentialService } from '../userCredential.service';
+import { UserCredentialService } from '../services/userCredential.service';
 import { UserProfileService } from '../userProfile.service';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
