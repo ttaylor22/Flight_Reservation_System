@@ -7,6 +7,11 @@ import { CreateUSerComponent } from './create-user/create-user.component';
 import { AccountPageComponent } from './account-page/account-page.component';
 import { AddFlightComponent } from './add-flight/add-flight.component';
 import { ShowAllFlightsAdminComponent} from'./show-all-flights-admin/show-all-flights-admin.component';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
+import { AdminAddFlightScheduleComponent } from './admin-add-flight-schedule/admin-add-flight-schedule.component';
+import { AdminAddRouteComponent } from './admin-add-route/admin-add-route.component';
+import { AdminFindUserComponent } from './admin-find-user/admin-find-user.component';
+import { AdminFindPassengerComponent } from './admin-find-passenger/admin-find-passenger.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -15,7 +20,12 @@ const routes: Routes = [
   {path: 'create-user', component: CreateUSerComponent},
   {path: 'account-page', component: AccountPageComponent},
   {path: 'add-flight', component: AddFlightComponent},
-  {path: 'admin', component:ShowAllFlightsAdminComponent}
+  {path: 'admin-home', component:AdminHomeComponent},
+  {path: 'show-all-flights-admin', component:ShowAllFlightsAdminComponent},
+  {path: 'admin-add-flight-schedule', component:AdminAddFlightScheduleComponent},
+  {path: 'admin-add-route', component:AdminAddRouteComponent},
+  {path: 'admin-find-user', component:AdminFindUserComponent},
+  {path: 'admin-find-passenger', component:AdminFindPassengerComponent},
 ];
 
 @NgModule({

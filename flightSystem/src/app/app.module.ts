@@ -1,15 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule} from '@angular/material/card';
+import { MatNativeDateModule } from '@angular/material/';
+import { MatTableModule } from '@angular/material/table';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,9 +24,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { AddFlightComponent } from './add-flight/add-flight.component';
 import { LoginComponent } from './login/login.component';
 import { ShowAllFlightsAdminComponent } from './show-all-flights-admin/show-all-flights-admin.component';
-import { MatNativeDateModule } from '@angular/material/';
-import { MatTableModule } from '@angular/material/table';
 
+
+import { AdminHomeComponent } from './admin-home/admin-home.component';
+import { AdminAddFlightScheduleComponent } from './admin-add-flight-schedule/admin-add-flight-schedule.component';
+import { AdminAddRouteComponent } from './admin-add-route/admin-add-route.component';
+import { AdminFindUserComponent } from './admin-find-user/admin-find-user.component';
+import { AdminFindPassengerComponent } from './admin-find-passenger/admin-find-passenger.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +43,16 @@ import { MatTableModule } from '@angular/material/table';
     LoginComponent,
 
     ShowAllFlightsAdminComponent,
+
+    AdminHomeComponent,
+
+    AdminAddRouteComponent,
+
+    AdminAddFlightScheduleComponent,
+
+    AdminFindUserComponent,
+
+    AdminFindPassengerComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,11 +69,10 @@ import { MatTableModule } from '@angular/material/table';
     MatButtonModule,
     MatCardModule,
     MatNativeDateModule,
-    MatTableModule
-
-
+    MatTableModule,
+    MatMenuModule
   ],
-  exports: [FormsModule, ReactiveFormsModule, MatTableModule],
+  exports: [FormsModule, ReactiveFormsModule, MatTableModule, MatMenuModule],
   providers: [],
   bootstrap: [AppComponent],
 })
