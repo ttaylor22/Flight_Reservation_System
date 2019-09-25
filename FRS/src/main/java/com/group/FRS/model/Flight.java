@@ -1,27 +1,15 @@
 package com.group.FRS.model;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-
-
 
 
 
@@ -42,15 +30,16 @@ public class Flight {
 	@Column(name="reservation_capacity")
 	private int reservationCapacity;
 	
-	@JsonIgnore
-	//@JsonBackReference
-	@OneToMany(mappedBy="flight", orphanRemoval = true, cascade = CascadeType.PERSIST)
-	private Set<Passenger> passengers;
+	@OneToMany(mappedBy="flight", 
+			orphanRemoval = true, 
+			cascade = CascadeType.PERSIST)
+	private List<Passenger> passengers = new ArrayList<>();
 
-	@JsonIgnore
-	//@JsonBackReference
-	@OneToMany(mappedBy = "flight", orphanRemoval = true, cascade = CascadeType.PERSIST)
-	private Set<FlightSchedule> flightSchedules;
+
+	@OneToMany(mappedBy = "flight", 
+			orphanRemoval = true, 
+			cascade = CascadeType.PERSIST)
+	private List<FlightSchedule> flightSchedules = new ArrayList<>();
 
 	
 	public Flight() {
@@ -102,20 +91,30 @@ public class Flight {
 		this.reservationCapacity = reservationCapacity;
 	}
 
-	public Set<Passenger> getPassengers() {
+	public List<Passenger> getPassengers() {
 		return passengers;
 	}
 
-	public void setPassengers(Set<Passenger> passengers) {
+	public void setPassengers(List<Passenger> passengers) {
 		this.passengers = passengers;
 	}
+	
+	public void addPassenger(Passenger passenger) {
+		passenger.setFlight(this);
+		passengers.add(passenger);
+	}
 
-	public Set<FlightSchedule> getFlightSchedules() {
+	public List<FlightSchedule> getFlightSchedules() {
 		return flightSchedules;
 	}
 
-	public void setFlightSchedules(Set<FlightSchedule> flightSchedules) {
+	public void setFlightSchedules(List<FlightSchedule> flightSchedules) {
 		this.flightSchedules = flightSchedules ;
+	}
+	
+	public void addFlightSchedule(FlightSchedule flightSchedule) {
+		flightSchedule.setFlight(this);
+		flightSchedules.add(flightSchedule);
 	}
 
 

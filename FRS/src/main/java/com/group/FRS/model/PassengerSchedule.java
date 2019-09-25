@@ -1,24 +1,20 @@
 package com.group.FRS.model;
 
 import java.util.Date;
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -45,20 +41,19 @@ public class PassengerSchedule {
 	@Column(name="reservation_type")
 	private String reservationType;
 	
-	//@JsonIgnore
-	@OneToOne(orphanRemoval = true)
+	@OneToOne(orphanRemoval = true, 
+			fetch = FetchType.EAGER, 
+			cascade = CascadeType.ALL)
     @JoinColumn(name = "ticket_id", referencedColumnName = "id")
 	private Ticket ticket;
 	
 	@JsonIgnore
-	//@JsonManagedReference
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="passenger_id")
 	private Passenger passenger;
 	
 	@JsonIgnore
-	//@JsonManagedReference
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="user_profile_id")
 	private UserProfile userProfile;
 	
@@ -158,6 +153,10 @@ public class PassengerSchedule {
 	public Ticket getTicket() {
 		return ticket;
 	}
+	
+	public void removeTicket() {
+		ticket = null;
+	}
 
 
 	public void setTicket(Ticket ticket) {
@@ -173,6 +172,27 @@ public class PassengerSchedule {
 	public void setPassenger(Passenger passenger) {
 		this.passenger = passenger;
 	}
+
+
+	public UserProfile getUserProfile() {
+		return userProfile;
+	}
+
+
+	public void setUserProfile(UserProfile userProfile) {
+		this.userProfile = userProfile;
+	}
+
+
+	@Override
+	public String toString() {
+		return "PassengerSchedule [id=" + id + ", journeyStart=" + journeyStart + ", journeyEnd=" + journeyEnd
+				+ ", travelers=" + travelers + ", source=" + source + ", destination=" + destination
+				+ ", reservationType=" + reservationType + ", ticket=" + ticket + ", passenger=" + passenger
+				+ ", userProfile=" + userProfile + "]";
+	}
+	
+	
 
 	
 }

@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.group.FRS.model.FlightSchedule;
 import com.group.FRS.model.Route;
+import com.group.FRS.model.UserProfile;
+import com.group.FRS.repository.FlightScheduleRepository;
 import com.group.FRS.repository.RouteRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -30,31 +33,34 @@ public class RouteController {
 	@Autowired
 	RouteRepository routeRepository;
 	
-    @GetMapping(path="/routes")
+	@Autowired
+	FlightScheduleRepository flightscheduleRepository;
+	
+    @GetMapping("/routes")
     public List<Route> getAllRepositories(){
         return routeRepository.findAll();
     }
     
-    @GetMapping(path="/route/{id}")
+    @GetMapping(path="/displayFlights/{source}/{destination}/{scheduleDay}", produces="application/json")
+    public List<Object> displayFlights(@PathVariable(value="source") String source, @PathVariable(value="destination") String destination) {
+    	List<Object> routes = routeRepository.findRoutes(source, destination);
+    	return routes;
+    }
+    
+    
+    @GetMapping("/route/{id}")
 	public Route getSinglePassenger(@PathVariable(value="id") Long routeId) {
 		return routeRepository.findById(routeId).orElse(null);
 	}
     
-    @GetMapping(path="/displayFlights/{source}/{destination}/{scheduleDay}", produces="application/json")
-    public List<Object> displayFlights(@PathVariable(value="source") String source, @PathVariable(value="destination") String destination, 
-    									@PathVariable(value="scheduleDay") @DateTimeFormat(pattern="yyyy-MM-dd") Date scheduleDate) {
-    	List<Object> routes = routeRepository.findRoutes(source, destination, scheduleDate);
-    	return routes;
-    }
-    
-    @PostMapping(path="/route")
+    @PostMapping("/route")
     public ResponseEntity<Route> create( @RequestBody Route route){
     	return ResponseEntity.ok(routeRepository.save(route));
     }
     
-    @PutMapping(path="/route/{id}")
+    @PutMapping("/route/{id}")
     public ResponseEntity<Route> updateRoute(@PathVariable(value ="id") Long scheduleId,
-    		@Valid @RequestBody Route routeDetails){
+    		@Valid @RequestBody Route routeDetails ){
     	Route route = routeRepository.findById(scheduleId).orElse(null);
     	route.setSource(routeDetails.getSource());
     	route.setDestination(routeDetails.getDestination());
@@ -63,7 +69,17 @@ public class RouteController {
     	return ResponseEntity.ok(routeRepository.save(route));
     }
     
-	@DeleteMapping(path="/route/{id}")
+    @PutMapping("/route/{id}/flight/schedule/{id2}")
+	public ResponseEntity<Route> connect(@PathVariable(value = "id") Long routeId,
+			@PathVariable(value = "id2") Long flightSId,
+			@Valid @RequestBody UserProfile userDetails) {
+		Route route = routeRepository.findById(routeId).orElse(null);
+		FlightSchedule flightS = flightscheduleRepository.findById(flightSId).orElse(null);
+		route.setFlightSchedule(flightS);
+		return ResponseEntity.ok(routeRepository.save(route));
+	}
+    
+	@DeleteMapping("/route/{id}")
     public void delete(@PathVariable("id") Long id) {
          routeRepository.deleteById(id);
     }
