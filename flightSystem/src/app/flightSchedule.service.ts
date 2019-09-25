@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Flight } from './models/flight.model';
+import { FlightSchedule } from './models/flightSchedule.model';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -23,6 +24,10 @@ export class FlightScheduleService {
    public getFlightSchedule(flightSchedule) {
    return this.http.get(this.userUrl + "/schedule/" + flightSchedule.id);
    }
+
+   public getFlightScheduleId(id: number) {
+    return this.http.get<FlightSchedule>(this.userUrl + "/schedule/" + id);
+    }
 
    public deleteFlightSchedule(flightSchedule) {
    return this.http.delete(this.userUrl + "/schedule/"+ flightSchedule.id);

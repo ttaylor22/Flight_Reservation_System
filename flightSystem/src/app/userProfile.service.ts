@@ -23,8 +23,8 @@ export class UserProfileService {
     return this.http.get<UserProfile[]>(this.userUrl + "/profiles");
   }
 
-  public getUserProfile(userProfile,) {
-     return this.http.get(this.userUrl + "/profile/" + userProfile.id);
+  public getUserProfile(userProfile, userId) {
+     return this.http.get<UserProfile>(this.userUrl + "/profile/" + userId );//userProfile.id);
   }
 
   public deleteUserProfile(userProfile) {
