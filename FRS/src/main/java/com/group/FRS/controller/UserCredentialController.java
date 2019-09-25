@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.group.FRS.model.Flight;
+import com.group.FRS.model.FlightSchedule;
+import com.group.FRS.model.PassengerSchedule;
 import com.group.FRS.model.UserCredential;
 import com.group.FRS.model.UserProfile;
 import com.group.FRS.repository.UserCredentialRepository;
@@ -47,7 +50,11 @@ public class UserCredentialController {
 		UserCredential userCredential = userCredentialRepository.findById(credentialId).orElse(null);
 		return userCredential;
 	}
-	
+	@GetMapping(path="/credential/{id}")
+	public UserCredential getSingleProfile(@PathVariable(value = "id") long userId) {
+		UserCredential user = userCredentialRepository.findById(userId).orElse(null);
+		return user;
+	}
 //	@PostMapping(path="/credential")
 //	public ResponseEntity<UserCredential> create( @RequestBody UserCredential user) {
 //        return ResponseEntity.ok(userCredentialRepository.save(user));
@@ -137,4 +144,12 @@ public class UserCredentialController {
 			return null;
 		}
 	}
+	@PutMapping("/credential/{id}")
+	public ResponseEntity<UserCredential> updateUserCredential(@PathVariable(value = "id") long userId,
+	                                              @Valid @RequestBody UserCredential userDetails) {
+	    UserCredential user = userCredentialRepository.findById(userId).orElse(null);
+	    user.setType(userDetails.getType());
+	    return ResponseEntity.ok(userCredentialRepository.save(user));
+	}
+	
 }

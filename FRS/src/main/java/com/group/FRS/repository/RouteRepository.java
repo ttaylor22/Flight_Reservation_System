@@ -24,15 +24,15 @@ public interface RouteRepository extends JpaRepository<Route, Long> {
 //			"inner join route on route.flight_schedule_id = flight_schedule.flight_id \r\n" + 
 //			"where route.source= :source and route.destination= :destination and flight_schedule.schedule_day = :scheduleDay \r\n" + 
 //			"", nativeQuery=true)
-	@Query(value="\r\n" +
-			"select flight.name, flight.seating_capacity, flight.reservation_capacity, flight_schedule.schedule_day, route.source, route.destination, route.distance, route.duration\r\n" +
-			" from flight inner join flight_schedule on flight_schedule.flight_id = flight.id\r\n" +
-			"inner join route on route.flight_schedule_id = flight_schedule.flight_id\r\n" +
-			"where route.source= :source and route.destination= :destination and flight_schedule.schedule_day = :scheduleDay \r\n" +
-			"", nativeQuery=true)
+	@Query(value="select flight.name, flight.seating_capacity, flight.reservation_capacity, \r\n" + 
+			"			 flight_schedule.schedule_day, route.source, route.destination, route.distance, route.duration,\r\n" + 
+			"			 flight.id as flightId, flight_schedule.id as flightScheduleId, route.id as routId\r\n" + 
+			"			 from flight   \r\n" + 
+			"			 inner join flight_schedule on flight_schedule.flight_id = flight.id\r\n" + 
+			"			 inner join route on route.flight_schedule_id = flight_schedule.id where route.source = :source and route.destination =  :destination", nativeQuery=true)
 	
-	List<Object> findRoutes(@Param("source") String source, @Param("destination") String destinaton, @Param("scheduleDay") Date scheduleDate);
-
+	//List<Object> findRoutes(@Param("source") String source, @Param("destination") String destinaton, @Param("scheduleDay") Date scheduleDate);
+	List<Object> findRoutes(@Param("source") String source, @Param("destination") String destinaton);
 
 	@Query(value="select flight.name, flight.seating_capacity, flight.reservation_capacity, flight_schedule.schedule_day, route.source, route.destination\r\n" + 
 			",  route.distance, route.duration from  flight inner join flight_schedule on flight_schedule.flight_id = flight.id inner join route on \r\n" + 

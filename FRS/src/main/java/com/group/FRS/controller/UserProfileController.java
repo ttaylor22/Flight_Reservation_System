@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.group.FRS.model.Passenger;
 import com.group.FRS.model.UserCredential;
 import com.group.FRS.model.UserProfile;
 import com.group.FRS.repository.UserCredentialRepository;
@@ -105,5 +106,4 @@ public class UserProfileController {
 	public void delete(@PathVariable("id") Long id) {
 		userProfileRepository.deleteById(id);
 	}
-}
-
+} 
