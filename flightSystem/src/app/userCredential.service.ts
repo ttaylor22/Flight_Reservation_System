@@ -15,6 +15,17 @@ export class UserCredentialService {
    constructor(private http:HttpClient) {}
 
    private userUrl = 'http://localhost:8080/api/user/';
+   // private userUrl2 = 'http://localhost:8080/api';
+
+   public authenticate(userCredential) {
+      console.log(userCredential, this.userUrl);
+      return this.http.put<UserCredential>(this.userUrl + '/authenticate/' + userCredential.username + '/' + userCredential.password, userCredential);
+    }
+    
+    public logout(userCredential) {
+      console.log(userCredential, this.userUrl);
+      return this.http.put<UserCredential>(this.userUrl + '/logout/' + userCredential.id, userCredential);
+    }
 
    public getUserCredentials() {
       return this.http.get<UserCredential[]>(this.userUrl + "/credentials");

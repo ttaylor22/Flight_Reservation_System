@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserCredential } from '../models/userCredential.model';
-import { UserCredentialService } from '../services/userCredential.service';
+import { UserCredentialService } from '../userCredential.service';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
