@@ -2,6 +2,7 @@ package com.group.FRS.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +26,7 @@ public class Ticket {
 	private int price;
 
 	@JsonIgnore
-	@OneToOne(mappedBy = "ticket")
+	@OneToOne(mappedBy = "ticket", fetch = FetchType.EAGER)
 	private PassengerSchedule passengerSchedule;
 	
 	@Column(name="trip")

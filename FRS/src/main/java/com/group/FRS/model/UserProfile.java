@@ -1,11 +1,14 @@
 package com.group.FRS.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,13 +46,18 @@ public class UserProfile {
 
 	@JsonIgnore
 	//@JsonBackReference
-	@OneToMany(mappedBy = "userProfile", orphanRemoval = true, cascade = CascadeType.PERSIST)
-	private Set<PassengerSchedule> passengerSchedules;
+	@OneToMany(mappedBy = "userProfile", 
+			orphanRemoval = true, 
+			cascade = CascadeType.PERSIST)
+	private List<PassengerSchedule> passengerSchedules = new ArrayList<>();
 
 	
-	//@JsonIgnore
-	@OneToOne(orphanRemoval = true)
-	@JoinColumn(name = "user_credential_id", referencedColumnName = "id")
+//	@JsonIgnore
+//	@OneToOne(orphanRemoval = true)
+//	@JoinColumn(name = "user_credential_id", referencedColumnName = "id")
+//	private UserCredential userCredential;
+	@JsonIgnore
+	@OneToOne(mappedBy = "userProfile", fetch = FetchType.EAGER, orphanRemoval = true)
 	private UserCredential userCredential;
 
 	public Long getId() {
@@ -139,6 +147,20 @@ public class UserProfile {
 		this.reservations = reservations;
 	}
 */
+	
+	public List<PassengerSchedule> getPassengerSchedules() {
+		return passengerSchedules;
+	}
+
+	public void setPassengerSchedules(List<PassengerSchedule> passengerSchedules) {
+		this.passengerSchedules = passengerSchedules;
+	}
+
+	public void addPassengerSchedule(PassengerSchedule ps) {
+		ps.setUserProfile(this);
+		passengerSchedules.add(ps);
+	}
+	
 	public UserCredential getUserCredential() {
 		return userCredential;
 	}
@@ -147,6 +169,15 @@ public class UserProfile {
 		System.out.println("USER CREDENTIAL SET");
 		this.userCredential = userCredential;
 	}
+	
+	@Override
+	public String toString() {
+		return "UserProfile [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth="
+				+ dateOfBirth + ", gender=" + gender + ", address=" + address + ", mobileNumber=" + mobileNumber
+				+ ", emailId=" + emailId + ", passengerSchedules=" + passengerSchedules + ", userCredential="
+				+ userCredential + "]";
+	}
+	
 /*
 	@Override
 	public String toString() {

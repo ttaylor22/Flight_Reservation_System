@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,9 +34,11 @@ public class PassengerSchedule {
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
 	@Column(name="journey_start")
 	private Date journeyStart;
+	
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
 	@Column(name="journey_end")
-	private Date journeyEnd; 
+	private Date journeyEnd;
+	
 	@Column(name="travelers")
 	private int travelers;
 	@Column(name="source")
@@ -46,19 +49,21 @@ public class PassengerSchedule {
 	private String reservationType;
 	
 	//@JsonIgnore
-	@OneToOne(orphanRemoval = true)
+	@OneToOne(orphanRemoval = true,
+				fetch = FetchType.EAGER,
+				cascade = CascadeType.ALL)
     @JoinColumn(name = "ticket_id", referencedColumnName = "id")
 	private Ticket ticket;
 	
 	@JsonIgnore
 	//@JsonManagedReference
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="passenger_id")
 	private Passenger passenger;
 	
 	@JsonIgnore
 	//@JsonManagedReference
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="user_profile_id")
 	private UserProfile userProfile;
 	
@@ -174,5 +179,12 @@ public class PassengerSchedule {
 		this.passenger = passenger;
 	}
 
+	public UserProfile getUserProfile() {
+		return userProfile;
+	}
+	
+	public void setUserProfile(UserProfile userProfile) {
+		this.userProfile = userProfile;
+	}
 	
 }

@@ -1,5 +1,6 @@
 package com.group.FRS.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -19,12 +20,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
-
-
-
-
 @Entity
 @Table(name = "flight")
 public class Flight {
@@ -42,15 +37,19 @@ public class Flight {
 	@Column(name="reservation_capacity")
 	private int reservationCapacity;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	//@JsonBackReference
-	@OneToMany(mappedBy="flight", orphanRemoval = true, cascade = CascadeType.PERSIST)
-	private Set<Passenger> passengers;
+	@OneToMany(mappedBy="flight", 
+				orphanRemoval = true, 
+				cascade = CascadeType.PERSIST)
+	private List<Passenger> passengers = new ArrayList<>();
 
-	@JsonIgnore
+	//@JsonIgnore
 	//@JsonBackReference
-	@OneToMany(mappedBy = "flight", orphanRemoval = true, cascade = CascadeType.PERSIST)
-	private Set<FlightSchedule> flightSchedules;
+	@OneToMany(mappedBy = "flight", 
+				orphanRemoval = true, 
+				cascade = CascadeType.PERSIST)
+	private List<FlightSchedule> flightSchedules = new ArrayList<>();
 
 	
 	public Flight() {
@@ -102,23 +101,32 @@ public class Flight {
 		this.reservationCapacity = reservationCapacity;
 	}
 
-	public Set<Passenger> getPassengers() {
+	public List<Passenger> getPassengers() {
 		return passengers;
 	}
 
-	public void setPassengers(Set<Passenger> passengers) {
+	public void setPassengers(List<Passenger> passengers) {
 		this.passengers = passengers;
 	}
 
-	public Set<FlightSchedule> getFlightSchedules() {
+	public void addPassenger(Passenger passenger) {
+		passenger.setFlight(this);
+		passengers.add(passenger);
+	}
+	
+	public List<FlightSchedule> getFlightSchedules() {
 		return flightSchedules;
 	}
 
-	public void setFlightSchedules(Set<FlightSchedule> flightSchedules) {
+	public void setFlightSchedules(List<FlightSchedule> flightSchedules) {
 		this.flightSchedules = flightSchedules ;
 	}
 
-
+	public void addFlightSchedule(FlightSchedule flightSchedule) {
+		flightSchedule.setFlight(this);
+		flightSchedules.add(flightSchedule);
+	}
+	
 	@Override
 	public String toString() {
 		return "Flight [id=" + id + ", flightName=" + flightName + ", seatingCapacity=" + seatingCapacity
