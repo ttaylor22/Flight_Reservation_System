@@ -33,11 +33,15 @@ export class UserProfileService {
 
   public createUserProfile(userProfile) {
      //alert("Account Successfully Created");
-     return this.http.post(this.userUrl + "/profile", userProfile);
+     return this.http.post<UserProfile>(this.userUrl + "/profile", userProfile);
   }
 
   public updateUserProfile(userProfile) {
       return this.http.put<UserProfile>(this.userUrl + "/profile/" + userProfile.id, userProfile);
+  }
+
+  public updateUserProfileCredential(userProfile, userCredential) {
+      return this.http.put<UserProfile>(this.userUrl + "/profile/" + userProfile.id + "/user/credential/" + userCredential.id, userProfile);
   }
 
 }

@@ -15,7 +15,7 @@ public class UserCredential {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     
 	@Column(name="type")
 	private String type;
@@ -33,10 +33,10 @@ public class UserCredential {
 	@OneToOne(mappedBy = "userCredential", orphanRemoval = true)
     private UserProfile userProfile;
 	
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getType() {
