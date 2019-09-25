@@ -1,0 +1,12 @@
+<div>
+    <h1>FRA Admin</h1>
+    <br/>
+    <button mat-button [matMenuTriggerFor]="menu"><h2>Please Select an Option</h2></button>
+    <mat-menu #menu="matMenu">
+       <button mat-menu-item routerLink="/admin-add-flight-schedule">Add Flight Schedule</button>
+       <button mat-menu-item routerLink="/admin-add-route">Add Route</button>
+       <button mat-menu-item routerLink="/show-all-flights-admin">Show All Flights</button>
+       <button mat-menu-item routerLink="/admin-find-user">Find User</button>
+       <button mat-menu-item routerLink="/admin-find-passenger">Find Passenger</button>
+    </mat-menu>
+ </div>

@@ -83,7 +83,7 @@ public class PassengerScheduleController {
 	public ResponseEntity<PassengerSchedule> connect1(@PathVariable(value = "id1") Long passengerSId,
 			@PathVariable(value = "id2") Long passengerId, @Valid @RequestBody Passenger passengerDetails) {
 		PassengerSchedule passS = passengerScheduleRepository.findById(passengerSId).orElse(null);
-		Passenger pass = passengerRespository.findById(passengerId).orElse(null);
+		Passenger pass = passengerRepository.findById(passengerId).orElse(null);
 		pass.setFirstName(passengerDetails.getFirstName());
 		pass.setLastName(passengerDetails.getLastName());
 		pass.setAge(passengerDetails.getAge());
@@ -97,7 +97,7 @@ public class PassengerScheduleController {
    	public ResponseEntity<PassengerSchedule> connect2(@PathVariable(value = "id1") Long passengerSId,
    			@PathVariable(value = "id2") Long ticketId) {
    		PassengerSchedule passS = passengerScheduleRepository.findById(passengerSId).orElse(null);
-   		Ticket ticket = ticketRespository.findById(ticketId).orElse(null);
+   		Ticket ticket = ticketRepository.findById(ticketId).orElse(null);
    		passS.setTicket(ticket);
    		return ResponseEntity.ok(passengerScheduleRepository.save(passS));
    	}

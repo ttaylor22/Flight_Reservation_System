@@ -23,10 +23,16 @@ import { ShowAllFlightsAdminComponent } from './show-all-flights-admin/show-all-
 
 import { MatNativeDateModule } from '@angular/material/';
 import { MatTableModule } from '@angular/material/table';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { CookieService } from 'ngx-cookie-service';
+import { AdminAddFlightScheduleComponent } from './admin-add-flight-schedule/admin-add-flight-schedule.component';
+import { AdminAddRouteComponent } from './admin-add-route/admin-add-route.component';
+import { AdminFindPassengerComponent } from './admin-find-passenger/admin-find-passenger.component';
+import { AdminFindUserComponent } from './admin-find-user/admin-find-user.component';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +46,12 @@ import { CookieService } from 'ngx-cookie-service';
     ShowAllFlightsAdminComponent,
 
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    AdminAddFlightScheduleComponent,
+    AdminAddRouteComponent,
+    AdminFindPassengerComponent,
+    AdminFindUserComponent,
+    AdminHomeComponent
 
   ],
   imports: [
@@ -58,10 +69,11 @@ import { CookieService } from 'ngx-cookie-service';
     MatButtonModule,
     MatCardModule,
     MatNativeDateModule,
-    MatTableModule
+    MatTableModule,
+    MatMenuModule
 
   ],
-  exports: [FormsModule, ReactiveFormsModule, MatTableModule],
+  exports: [FormsModule, ReactiveFormsModule, MatTableModule, MatMenuModule],
   providers: [CookieService],
   bootstrap: [AppComponent],
 })
