@@ -25,5 +25,12 @@ public interface RouteRepository extends JpaRepository<Route, Long> {
 			"where route.source= :source and route.destination= :destination and flight_schedule.schedule_day = :scheduleDay \r\n" + 
 			"", nativeQuery=true)
 	List<Object> findRoutes(@Param("source") String source, @Param("destination") String destinaton, @Param("scheduleDay") Date scheduleDate);
+	
+	
+	@Query(value="select flight.name, flight.seating_capacity, flight.reservation_capacity, flight_schedule.schedule_day, route.source, route.destination\r\n" + 
+			",  route.distance, route.duration from  flight inner join flight_schedule on flight_schedule.flight_id = flight.id inner join route on \r\n" + 
+			"route.flight_schedule_id = flight_schedule.id", nativeQuery=true)
+	List<Object> findAllRoutes();
+	
 }
 
