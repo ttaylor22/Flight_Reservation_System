@@ -20,6 +20,7 @@ import com.group.FRS.model.UserCredential;
 import com.group.FRS.model.UserProfile;
 import com.group.FRS.repository.UserCredentialRepository;
 import com.group.FRS.repository.UserProfileRepository;
+import com.group.FRS.model.PassengerSchedule;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -44,9 +45,31 @@ public class UserProfileController {
 		return user;
 	}
 
+//	@PostMapping(path = "/user/profile")
+//	public ResponseEntity<UserProfile> create(@RequestBody UserProfile user) {
+//		return ResponseEntity.ok(userProfileRepository.save(user));
+//	}
+	
 	@PostMapping(path = "/user/profile")
 	public ResponseEntity<UserProfile> create(@RequestBody UserProfile user) {
-		return ResponseEntity.ok(userProfileRepository.save(user));
+		return ResponseEntity.ok(userProfileRepository.save(createOneToMany(user)));
+	}
+	
+	public static UserProfile createOneToMany(UserProfile userProfile) {
+		System.out.println(userProfile);
+		UserProfile upC = new UserProfile(); 
+		upC.setUserCredential(userProfile.getUserCredential());
+		upC.setAddress(userProfile.getAddress());
+		upC.setDateOfBirth(userProfile.getDateOfBirth());
+		upC.setEmailId(userProfile.getEmailId());
+		upC.setGender(userProfile.getGender());
+		upC.setMobileNumber(userProfile.getMobileNumber());
+		upC.setFirstName(userProfile.getFirstName());
+		upC.setLastName(userProfile.getLastName());
+		for(PassengerSchedule ps: userProfile.getPassengerSchedules()) {
+			upC.addPassengerSchedule(ps);
+		}
+		return upC;
 	}
 
 	@PutMapping("/user/profile/{id}")
@@ -62,19 +85,25 @@ public class UserProfileController {
 		user.setLastName(userDetails.getLastName());
 		return ResponseEntity.ok(userProfileRepository.save(user));
 	}
-
+  
+/*
 	@PutMapping("/user/profile/{id}/user/credential/{id2}")
 	public ResponseEntity<UserProfile> connect(@PathVariable(value = "id") Long userId,
 			@PathVariable(value = "id2") Long userCId,
 			@Valid @RequestBody UserProfile userDetails) {
+		//Long l1 = new Long(userId);
+		//Long l2 = new Long(userCId);
+
 		UserProfile user = userProfileRepository.findById(userId).orElse(null);
 		UserCredential userC = userCredentialRepository.findById(userCId).orElse(null);
 		user.setUserCredential(userC);
 		return ResponseEntity.ok(userProfileRepository.save(user));
 	}
+*/
 
 	@DeleteMapping("/user/profile/{id}")
 	public void delete(@PathVariable("id") Long id) {
 		userProfileRepository.deleteById(id);
 	}
 }
+

@@ -1,11 +1,13 @@
 package com.group.FRS.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -46,14 +48,16 @@ public class Passenger {
 	
 	@JsonIgnore
 	//@JsonManagedReference
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="flight_id")
 	private Flight flight;
 	
 	//@JsonIgnore
 	//@JsonBackReference
-	@OneToMany(mappedBy = "passenger",  orphanRemoval = true, cascade = CascadeType.PERSIST)
-	public List<PassengerSchedule> passengerSchedules;
+	@OneToMany(mappedBy = "passenger",  
+				orphanRemoval = true, 
+				cascade = CascadeType.PERSIST)
+	public List<PassengerSchedule> passengerSchedules = new ArrayList<>();
 
 	public Passenger() {
 		super();
@@ -146,6 +150,12 @@ public class Passenger {
 		this.passengerSchedules = passengerSchedules;
 	}
 
+	public void addPassengerSchedule(PassengerSchedule passengerSchedule) {
+		passengerSchedule.setPassenger(this);
+		this.passengerSchedules.add(passengerSchedule);
+	}
+
+	
 	@Override
 	public String toString() {
 		return "Passenger [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", age=" + age

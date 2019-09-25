@@ -14,7 +14,7 @@ export class ReservationHasFlightService {
 
   constructor(private http:HttpClient) {}
 
-  private userUrl = 'http://localhost:8080/api/reservationHasFlight';
+  private userUrl = 'http://localhost:8080/reservationHasFlight';
 	//private userUrl = '/api';
 
   public getReservationHasFlights() {

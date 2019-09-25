@@ -1,5 +1,6 @@
 package com.group.FRS.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -36,15 +37,17 @@ public class FlightSchedule {
 	private Date scheduleDay;
 
 	@JsonIgnore
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="flight_id")
 	private Flight flight;
 
 	//@JsonIgnore
 	//@JsonBackReference
-	@OneToMany(mappedBy = "flightSchedule",  orphanRemoval = true, cascade = CascadeType.PERSIST)
-	public Set<Route> routes;
-
+	@OneToMany(mappedBy = "flightSchedule",  
+				orphanRemoval = true, 
+				cascade = CascadeType.PERSIST)
+	public List<Route> routes = new ArrayList<>();
+	
 	public Long getId() {
 		return id;
 	}
@@ -69,14 +72,18 @@ public class FlightSchedule {
 		this.flight = flight;
 	}
 
-	public Set<Route> getRoutes() {
+	public List<Route> getRoutes() {
 		return routes;
 	}
 
-	public void setRoutes(Set<Route> routes) {
+	public void setRoutes(List<Route> routes) {
 		this.routes = routes;
 	}
 	
+	public void addRoute(Route route) {
+		route.setFlightSchedule(this);
+		routes.add(route);
+	}
 
 	@Override
 	public String toString() {

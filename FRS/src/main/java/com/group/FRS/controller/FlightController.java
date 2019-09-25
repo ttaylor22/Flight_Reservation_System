@@ -1,11 +1,13 @@
 package com.group.FRS.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,8 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.group.FRS.model.Flight;
 import com.group.FRS.model.FlightSchedule;
+import com.group.FRS.model.Passenger;
+import com.group.FRS.model.Route;
 import com.group.FRS.repository.FlightRepository;
 import com.group.FRS.repository.FlightScheduleRepository;
+import com.group.FRS.repository.PassengerRepository;
+import com.group.FRS.repository.RouteRepository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -31,7 +37,13 @@ public class FlightController {
 	 FlightRepository flightRepository;
 	
 	@Autowired
+	PassengerRepository passengerRepository;
+	
+	@Autowired
     FlightScheduleRepository flightScheduleRepository;
+	
+	@Autowired
+	RouteRepository routeRepository;
 
     @GetMapping(path="/flights")
     public List<Flight> getAllFlights(){
@@ -43,10 +55,35 @@ public class FlightController {
     	return flightRepository.findById(flightId).orElse(null);
     }
     
-	@PostMapping(path="/flight")
-    public ResponseEntity<Flight> create( @RequestBody Flight flight){
-         return ResponseEntity.ok(flightRepository.save(flight));
+    @GetMapping(path="/displayFlights", produces="application/json")
+    public List<Object> getAllFlightInfo() {
+    	List<Object> routes = flightRepository.getAllFlightInformation();
+    	return routes;
     }
+    
+//	@PostMapping(path="/flight")
+//    public ResponseEntity<Flight> create( @RequestBody Flight flight){
+//         return ResponseEntity.ok(flightRepository.save(flight));
+//    }
+    
+    @PostMapping("/flight")
+    public ResponseEntity<Flight> create( @RequestBody Flight flight){
+         return ResponseEntity.ok(flightRepository.save(createOneToMany(flight)));
+    }
+	
+	public static Flight createOneToMany(Flight flight) {
+		Flight fC = new Flight(); 
+		fC.setflightName(flight.getflightName());
+	    fC.setseatingCapacity(flight.getseatingCapacity());
+	    fC.setreservationCapacity(flight.getreservationCapacity());
+		for(Passenger p: flight.getPassengers()) {
+			fC.addPassenger(PassengerController.createOneToMany(p));
+		}
+		for(FlightSchedule fs: flight.getFlightSchedules()) {
+			fC.addFlightSchedule(FlightScheduleController.createOneToMany(fs));
+		}
+		return fC;
+	}
 	
 	@PutMapping("/flight/{id}")
 	   public ResponseEntity<Flight> updateFlight(@PathVariable(value = "id") Long flightId,
@@ -57,6 +94,36 @@ public class FlightController {
 	       flight.setreservationCapacity(flightDetails.getreservationCapacity());
 	       return ResponseEntity.ok(flightRepository.save(flight));
 	   }
+	
+	
+	
+	@PutMapping("/flight/{id1}/passenger/{id2}")
+	   public ResponseEntity<Flight> connectP(@PathVariable(value = "id1") Long id1, @PathVariable(value = "id2") Long id2) {
+	       Flight flight = flightRepository.findById(id1).orElse(null);
+	       Passenger passenger = passengerRepository.findById(id2).orElse(null);
+	       flight.getPassengers().add(passenger);
+	       return ResponseEntity.ok(flightRepository.save(flight));
+	   }
+	
+	@PutMapping("/flight/{id1}/flight/schedule/{id2}")
+	   public ResponseEntity<Flight> connectFS(@PathVariable(value = "id1") Long id1, @PathVariable(value = "id2") Long id2) {
+	       Flight flight = flightRepository.findById(id1).orElse(null);
+	       FlightSchedule flightSchedule = flightScheduleRepository.findById(id2).orElse(null);
+		   flight.getFlightSchedules().add(flightSchedule);
+	       return ResponseEntity.ok(flightRepository.save(flight));
+	   }
+	
+	@PutMapping("/flight/{id1}/flight/schedule/{id2}/route/{id3}")
+	   public ResponseEntity<Flight> connectFS(@PathVariable(value = "id1") Long id1, @PathVariable(value = "id2") Long id2, @PathVariable(value = "id3") Long id3) {
+	       Flight flight = flightRepository.findById(id1).orElse(null);
+	       FlightSchedule flightSchedule = flightScheduleRepository.findById(id2).orElse(null);
+	       Route route = routeRepository.findById(id3).orElse(null);
+		   flightSchedule.getRoutes().add(route);
+	       flight.getFlightSchedules().add(flightSchedule);
+	       return ResponseEntity.ok(flightRepository.save(flight));
+	   }
+	
+	
 	/*
 	//@SuppressWarnings("unchecked")
 	@PutMapping("/update/{id}/schedule/{id2}")
@@ -77,10 +144,19 @@ public class FlightController {
 	       return ResponseEntity.ok(flightRepository.save(flight));
 	   }
 	*/
-	@DeleteMapping("/flight/{id}")
-    public void delete(@PathVariable("id") Long id) {
-         flightRepository.deleteById(id);
-    }
+	
+	
+//	@DeleteMapping("/flight/{id}")
+//    public void delete(@PathVariable("id") Long id) {
+//         flightRepository.deleteById(id);
+//    }
+	@DeleteMapping("/flight/{id1}/passenger/{id2}")
+	public ResponseEntity<Flight> deleteP(@PathVariable("id1") Long id1,@PathVariable("id2") Long id2) {
+		Flight flight = flightRepository.findById(id1).orElse(null);
+		Passenger passenger = passengerRepository.findById(id2).orElse(null);
+		flight.getPassengers().remove(passenger);
+		return ResponseEntity.ok(flightRepository.save(flight));
+	}
     
 
    

@@ -6,19 +6,23 @@ import { FlightDetailsComponent } from './flight-details/flight-details.componen
 import { CreateUSerComponent } from './create-user/create-user.component';
 import { AccountPageComponent } from './account-page/account-page.component';
 import { AddFlightComponent } from './add-flight/add-flight.component';
-
+import { ShowAllFlightsAdminComponent} from'./show-all-flights-admin/show-all-flights-admin.component';
+import { LogoutComponent } from './logout/logout.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'show-flights', component: ShowFlightsComponent},
   {path: 'flight-details', component: FlightDetailsComponent},
   {path: 'create-user', component: CreateUSerComponent},
-  {path: 'account-page', component: AccountPageComponent}, 
-  {path: 'add-flight', component: AddFlightComponent}
+  {path: 'account-page', component: AccountPageComponent},
+  {path: 'add-flight', component: AddFlightComponent},
+  {path: 'admin', component:ShowAllFlightsAdminComponent},
+  {path: 'logout-page', component: LogoutComponent}
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
+  // declarations: [LogoutComponent],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
