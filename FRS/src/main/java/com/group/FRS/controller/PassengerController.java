@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.group.FRS.model.Flight;
 import com.group.FRS.model.Passenger;
+import com.group.FRS.model.PassengerSchedule;
+import com.group.FRS.model.UserProfile;
 import com.group.FRS.repository.FlightRepository;
 import com.group.FRS.repository.PassengerRepository;
 import com.group.FRS.model.PassengerSchedule;
@@ -102,5 +104,4 @@ public class PassengerController {
 		}
 		return ResponseEntity.notFound().build();
 	}
-	
 }

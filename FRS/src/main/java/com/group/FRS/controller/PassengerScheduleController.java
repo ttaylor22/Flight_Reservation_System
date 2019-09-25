@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.group.FRS.model.Passenger;
 import com.group.FRS.model.PassengerSchedule;
+import com.group.FRS.model.FlightSchedule;
+import com.group.FRS.model.Route;
 import com.group.FRS.model.Ticket;
 import com.group.FRS.model.UserProfile;
 import com.group.FRS.repository.PassengerRepository;
@@ -35,10 +37,10 @@ public class PassengerScheduleController {
 	PassengerScheduleRepository passengerScheduleRepository;
 	
 	@Autowired
-	PassengerRepository passengerRespository;
+	PassengerRepository passengerRepository;
 	
 	@Autowired
-	TicketRepository ticketRespository;
+	TicketRepository ticketRepository;
 	
 	@Autowired
 	UserProfileRepository userProfileRepository;
@@ -51,6 +53,7 @@ public class PassengerScheduleController {
     @GetMapping(path="/passenger/schedule/{id}")
     public PassengerSchedule getSinglePassengerSchedule(@PathVariable(value = "id") Long passengerScheduleId) {
     	PassengerSchedule passengerSchedule = passengerScheduleRepository.findById(passengerScheduleId).orElse(null);
+
     	return passengerSchedule;
     }
     
@@ -63,6 +66,7 @@ public class PassengerScheduleController {
     public ResponseEntity<PassengerSchedule> updatePassengerSchedule(@PathVariable(value ="id") Long passengerId,
     		@Valid @RequestBody PassengerSchedule passengerscheduleDetails){
     	PassengerSchedule schedule = passengerScheduleRepository.findById(passengerId).orElse(null);
+
     	schedule.setDestination(passengerscheduleDetails.getDestination());
     	schedule.setJourneyStart(passengerscheduleDetails.getJourneyStart());
     	schedule.setJourneyEnd(passengerscheduleDetails.getJourneyEnd());
