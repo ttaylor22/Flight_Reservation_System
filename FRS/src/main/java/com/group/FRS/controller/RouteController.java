@@ -83,4 +83,10 @@ public class RouteController {
     public void delete(@PathVariable("id") Long id) {
          routeRepository.deleteById(id);
     }
+	
+	@GetMapping(path="/getAllFlights")
+    public List<Object> displayAllFlights() {
+    	List<Object> routes = routeRepository.findAllRoutes();
+    	return routes;
+    }
 }
