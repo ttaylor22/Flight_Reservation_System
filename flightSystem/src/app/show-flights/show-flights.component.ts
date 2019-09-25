@@ -8,15 +8,12 @@ import { Flight } from '../models/flight.model';
 import { FlightService } from '../flight.service';
 import { RouteService } from '../route.service';
 
-import { MatSliderModule, MatSlider } from '@angular/material/slider';
 
 @Component({
   selector: 'app-show-flights',
   templateUrl: './show-flights.component.html',
-  styleUrls: ['./show-flights.component.css'],
+  styleUrls: ['./show-flights.component.css']
 })
-
-
 export class ShowFlightsComponent implements OnInit {
 
   flights: Flight[];
@@ -24,35 +21,36 @@ export class ShowFlightsComponent implements OnInit {
   route: Route = new Route();
   flightSchedule: FlightSchedule = new FlightSchedule();
 
-  isRoundTrip = false;
+  checked = false;
   trip = false;
-  isPressed = false;
 
   constructor(private router: Router, private flightService: FlightService,
     private routeService: RouteService) { }
 
     ngOnInit() {
-      
-      this.routeService.displayAllFlights().subscribe(data => {
-        this.routes = data;
-    });
-    };
+      /*
+      this.flightService.getFlights()
+        .subscribe( data => {
+          this.flights = data;
+        });
+        */
 
+    };
+/*
     deleteFlight(flight: Flight): void {
       this.flightService.deleteFlight(flight)
         .subscribe( data => {
           this.flights = this.flights.filter(u => u !== flight);
         })
     };
+*/
+    getFlight(flight : Flight) : void {
+      this.flightService.getFlight(flight);
+    }
 
-    displayFlights(route: Route, flightSchedule: FlightSchedule): void {
-      this.isPressed = false;
+    displayFlights(route: Route, flightSchedule: FlightSchedule): void{
       this.routeService.displayFlights(this.route, this.flightSchedule).subscribe(data => {
           this.routes = data;
       });
-    }
-
-    switchType() : void {
-      
     }
 }
