@@ -1,6 +1,8 @@
 export class Reservation {
-    reservationId : number;
-    journeyDate   : Date;
-    numberOfSeats : number;
-    userProfileId : number;
+  id: number;
+  flightId:any;
+  flightScheduleId: number;
+  routeId: number;
+  userProfileId: number;
+  dateTime: string;
 }

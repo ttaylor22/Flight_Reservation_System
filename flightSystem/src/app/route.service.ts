@@ -28,6 +28,11 @@ export class RouteService {
     return this.http.get(this.userUrl + "/route/" + route.id);
   }
 
+  public getRouteId(id) {
+    return this.http.get<Route>(this.userUrl + "/route/" + id);
+  }
+
+
   public deleteRoute(route) {
     return this.http.delete(this.userUrl + "/route/"+ route.id);
   }
@@ -41,7 +46,6 @@ export class RouteService {
   }
 
   public displayFlights(route, flightSchedule){
-    console.log(flightSchedule.scheduleDay);
     return this.http.get<any>(this.userUrl +"/displayFlights/" +  route.source + "/" + route.destination+"/"+ flightSchedule.scheduleDay);
   }
 

@@ -1,0 +1,41 @@
+<div>
+  <form>
+    <h2>Enter payment details</h2>
+    Enter account number<input type="text" [(ngModel)]="ticket.paymentInfo" id="paymentInfo" name="paymentInfo"/><br>
+    <!--<button  (click)="getUserProfile()">Book Flight!</button>-->
+    <button (click)="buyTicket()">Book Flight</button>
+  </form>
+</div>
+
+<!--
+<div >
+  <h2> UserProfile</h2>
+<table cellspacing="40">
+    <thead>
+        <tr>
+            <th >Flight Name</th>
+            <th>Total Seats</th>
+            <th>Seats Left</th>
+            <th>Schedule day</th>
+            <th>Depart</th>
+            <th>Arrive</th>
+            <th>Distance</th>
+            <th>Duration</th>
+            <th>Price</th>
+          </tr>
+  </thead>
+    <tbody>
+    <tr >
+        <td> {{users.id}} </td>
+        <td>{{ users.firstName }}</td>
+        <td>{{users.lastName}}</td>
+
+        <td><button (click)="bookFlights(route)">Select</button></td>
+        <td><button routerLink="/enter-payment">Select</button></td>
+
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+-->

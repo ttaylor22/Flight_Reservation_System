@@ -13,7 +13,8 @@ import { AdminAddFlightScheduleComponent } from './admin-add-flight-schedule/adm
 import { AdminAddRouteComponent } from './admin-add-route/admin-add-route.component';
 import { AdminFindUserComponent } from './admin-find-user/admin-find-user.component';
 import { AdminFindPassengerComponent } from './admin-find-passenger/admin-find-passenger.component';
-
+import { ViewBookedFlightsComponent} from'./view-booked-flights/view-booked-flights.component';
+import { BuyTicketComponent} from'./buy-ticket/buy-ticket.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -30,6 +31,8 @@ const routes: Routes = [
   {path: 'admin-add-route', component:AdminAddRouteComponent},
   {path: 'admin-find-user', component:AdminFindUserComponent},
   {path: 'admin-find-passenger', component:AdminFindPassengerComponent},
+  {path: 'view-booked-flights', component: ViewBookedFlightsComponent},
+  {path: 'enter-payment', component: BuyTicketComponent},
 ];
 
 @NgModule({

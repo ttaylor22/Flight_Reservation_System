@@ -33,6 +33,9 @@ import { AdminAddRouteComponent } from './admin-add-route/admin-add-route.compon
 import { AdminFindPassengerComponent } from './admin-find-passenger/admin-find-passenger.component';
 import { AdminFindUserComponent } from './admin-find-user/admin-find-user.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
+import { ViewBookedFlightsComponent } from './view-booked-flights/view-booked-flights.component';
+import { BuyTicketComponent } from './buy-ticket/buy-ticket.component';
+
 
 @NgModule({
   declarations: [
@@ -44,14 +47,18 @@ import { AdminHomeComponent } from './admin-home/admin-home.component';
     AddFlightComponent,
 
     ShowAllFlightsAdminComponent,
-
     LoginComponent,
     LogoutComponent,
+
     AdminAddFlightScheduleComponent,
     AdminAddRouteComponent,
     AdminFindPassengerComponent,
     AdminFindUserComponent,
-    AdminHomeComponent
+    AdminHomeComponent,
+
+    ViewBookedFlightsComponent,
+    BuyTicketComponent
+
 
   ],
   imports: [
