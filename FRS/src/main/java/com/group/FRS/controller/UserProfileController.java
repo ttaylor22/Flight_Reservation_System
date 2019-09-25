@@ -85,6 +85,7 @@ public class UserProfileController {
 		user.setLastName(userDetails.getLastName());
 		return ResponseEntity.ok(userProfileRepository.save(user));
 	}
+  
 /*
 	@PutMapping("/user/profile/{id}/user/credential/{id2}")
 	public ResponseEntity<UserProfile> connect(@PathVariable(value = "id") Long userId,
@@ -92,14 +93,17 @@ public class UserProfileController {
 			@Valid @RequestBody UserProfile userDetails) {
 		//Long l1 = new Long(userId);
 		//Long l2 = new Long(userCId);
+
 		UserProfile user = userProfileRepository.findById(userId).orElse(null);
 		UserCredential userC = userCredentialRepository.findById(userCId).orElse(null);
 		user.setUserCredential(userC);
 		return ResponseEntity.ok(userProfileRepository.save(user));
 	}
 */
+
 	@DeleteMapping("/user/profile/{id}")
 	public void delete(@PathVariable("id") Long id) {
 		userProfileRepository.deleteById(id);
 	}
 }
+
