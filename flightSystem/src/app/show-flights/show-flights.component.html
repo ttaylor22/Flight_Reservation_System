@@ -47,34 +47,19 @@
         <td>{{ route[6] }} miles</td>
         <td>{{ route[7] }} hours</td>
         <td>${{ route[8] }} </td>
-        <td><button (click)="bookFlight()">Select</button></td>
+
+        <!--<td><button (click)="bookFlights(route)">Select</button></td>-->
+        <!--<td><button routerLink="/enter-payment">Select</button></td>-->
+        <button (click)="confirm(route)">Book Flight</button>
+
+<!-- <app-account-page [reservation]="reservation"></app-account-page> -->
+
     </tr>
     </tbody>
   </table>
 
+
+
 </div>
 
 
-<!--
-<tr>
-    <th>Flight Name</th>
-    <th>Seat Cap.</th>
-    <th>Res. Cap</th>
-    <th>Schedule day</th>
-    <th>Source</th>
-    <th>Destination</th>
-    <th>Distance</th>
-    <th>Duration</th>
-  </tr>
-
-<td>{{route[0]}}</td>
-      <td>{{route[1]}}</td>
-      <td>{{route[2]}}</td>
-      <td>{{route.[3]}}</td>
-      <td>{{route.[4]}}</td>
-      <td>{{route.[5]}}</td>
-      <td>{{route.[6]}}</td>
-      <td>{{route.[7]}}</td>
-      <td>{{route.[8]}}</td>
-
--->

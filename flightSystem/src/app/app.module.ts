@@ -24,6 +24,8 @@ import { ShowAllFlightsAdminComponent } from './show-all-flights-admin/show-all-
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { CookieService } from 'ngx-cookie-service';
+import { ViewBookedFlightsComponent } from './view-booked-flights/view-booked-flights.component';
+import { BuyTicketComponent } from './buy-ticket/buy-ticket.component';
 
 @NgModule({
   declarations: [
@@ -35,9 +37,10 @@ import { CookieService } from 'ngx-cookie-service';
     AddFlightComponent,
 
     ShowAllFlightsAdminComponent,
-
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    ViewBookedFlightsComponent,
+    BuyTicketComponent
 
   ],
   imports: [
