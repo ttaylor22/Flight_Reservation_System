@@ -39,34 +39,43 @@ export class CreateUSerComponent implements OnInit {
   createUser() : void {
     //alert(this.userProfile.emailId);
     this.userCredential.username = this.userProfile.emailId;
+    this.userCredential.loginStatus = false;
+    this.userCredential.password = this.userCredential.password;
     this.userCredential.type = "User";
-    this.credentialId = -1;
+    this.userCredential.userProfile = this.userProfile;
+    //this.userProfile.userCredential = this.userCredential;
+/*
+    this.userProfile.userCredential.username = this.userProfile.emailId;
+    this.userProfile.userCredential.type = "User";
+    this.userProfile.userCredential.loginStatus = false;
+    this.userProfile.userCredential.password = this.userCredential.password;
+    //this.credentialId = -1;
     
+*/
+
     this.userCredentialService.createUserCredential(this.userCredential)
     .subscribe( data => {
-      alert("User Credential created successfully.");
-      alert(data.id);
-      this.credentialId = data.id;
-      this.userCredential.id = this.credentialId;
+      alert("User Profile And Credential created successfully.");
     });
 
-    this.userProfileService.createUserProfile(this.userProfile)
-    .subscribe( data => {
-      alert("User Profile created successfully.");
-      this.profileId = data.id;
-      this.userProfile.id = this.profileId;
-      this.updateUserCredentials();
-    });
+    // this.userCredentialService.createUserCredential(this.userCredential)
+    // .subscribe( data => {
+    //   alert("User Credential created successfully.");
+    //   alert(data.id);
+    //   this.credentialId = data.id;
+    //   this.userCredential.id = this.credentialId;
+    //   //this.updateUserCredentials();
+    // });
   }
 
-  updateUserCredentials() : void {
-    this.userProfileService.updateUserProfileCredential(this.userProfile,this.userCredential)
-    .subscribe( data => {
-      this.userCredential.id = this.credentialId;
-      this.userProfile.id = this.profileId;
-      alert("Credential and Profile Created!");
-    })
-  }
+  // updateUserCredentials() : void {
+  //   this.userCredentialService.updateUserProfileCredential(this.userProfile,this.userCredential)
+  //   .subscribe( data => {
+  //     this.userCredential.id = this.credentialId;
+  //     this.userProfile.id = this.profileId;
+  //     alert("Credential and Profile Created!");
+  //   })
+  // }
 
   deleteUser(userProfile) : void {
     this.userProfileService.deleteUserProfile(userProfile.id).subscribe( data => {

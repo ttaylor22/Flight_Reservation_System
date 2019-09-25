@@ -14,8 +14,9 @@ const httpOptions = {
 export class UserCredentialService {
    constructor(private http:HttpClient) {}
 
-   private userUrl = 'http://localhost:8080/api/user/';
+   // private userUrl = 'http://localhost:8080/api/user/';
    // private userUrl2 = 'http://localhost:8080/api';
+   private userUrl = 'http://localhost:8080/api/user';
 
    public authenticate(userCredential) {
       console.log(userCredential, this.userUrl);
@@ -40,10 +41,12 @@ export class UserCredentialService {
    }
 
    public createUserCredential(userCredential) {
+      console.log("createUserCredential is called from Angular");
       return this.http.post<UserCredential>(this.userUrl + "/credential", userCredential);
    }
 
    public updateUserCredential(userCredential) {
       return this.http.put<UserCredential>(this.userUrl + "/credential/" + userCredential.id, userCredential);
    }
+   
 }

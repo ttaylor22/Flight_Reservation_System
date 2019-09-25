@@ -1,3 +1,5 @@
+import { UserCredential } from './userCredential.model';
+
 export class UserProfile {
    id                : number;
    firstName         : string;
@@ -7,5 +9,4 @@ export class UserProfile {
    address           : string;
    mobileNumber      : string;
    emailId           : string;
-   userCredentialId  : number;
 }
