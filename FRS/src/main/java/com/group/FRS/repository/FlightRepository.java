@@ -7,6 +7,7 @@ import com.group.FRS.model.Flight;
 
 @Repository
 public interface FlightRepository  extends JpaRepository<Flight, Long> {
+//	@Query()
 	
 }
 

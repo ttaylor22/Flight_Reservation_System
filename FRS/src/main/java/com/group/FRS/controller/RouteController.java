@@ -35,22 +35,22 @@ public class RouteController {
 	@Autowired
 	FlightScheduleRepository flightscheduleRepository;
 	
-    @GetMapping(path="/routes")
+    @GetMapping("/routes")
     public List<Route> getAllRepositories(){
         return routeRepository.findAll();
     }
     
-    @GetMapping(path="/route/{id}")
+    @GetMapping("/route/{id}")
 	public Route getSinglePassenger(@PathVariable(value="id") Long routeId) {
 		return routeRepository.findById(routeId).orElse(null);
 	}
     
-    @PostMapping(path="/route")
+    @PostMapping("/route")
     public ResponseEntity<Route> create( @RequestBody Route route){
     	return ResponseEntity.ok(routeRepository.save(route));
     }
     
-    @PutMapping(path="/route/{id}")
+    @PutMapping("/route/{id}")
     public ResponseEntity<Route> updateRoute(@PathVariable(value ="id") Long scheduleId,
     		@Valid @RequestBody Route routeDetails){
     	Route route = routeRepository.findById(scheduleId).orElse(null);
@@ -71,7 +71,7 @@ public class RouteController {
 		return ResponseEntity.ok(routeRepository.save(route));
 	}
     
-	@DeleteMapping(path="/route/{id}")
+	@DeleteMapping("/route/{id}")
     public void delete(@PathVariable("id") Long id) {
          routeRepository.deleteById(id);
     }

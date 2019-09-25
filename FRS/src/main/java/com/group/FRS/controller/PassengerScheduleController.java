@@ -34,7 +34,7 @@ import com.group.FRS.repository.UserProfileRepository;
 public class PassengerScheduleController {
 	
 	@Autowired
-	PassengerScheduleRepository passengerScheduleRespository;
+	PassengerScheduleRepository passengerScheduleRepository;
 	
 	@Autowired
 	PassengerRepository passengerRespository;
@@ -45,26 +45,26 @@ public class PassengerScheduleController {
 	@Autowired
 	UserProfileRepository userProfileRepository;
 	
-    @GetMapping(path ="/passenger/schedules")
+    @GetMapping("/passenger/schedules")
     public List<PassengerSchedule> getAllFlightSchedules(){
-        return passengerScheduleRespository.findAll();
+        return passengerScheduleRepository.findAll();
     }
     
-    @GetMapping(path="/passenger/schedule/{id}")
+    @GetMapping("/passenger/schedule/{id}")
     public PassengerSchedule getSinglePassengerSchedule(@PathVariable(value = "id") Long passengerScheduleId) {
-    	PassengerSchedule passengerSchedule = passengerScheduleRespository.findById(passengerScheduleId).orElse(null);
+    	PassengerSchedule passengerSchedule = passengerScheduleRepository.findById(passengerScheduleId).orElse(null);
     	return passengerSchedule;
     }
     
-    @PostMapping(path ="/passenger/schedule")
+    @PostMapping("/passenger/schedule")
     public ResponseEntity<PassengerSchedule> create( @RequestBody PassengerSchedule passenger){
-    	return ResponseEntity.ok(passengerScheduleRespository.save(passenger));
+    	return ResponseEntity.ok(passengerScheduleRepository.save(passenger));
     }
     
     @PutMapping(path ="/passenger/schedule/{id}")
     public ResponseEntity<PassengerSchedule> updatePassengerSchedule(@PathVariable(value ="id") Long passengerId,
     		@Valid @RequestBody PassengerSchedule passengerscheduleDetails){
-    	PassengerSchedule schedule = passengerScheduleRespository.findById(passengerId).orElse(null);
+    	PassengerSchedule schedule = passengerScheduleRepository.findById(passengerId).orElse(null);
     	schedule.setDestination(passengerscheduleDetails.getDestination());
     	schedule.setJourneyStart(passengerscheduleDetails.getJourneyStart());
     	schedule.setJourneyEnd(passengerscheduleDetails.getJourneyEnd());
@@ -73,39 +73,56 @@ public class PassengerScheduleController {
     	schedule.setReservationType(passengerscheduleDetails.getReservationType());
     	schedule.setSource(passengerscheduleDetails.getSource());
     	schedule.setTicket(passengerscheduleDetails.getTicket());	
-    	return ResponseEntity.ok(passengerScheduleRespository.save(schedule));
+    	return ResponseEntity.ok(passengerScheduleRepository.save(schedule));
     }
     
+    //Use this to add a passenger schedule to a current flight insert(firstName, lastName, age, gender, bookingDate)
     @PutMapping("/passenger/schedule/{id1}/passenger/{id2}")
-	public ResponseEntity<PassengerSchedule> connect1(@PathVariable(value = "id") Long passengerSId,
-			@PathVariable(value = "id2") Long passengerId) {
-		PassengerSchedule passS = passengerScheduleRespository.findById(passengerSId).orElse(null);
+	public ResponseEntity<PassengerSchedule> connect1(@PathVariable(value = "id1") Long passengerSId,
+			@PathVariable(value = "id2") Long passengerId, @Valid @RequestBody Passenger passengerDetails) {
+		PassengerSchedule passS = passengerScheduleRepository.findById(passengerSId).orElse(null);
 		Passenger pass = passengerRespository.findById(passengerId).orElse(null);
+		pass.setFirstName(passengerDetails.getFirstName());
+		pass.setLastName(passengerDetails.getLastName());
+		pass.setAge(passengerDetails.getAge());
+		pass.setGender(passengerDetails.getGender());
+		pass.setBookingDate(passengerDetails.getBookingDate());
 		passS.setPassenger(pass);
-		return ResponseEntity.ok(passengerScheduleRespository.save(passS));
+		return ResponseEntity.ok(passengerScheduleRepository.save(passS));
 	}
     
     @PutMapping("/passenger/schedule/{id1}/ticket/{id2}")
-   	public ResponseEntity<PassengerSchedule> connect2(@PathVariable(value = "id") Long passengerSId,
+   	public ResponseEntity<PassengerSchedule> connect2(@PathVariable(value = "id1") Long passengerSId,
    			@PathVariable(value = "id2") Long ticketId) {
-   		PassengerSchedule passS = passengerScheduleRespository.findById(passengerSId).orElse(null);
+   		PassengerSchedule passS = passengerScheduleRepository.findById(passengerSId).orElse(null);
    		Ticket ticket = ticketRespository.findById(ticketId).orElse(null);
    		passS.setTicket(ticket);
-   		return ResponseEntity.ok(passengerScheduleRespository.save(passS));
+   		return ResponseEntity.ok(passengerScheduleRepository.save(passS));
    	}
     
     @PutMapping("/passenger/schedule/{id1}/user/profile/{id2}")
-   	public ResponseEntity<PassengerSchedule> connect3(@PathVariable(value = "id") Long passengerSId,
+   	public ResponseEntity<PassengerSchedule> connect3(@PathVariable(value = "id1") Long passengerSId,
    			@PathVariable(value = "id2") Long profileId) {
-   		PassengerSchedule passS = passengerScheduleRespository.findById(passengerSId).orElse(null);
+   		PassengerSchedule passS = passengerScheduleRepository.findById(passengerSId).orElse(null);
    		UserProfile userP = userProfileRepository.findById(profileId).orElse(null);
    		passS.setUserProfile(userP);
-   		return ResponseEntity.ok(passengerScheduleRespository.save(passS));
+   		return ResponseEntity.ok(passengerScheduleRepository.save(passS));
    	}
     
-    @DeleteMapping(path ="/passenger/schedule/{id}")
-    public void delete(@PathVariable("id") Long id) {
-    	passengerScheduleRespository.deleteById(id);
+    @DeleteMapping("/passenger/schedule/{id}")
+    public ResponseEntity<PassengerSchedule> delete(@PathVariable("id") Long id) {
+    	if(passengerScheduleRepository.findById(id).orElse(null) != null) {
+    		passengerScheduleRepository.deleteById(id);
+    		return ResponseEntity.ok().body(null);
+    	}
+    	return ResponseEntity.notFound().build();
     }
+    
+    @DeleteMapping("/passenger/schedule/{id1}/ticket")
+    ResponseEntity<PassengerSchedule> deleteChild(@PathVariable("id1") Long id1) {
+    	PassengerSchedule passS = passengerScheduleRepository.findById(id1).orElse(null);
+		passS.setTicket(null);		
+    	return ResponseEntity.ok(passengerScheduleRepository.save(passS));	
+	}
 
 }

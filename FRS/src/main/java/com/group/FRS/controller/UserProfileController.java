@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.group.FRS.model.Passenger;
+import com.group.FRS.model.PassengerSchedule;
 import com.group.FRS.model.UserCredential;
 import com.group.FRS.model.UserProfile;
 import com.group.FRS.repository.UserCredentialRepository;
@@ -28,9 +30,6 @@ public class UserProfileController {
 
 	@Autowired
 	UserProfileRepository userProfileRepository;
-	
-	@Autowired
-	UserCredentialRepository userCredentialRepository;
 
 
 	@GetMapping(path = "/user/profiles")
@@ -46,7 +45,23 @@ public class UserProfileController {
 
 	@PostMapping(path = "/user/profile")
 	public ResponseEntity<UserProfile> create(@RequestBody UserProfile user) {
-		return ResponseEntity.ok(userProfileRepository.save(user));
+		return ResponseEntity.ok(userProfileRepository.save(createOneToMany(user)));
+	}
+	
+	public static UserProfile createOneToMany(UserProfile userProfile) {
+		UserProfile upC = new UserProfile(); 
+		upC.setUserCredential(userProfile.getUserCredential());
+		upC.setAddress(userProfile.getAddress());
+		upC.setDateOfBirth(userProfile.getDateOfBirth());
+		upC.setEmailId(userProfile.getEmailId());
+		upC.setGender(userProfile.getGender());
+		upC.setMobileNumber(userProfile.getMobileNumber());
+		upC.setFirstName(userProfile.getFirstName());
+		upC.setLastName(userProfile.getLastName());
+		for(PassengerSchedule ps: userProfile.getPassengerSchedules()) {
+			upC.addPassengerSchedule(ps);
+		}
+		return upC;
 	}
 
 	@PutMapping("/user/profile/{id}")
@@ -60,16 +75,6 @@ public class UserProfileController {
 		user.setMobileNumber(userDetails.getMobileNumber());
 		user.setFirstName(userDetails.getFirstName());
 		user.setLastName(userDetails.getLastName());
-		return ResponseEntity.ok(userProfileRepository.save(user));
-	}
-
-	@PutMapping("/user/profile/{id}/user/credential/{id2}")
-	public ResponseEntity<UserProfile> connect(@PathVariable(value = "id") Long userId,
-			@PathVariable(value = "id2") Long userCId,
-			@Valid @RequestBody UserProfile userDetails) {
-		UserProfile user = userProfileRepository.findById(userId).orElse(null);
-		UserCredential userC = userCredentialRepository.findById(userCId).orElse(null);
-		user.setUserCredential(userC);
 		return ResponseEntity.ok(userProfileRepository.save(user));
 	}
 
