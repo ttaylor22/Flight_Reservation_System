@@ -21,6 +21,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { AddFlightComponent } from './add-flight/add-flight.component';
 import { ShowAllFlightsAdminComponent } from './show-all-flights-admin/show-all-flights-admin.component';
 
+import { MatNativeDateModule } from '@angular/material/';
+import { MatTableModule } from '@angular/material/table';
+
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { CookieService } from 'ngx-cookie-service';
@@ -54,10 +57,11 @@ import { CookieService } from 'ngx-cookie-service';
     MatRadioModule,
     MatButtonModule,
     MatCardModule,
-
+    MatNativeDateModule,
+    MatTableModule
 
   ],
-  exports: [FormsModule, ReactiveFormsModule],
+  exports: [FormsModule, ReactiveFormsModule, MatTableModule],
   providers: [CookieService],
   bootstrap: [AppComponent],
 })

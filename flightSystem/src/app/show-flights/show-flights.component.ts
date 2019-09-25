@@ -21,8 +21,9 @@ export class ShowFlightsComponent implements OnInit {
   route: Route = new Route();
   flightSchedule: FlightSchedule = new FlightSchedule();
 
-  checked = false;
+  isRoundTrip = false;
   trip = false;
+  isPressed = false;
 
   constructor(private router: Router, private flightService: FlightService,
     private routeService: RouteService) { }
@@ -34,6 +35,9 @@ export class ShowFlightsComponent implements OnInit {
           this.flights = data;
         });
         */
+       this.routeService.displayAllFlights().subscribe(data => {
+        this.routes = data;
+      });
 
     };
 /*

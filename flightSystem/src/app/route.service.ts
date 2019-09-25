@@ -45,5 +45,9 @@ export class RouteService {
     return this.http.get<any>(this.userUrl +"/displayFlights/" +  route.source + "/" + route.destination+"/"+ flightSchedule.scheduleDay);
   }
 
+  public displayAllFlights(){
+    return this.http.get<any>(this.userUrl + "/getAllFlights")
+  }
+
 
 }
