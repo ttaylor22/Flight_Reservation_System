@@ -39,5 +39,12 @@ main {
 
 .mat-toolbar {
   position: relative;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.bottomHeader {
+ box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.page-content {
+  padding: 20px;
 }

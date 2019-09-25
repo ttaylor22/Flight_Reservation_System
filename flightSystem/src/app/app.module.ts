@@ -21,6 +21,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AddFlightComponent } from './add-flight/add-flight.component';
 import { LoginComponent } from './login/login.component';
 import { ShowAllFlightsAdminComponent } from './show-all-flights-admin/show-all-flights-admin.component';
+import { MatNativeDateModule } from '@angular/material/';
+import { MatTableModule } from '@angular/material/table';
 
 
 @NgModule({
@@ -49,10 +51,12 @@ import { ShowAllFlightsAdminComponent } from './show-all-flights-admin/show-all-
     MatRadioModule,
     MatButtonModule,
     MatCardModule,
+    MatNativeDateModule,
+    MatTableModule
 
 
   ],
-  exports: [FormsModule, ReactiveFormsModule],
+  exports: [FormsModule, ReactiveFormsModule, MatTableModule],
   providers: [],
   bootstrap: [AppComponent],
 })

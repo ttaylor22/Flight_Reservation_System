@@ -1,12 +1,19 @@
-
-<div class="jumbotron ">
-  <nav class="text-center">
-    <a  routerLink="/login"> Log-In</a>
-    <a routerLink="/create-user"> Create User</a>
-    <a routerLink="/show-flights"> Show Flights</a>
-    <a routerLink="/account-page"> Account Page</a>
-    <a routerLink="/add-flight">Add Flight</a>
-    <a routerLink="/admin">Admin</a>
-  </nav>
-  <router-outlet></router-outlet>
+<div>
+    <mat-toolbar color="primary">
+      Flight Reservation System
+    </mat-toolbar>
+  <mat-toolbar color="primary" class="bottomHeader">
+    <nav class="text-center">
+      <a  routerLink="/login"> Log-In</a>
+      <a routerLink="/create-user"> Create User</a>
+      <a routerLink="/show-flights"> Show Flights</a>
+      <a routerLink="/account-page"> Account Page</a>
+      <a routerLink="/add-flight">Add Flight</a>
+    </nav>
+  </mat-toolbar>
+  <br/><br/>
+  <div class="page-content">
+    <router-outlet></router-outlet>
+  </div>
 </div>
+
