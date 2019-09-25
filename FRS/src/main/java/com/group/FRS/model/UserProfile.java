@@ -23,7 +23,7 @@ public class UserProfile {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
     
 	@Column(name="first_name")
 	private String firstName;
@@ -52,11 +52,11 @@ public class UserProfile {
 	@JoinColumn(name = "user_credential_id", referencedColumnName = "id")
 	private UserCredential userCredential;
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		System.out.println(id);
 		this.id = id;
 		System.out.println("id set");
