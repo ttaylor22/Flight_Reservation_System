@@ -7,9 +7,9 @@ const httpOptions = {
    headers: new HttpHeaders({'Content-Type': 'application/json'})
  };
  
- @Injectable({
-   providedIn: 'root'
-})
+   @Injectable({
+      providedIn: 'root'
+   })
 
 export class UserCredentialService {
    constructor(private http:HttpClient) {}
@@ -23,9 +23,9 @@ export class UserCredentialService {
       return this.http.put<UserCredential>(this.userUrl + '/authenticate/' + userCredential.username + '/' + userCredential.password, userCredential);
     }
     
-    public logout(userCredential) {
+    public logout(userId: number, userCredential){
       console.log(userCredential, this.userUrl);
-      return this.http.put<UserCredential>(this.userUrl + '/logout/' + userCredential.id, userCredential);
+      return this.http.put<UserCredential>(this.userUrl + '/logout/' + userId, userCredential);
     }
 
    public getUserCredentials() {

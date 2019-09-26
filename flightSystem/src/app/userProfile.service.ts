@@ -3,7 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import {UserProfile} from 'src/app/models/userProfile.model';
 import { UserCredential } from 'src/app/models/userCredential.model';
-import { Observable } from 'rxjs';
+import { Observable } from '@angular/common/http';
+
 const httpOptions = {
    headers: new HttpHeaders({'Content-Type': 'application/json'})
  };
@@ -12,6 +13,7 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
+
 export class UserProfileService {
 
 
