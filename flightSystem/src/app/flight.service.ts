@@ -28,7 +28,12 @@ export class FlightService {
 
   public getFlight(flight) {
 
-    return this.http.get(this.userUrl + "/flight/" + flight.id);
+    return this.http.get<Flight>(this.userUrl + "/flight/" + flight.id);
+  }
+
+  public getFlightId(id) {
+
+    return this.http.get<Flight>(this.userUrl + "/flight/" + id);
   }
 
   public deleteFlight(id: number) {

@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.group.FRS.model.FlightSchedule;
+import com.group.FRS.model.Passenger;
+import com.group.FRS.model.PassengerSchedule;
 import com.group.FRS.model.Route;
 import com.group.FRS.repository.FlightScheduleRepository;
 
@@ -67,7 +69,7 @@ public class FlightScheduleController {
     	schedule.setScheduleDay(flightscheduleDetails.getScheduleDay());
     	return ResponseEntity.ok(flightScheduleRepository.save(schedule));
     }
-    
+     
     @DeleteMapping("/flight/schedules")
     public void delete() {
 		flightScheduleRepository.deleteAll();

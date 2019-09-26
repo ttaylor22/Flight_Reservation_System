@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
-@Table(name = "userProfile")
+@Table(name = "user_profile")
 public class UserProfile {
 
 	@Id
@@ -177,14 +177,4 @@ public class UserProfile {
 				+ ", emailId=" + emailId + ", passengerSchedules=" + passengerSchedules + ", userCredential="
 				+ userCredential + "]";
 	}
-	
-/*
-	@Override
-	public String toString() {
-		return "UserProfile [id=" + id + ", name=" + name + ", dateOfBirth=" + dateOfBirth + ", gender=" + gender
-				+ ", address=" + address + ", mobileNumber=" + mobileNumber + ", emailId=" + emailId + ", reservations="
-				+ reservations + ", userCredential=" + userCredential + "]";
-	}
-*/
-	
 }

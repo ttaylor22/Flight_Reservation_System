@@ -34,11 +34,9 @@ public class PassengerSchedule {
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
 	@Column(name="journey_start")
 	private Date journeyStart;
-	
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
 	@Column(name="journey_end")
 	private Date journeyEnd;
-	
 	@Column(name="travelers")
 	private int travelers;
 	@Column(name="source")
@@ -162,6 +160,10 @@ public class PassengerSchedule {
 
 	public Ticket getTicket() {
 		return ticket;
+	}
+	
+	public void removeTicket() {
+		ticket = null;
 	}
 
 

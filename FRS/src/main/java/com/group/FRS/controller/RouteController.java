@@ -45,14 +45,20 @@ public class RouteController {
 	public Route getSinglePassenger(@PathVariable(value="id") Long routeId) {
 		return routeRepository.findById(routeId).orElse(null);
 	}
+    @GetMapping(path="/displayFlights/{source}/{destination}/{scheduleDay}", produces="application/json")
+    public List<Object> displayFlights(@PathVariable(value="source") String source, @PathVariable(value="destination") String destination) {
+    	List<Object> routes = routeRepository.findRoutes(source, destination);
+    	return routes;
+    }
     
+    /*
     @GetMapping(path="/displayFlights/{source}/{destination}/{scheduleDay}", produces="application/json")
     public List<Object> displayFlights(@PathVariable(value="source") String source, @PathVariable(value="destination") String destination, 
     									@PathVariable(value="scheduleDay") @DateTimeFormat(pattern="yyyy-MM-dd") Date scheduleDate) {
     	List<Object> routes = routeRepository.findRoutes(source, destination, scheduleDate);
     	return routes;
     }
-    
+    */
     @PostMapping(path="/route")
     public ResponseEntity<Route> create( @RequestBody Route route){
     	return ResponseEntity.ok(routeRepository.save(route));

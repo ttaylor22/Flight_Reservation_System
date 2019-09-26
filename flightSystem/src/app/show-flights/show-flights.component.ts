@@ -8,6 +8,9 @@ import { Flight } from '../models/flight.model';
 import { FlightService } from '../flight.service';
 import { RouteService } from '../route.service';
 
+import { CookieService } from 'ngx-cookie-service';
+import { Reservation } from '../models/reservation.model';
+import { ReservationService } from '../reservation.service';
 
 @Component({
   selector: 'app-show-flights',
@@ -21,12 +24,26 @@ export class ShowFlightsComponent implements OnInit {
   route: Route = new Route();
   flightSchedule: FlightSchedule = new FlightSchedule();
 
-  isRoundTrip = false;
+  //isRoundTrip = false;
+  checked = false;
   trip = false;
   isPressed = false;
 
-  constructor(private router: Router, private flightService: FlightService,
-    private routeService: RouteService) { }
+   flightId: number;
+    flightScheduleId: number;
+    routeId: number;
+
+    flightT: Flight;
+    flightScheduleT: FlightSchedule;
+    routeT: Route;
+    reservation: Reservation = new Reservation();
+
+  constructor(private router: Router,
+              private flightService: FlightService,
+              private routeService: RouteService,
+              private cookieService: CookieService,
+              private reservationService: ReservationService
+              ) { }
 
     ngOnInit() {
       /*
@@ -57,4 +74,28 @@ export class ShowFlightsComponent implements OnInit {
           this.routes = data;
       });
     }
+
+
+    bookFlights(routes: any){
+      console.log(routes);
+    }
+
+    confirm(route: Route)
+    {
+      console.log(route);
+      this.reservation.flightId = route[8];
+      this.reservation.flightScheduleId = route[9];
+      this.reservation.routeId = route[10];
+      this.reservation.userProfileId = +this.cookieService.get('FRSLogged-InUserId');
+      this.reservation.dateTime = "2019-05-05";
+      this.reservationService.createReservation(this.reservation)
+      .subscribe( data => {
+        alert("Reservation created successfully.");
+      });
+
+
+
+    }
+
+
 }

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.group.FRS.model.Flight;
 import com.group.FRS.model.FlightSchedule;
 import com.group.FRS.model.Passenger;
+import com.group.FRS.model.PassengerSchedule;
 import com.group.FRS.model.Route;
 import com.group.FRS.repository.FlightRepository;
 import com.group.FRS.repository.FlightScheduleRepository;
@@ -157,6 +158,36 @@ public class FlightController {
 		flight.getPassengers().remove(passenger);
 		return ResponseEntity.ok(flightRepository.save(flight));
 	}
+	@DeleteMapping("/flight/{id1}/flight/schedule/{id2}")
+    ResponseEntity<Flight> deleteFS(@PathVariable("id1") Long id1,@PathVariable("id2") Long id2) {
+		Flight flight = flightRepository.findById(id1).orElse(null);
+		FlightSchedule flightSchedule = flightScheduleRepository.findById(id2).orElse(null);
+	    flight.getFlightSchedules().remove(flightSchedule);
+		return ResponseEntity.ok(flightRepository.save(flight));
+    }
+	
+	@DeleteMapping("/flight/{id1}/flight/schedule/{id2}/route/{id3}")
+    ResponseEntity<Flight> deleteFS(@PathVariable("id1") Long id1,@PathVariable("id2") Long id2,@PathVariable("id3") Long id3) {
+		Flight flight = flightRepository.findById(id1).orElse(null);
+		FlightSchedule flightSchedule = flightScheduleRepository.findById(id2).orElse(null);
+		Route route = routeRepository.findById(id3).orElse(null);
+	    if(flight.getFlightSchedules().contains(flightSchedule)) {
+	    	flightSchedule.getRoutes().remove(route);
+	    }
+		return ResponseEntity.ok(flightRepository.save(flight));
+    }
+	
+	@DeleteMapping("/flights")
+    public void delete() {
+		flightRepository.deleteAll();
+   
+    }
+	
+	
+	@DeleteMapping("/flight/{id}")
+    public void delete(@PathVariable("id") Long id) {
+         flightRepository.deleteById(id);
+    }
     
 
    

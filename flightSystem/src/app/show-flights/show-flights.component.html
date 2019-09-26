@@ -6,8 +6,11 @@
       <!--<input type="radio"   value="true" ngModel="tt" ng-init="tt=true" />One way -->
       <!--<input type="radio"    value="false" ngModel="tt" />Round Trip<br>-->
 
-        <input type="radio"  name="roundTrip" value='false' [(ngModel)]="isRoundTrip" />One way
-        <input type="radio"  name="roundTrip" value='true'  [(ngModel)]="isRoundTrip" />Round Trip<br>
+      <!--  <input type="radio"  name="roundTrip" value='false' [(ngModel)]="isRoundTrip" />One way -->
+      <!--  <input type="radio"  name="roundTrip" value='true'  [(ngModel)]="isRoundTrip" />Round Trip<br> -->
+      <input type="radio"  name="roundTrip" value='false' [(ngModel)]="checked" />One way
+      <input type="radio"  name="roundTrip" value='true' [(ngModel)]="checked" />Round Trip<br>
+      
 
         <mat-form-field>
           <input matInput placeholder="Source" name="source" id="source" [(ngModel)]="route.source" type="text" required minlength="4">
@@ -65,7 +68,8 @@
           <td>{{ route[6] }} miles</td>
           <td>{{ route[7] }} hours</td>
           <td>${{ route[8] }} </td>
-          <td class="button-td"><button (click)="bookFlight()">Select</button></td>
+          <!-- <td class="button-td"><button (click)="bookFlight()">Select</button></td>-->
+          <button (click)="confirm(route)">Book Flight</button>
       </tr>
     </tbody>
 
@@ -80,7 +84,8 @@
           <td>{{ route[6] }} miles</td>
           <td>{{ route[7] }} hours</td>
           <td>${{ route[8] }} </td>
-          <td class="button-td"><button (click)="bookFlight()">Select</button></td>
+          <!-- <td class="button-td"><button (click)="bookFlight()">Select</button></td>-->
+          <button (click)="confirm(route)">Book Flight</button>
       </tr>
     </tbody>
   </table>
