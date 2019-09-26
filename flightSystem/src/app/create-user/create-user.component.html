@@ -1,4 +1,86 @@
 <div>
+    <div class="user-creation">
+        <form class="create-user-form">
+            <mat-form-field>
+                <input matInput [(ngModel)]="userProfile.firstName" name="firstName" class="form-control" id="firstName" type="text" placeholder="First Name">
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput [(ngModel)]="userProfile.lastName" placeholder="Last Name" name="lastName" class="form-control" id="lastName">
+            </mat-form-field>
+
+            <div >
+                <label for="dateOfBirth">Date of Birth: </label>
+                <input type="date" [(ngModel)]="userProfile.dateOfBirth" name="dateOfBirth" class="form-control" id="dateOfBirth">
+            </div>
+
+            <mat-form-field>
+                <input matInput [(ngModel)]="userProfile.emailId" placeholder="Email" name="emailId" class="form-control" id="emailId" type="email">
+            </mat-form-field>
+            <br/>
+            <mat-form-field>
+                <input matInput [(ngModel)]="userProfile.address" placeholder="Address" name="address" class="form-control" id="address">
+            </mat-form-field>
+            <br/>
+            <mat-form-field>
+                <input matInput [(ngModel)]="userProfile.mobileNumber" name="mobileNumber" class="form-control" id="mobileNumber" placeholder="Mobile Number">
+            </mat-form-field>
+            <br/>
+            <mat-form-field>
+                <input matInput [(ngModel)]="userProfile.gender" placeholder="Gender" name="gender" class="form-control" id="gender">
+            </mat-form-field>
+            <br/>
+            <mat-form-field>
+                <input matInput [(ngModel)]="userCredential.password" placeholder="Password" name="password" class="form-control" id="password" type="password">
+            </mat-form-field>
+            <br/>
+            <button (click)="createUser()">Create</button>
+
+        </form>
+    </div>
+    <table >
+        <thead>
+            <tr>
+                <th>First</th>
+                <th>Last</th>
+                <th>DOB</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Number</th>
+                <th>Gender</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <tr *ngFor="let userProfile of userProfiles">
+            <td>{{userProfile.firstName}}</td>
+            <td>{{userProfile.lastName}}</td>
+            <td>{{userProfile.dateOfBirth}}</td>
+            <td>{{userProfile.emailId}}</td>
+            <td>{{userProfile.address}}</td>
+            <td>{{userProfile.mobileNumber}}</td>
+            <td>{{userProfile.gender}}</td>
+            <td><button  (click)="deleteUser(userProfile)"> Delete User</button></td>
+            </tr>
+        </tbody>
+      </table>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div>
     <form>
         <div>
             <label for="firstName">First Name:</label>
@@ -72,4 +154,4 @@
       </table>
 
 
-</div>
+</div> -->
