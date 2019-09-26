@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserCredential } from '../models/userCredential.model';
 import { UserCredentialService } from '../userCredential.service';
 import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class LoginComponent implements OnInit {
   userCredential: UserCredential = new UserCredential();
 
-  constructor(private userCredentialService: UserCredentialService, private cookieService: CookieService) { 
+  constructor(private router: Router, private userCredentialService: UserCredentialService, private cookieService: CookieService) { 
 
   }
 
@@ -51,6 +52,9 @@ export class LoginComponent implements OnInit {
           }  
           this.cookieService.set('FRSLogged-InUserType', this.userCredential.type, 1);
           console.log("Saved user type in a cookie is ", this.cookieService.get('FRSLogged-InUserType'));
+        
+          // redirect the user to '/show-flights' page
+          this.router.navigate(['/show-flights']);
         }  
       });
   }
