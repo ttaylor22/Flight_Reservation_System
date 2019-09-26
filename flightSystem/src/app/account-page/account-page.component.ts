@@ -32,7 +32,7 @@ export class AccountPageComponent implements OnInit {
   id: number = +this.cookieService.get('FRSLogged-InUserId');
 
   ngOnInit() {
-    this.reservationService.getReservation(this.id)
+    this.reservationService.getReservationId(this.id)
       .subscribe( data => {
         this.reservation = data;
         console.log(this.reservation);

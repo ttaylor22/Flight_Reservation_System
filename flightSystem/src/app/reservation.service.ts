@@ -25,4 +25,8 @@ export class ReservationService {
   public getReservation(id) {
     return this.http.get<Reservation>(this.userUrl + "/" + id);
   }
+
+  public getReservationId(id) {
+    return this.http.get<Reservation>(this.userUrl + "/id/" + id);
+  }
 }
