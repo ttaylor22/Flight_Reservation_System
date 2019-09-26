@@ -1,5 +1,7 @@
 package com.group.FRS.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,6 +28,12 @@ public class ReservationController {
     @GetMapping("/reservation/{id}")
 	public Reservation getReservation(@PathVariable(value="id") Long reservationId) {
 		return reservationRepository.findById(reservationId).orElse(null);
+	}
+    
+    @GetMapping("/reservation/id/{id}")
+	public Reservation getReservationById(@PathVariable(value="id") Long reservationId) {
+		System.out.println("AHSUIASHDUIASHDUIASHDIUASDHASUID");
+    	return reservationRepository.findAllReservations(reservationId);
 	}
     
     @PostMapping("/reservation")
